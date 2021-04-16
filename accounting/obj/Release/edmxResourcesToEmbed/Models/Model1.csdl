@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AccountingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="rol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="users" Relationship="Self.FK_users_rol_rol_id" FromRole="rol" ToRole="users" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="rol_id" Type="Byte" Nullable="false" />
+    <Property Name="user_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="state_id" Type="Byte" Nullable="false" />
+    <Property Name="client_id" Type="Int32" Nullable="false" />
+    <Property Name="update_user_id" Type="Int64" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="rol" Relationship="Self.FK_users_rol_rol_id" FromRole="users" ToRole="rol" />
+    <Property Name="create_user_id" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_users_rol_rol_id">
+    <End Role="rol" Type="Self.rol" Multiplicity="1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rol">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="rol_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AccountingEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="rol" EntityType="Self.rol" />
+    <EntitySet Name="users" EntityType="Self.users" />
+    <AssociationSet Name="FK_users_rol_rol_id" Association="Self.FK_users_rol_rol_id">
+      <End Role="rol" EntitySet="rol" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+    <EntitySet Name="expense" EntityType="AccountingModel.expense" />
+    <EntitySet Name="expense_type" EntityType="AccountingModel.expense_type" />
+    <EntitySet Name="social_work" EntityType="AccountingModel.social_work" />
+    <AssociationSet Name="FK_expense_expense_type_expense_id" Association="AccountingModel.FK_expense_expense_type_expense_id">
+      <End Role="expense_type" EntitySet="expense_type" />
+      <End Role="expense" EntitySet="expense" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="expense">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="expense_id" Type="Byte" Nullable="false" />
+    <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="update_user_id" Type="Int64" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <Property Name="create_user_id" Type="Int32" />
+    <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
+    <Property Name="date_expense" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="expense_type">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="expense" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense_type" ToRole="expense" />
+  </EntityType>
+  <EntityType Name="social_work">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="update_user_id" Type="Int64" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <Property Name="create_user_id" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_expense_expense_type_expense_id">
+    <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
+    <End Type="AccountingModel.expense" Role="expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="expense_type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="expense">
+        <PropertyRef Name="expense_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

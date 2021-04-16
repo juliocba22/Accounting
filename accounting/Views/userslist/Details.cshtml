@@ -1,0 +1,106 @@
+﻿@model accounting.Models.users
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>users</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rol_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rol_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.register_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.register_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.state_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.state_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.update_user_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.update_user_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.update_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.update_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.create_user_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.create_user_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

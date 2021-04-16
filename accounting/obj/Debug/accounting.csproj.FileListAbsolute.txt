@@ -1,0 +1,254 @@
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\obj\Debug\accounting.csproj.CoreCompileInputs.cache
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\accounting.dll.config
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\accounting.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\accounting.pdb
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\csc.exe
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\csc.exe.config
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\csc.rsp
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\csi.exe
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\csi.exe.config
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\csi.rsp
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.AppContext.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Console.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.IO.Compression.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Net.Http.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Net.Sockets.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.ValueTuple.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Xml.XPath.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\vbc.exe
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\vbc.exe.config
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\vbc.rsp
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\VBCSCompiler.exe
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Antlr3.Runtime.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\EntityFramework.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\EntityFramework.SqlServer.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Newtonsoft.Json.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Owin.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Helpers.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Mvc.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Optimization.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Razor.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.WebPages.Deployment.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.WebPages.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.WebPages.Razor.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\WebGrease.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\EntityFramework.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\EntityFramework.SqlServer.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Helpers.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Mvc.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Optimization.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.Razor.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.WebPages.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.WebPages.Deployment.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\System.Web.WebPages.Razor.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Newtonsoft.Json.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Antlr3.Runtime.pdb
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\EntityFramework.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\System.Web.Helpers.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\System.Web.Mvc.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\System.Web.Optimization.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\System.Web.Razor.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\System.Web.WebPages.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.Owin.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\obj\Debug\accounting.csproj.CopyComplete
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\obj\Debug\accounting.dll
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\obj\Debug\accounting.pdb
+C:\Users\mcejas.NEWLINK\Desktop\sistema contable\dev\accounting\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
+E:\Proyectos\Cooperativa\accounting\accounting\bin\accounting.dll.config
+E:\Proyectos\Cooperativa\accounting\accounting\bin\accounting.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\accounting.pdb
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\csc.exe
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\csc.exe.config
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\csc.rsp
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\csi.exe
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\csi.exe.config
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\csi.rsp
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.AppContext.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Collections.Immutable.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Console.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Globalization.Calendars.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.IO.Compression.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.IO.FileSystem.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Net.Http.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Net.Sockets.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Reflection.Metadata.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.ValueTuple.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Xml.XPath.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\vbc.exe
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\vbc.exe.config
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\vbc.rsp
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\VBCSCompiler.exe
+E:\Proyectos\Cooperativa\accounting\accounting\bin\roslyn\VBCSCompiler.exe.config
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Antlr3.Runtime.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\EntityFramework.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\EntityFramework.SqlServer.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Google.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Web.Infrastructure.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Newtonsoft.Json.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Owin.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Helpers.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Mvc.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Optimization.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Razor.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.WebPages.Deployment.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.WebPages.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.WebPages.Razor.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\WebGrease.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\EntityFramework.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\EntityFramework.SqlServer.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Helpers.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Mvc.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Optimization.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.Razor.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.WebPages.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.WebPages.Deployment.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\System.Web.WebPages.Razor.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Newtonsoft.Json.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Antlr3.Runtime.pdb
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Google.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\EntityFramework.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\EntityFramework.SqlServer.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\System.Web.Helpers.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\System.Web.Mvc.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\System.Web.Optimization.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\System.Web.Razor.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\System.Web.WebPages.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\System.Web.WebPages.Deployment.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\System.Web.WebPages.Razor.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.Owin.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.Owin.Security.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.Owin.Security.Google.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+E:\Proyectos\Cooperativa\accounting\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
+E:\Proyectos\Cooperativa\accounting\accounting\obj\Debug\accounting.csproj.CoreCompileInputs.cache
+E:\Proyectos\Cooperativa\accounting\accounting\obj\Debug\accounting.csproj.CopyComplete
+E:\Proyectos\Cooperativa\accounting\accounting\obj\Debug\accounting.dll
+E:\Proyectos\Cooperativa\accounting\accounting\obj\Debug\accounting.pdb
