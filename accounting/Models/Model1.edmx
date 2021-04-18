@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AccountingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="razonSocial" Type="varchar" MaxLength="100" />
+          <Property Name="nombreFantasia" Type="varchar" MaxLength="100" />
+          <Property Name="localidad" Type="varchar" MaxLength="100" />
+          <Property Name="provincia" Type="varchar" MaxLength="100" />
+          <Property Name="personeria" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="30" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="emailFacturacon" Type="varchar" MaxLength="100" />
+          <Property Name="update_date" Type="datetime" />
+          <Property Name="update_user_id" Type="int" />
+          <Property Name="activo" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="expense">
           <Key>
             <PropertyRef Name="id" />
@@ -89,6 +107,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AccountingModelStoreContainer">
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense_type" EntityType="Self.expense_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
@@ -159,6 +178,7 @@
             <End Role="expense_type" EntitySet="expense_type" />
             <End Role="expense" EntitySet="expense" />
           </AssociationSet>
+          <EntitySet Name="client" EntityType="AccountingModel.client" />
         </EntityContainer>
         <EntityType Name="expense">
           <Key>
@@ -209,6 +229,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="razonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nombreFantasia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="personeria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="emailFacturacon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="update_user_id" Type="Int32" />
+          <Property Name="activo" Type="Byte" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -275,6 +313,25 @@
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="AccountingModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="emailFacturacon" ColumnName="emailFacturacon" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="personeria" ColumnName="personeria" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="nombreFantasia" ColumnName="nombreFantasia" />
+                <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

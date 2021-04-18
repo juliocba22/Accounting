@@ -52,6 +52,7 @@
       <End Role="expense_type" EntitySet="expense_type" />
       <End Role="expense" EntitySet="expense" />
     </AssociationSet>
+    <EntitySet Name="client" EntityType="AccountingModel.client" />
   </EntityContainer>
   <EntityType Name="expense">
     <Key>
@@ -102,4 +103,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="razonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="nombreFantasia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="provincia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="personeria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="emailFacturacon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <Property Name="update_user_id" Type="Int32" />
+    <Property Name="activo" Type="Byte" Nullable="false" />
+  </EntityType>
 </Schema>

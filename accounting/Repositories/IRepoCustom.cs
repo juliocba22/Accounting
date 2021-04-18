@@ -31,8 +31,7 @@ namespace accounting.Repositories
         /// </summary>
         /// <param name="user"></param>
         void UserDelete(users user);
-
-
+      
         /// <summary>
         /// Find User
         /// </summary>
@@ -208,10 +207,13 @@ namespace accounting.Repositories
 
 
         IEnumerable<ListSocialWork> SocialWorkList(string name);
-       
+
         #endregion --[GASTOS]--
 
-
+        #region --[CLIENTE]--
+        IEnumerable<ListClient> ClientList(string razonSocial);
+        List<ReportClient> ClientReport(string razonSocial);
+        #endregion
 
 
 
