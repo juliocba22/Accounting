@@ -70,4 +70,34 @@ namespace accounting.Infra
 
     #endregion
 
+    #region Client
+    public class ListClient
+    {
+        public long id { get; set; }
+        public string codigo { get; set; }
+        public string razonSocial { get; set; } 
+        public string localidad { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
+
+    }
+
+    public class ReportClient
+    {
+        public string codigo { get; set; }
+        public string razonSocial { get; set; }
+        public string localidad { get; set; }
+        public string provincia { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
+        public string emailFacturacion { get; set; }
+
+        public override string ToString()
+        {
+            return $"{codigo};{razonSocial};{localidad};{provincia};{telefono};{email};{emailFacturacion}";
+        }
+    }
+
+    #endregion
+
 }

@@ -493,6 +493,58 @@ namespace accounting.Repositories
         }
         #endregion --[GASTOS]--
 
+        #region --[CLIENTE]--
+        public IEnumerable<ListClient> ClientList(string razonSocial)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from c in ctx.client
+                            where (string.IsNullOrEmpty(razonSocial) || c.razonSocial.Contains(razonSocial))
+                            && c.activo == 1
+                            select new ListClient
+                            {
+                                id = c.id,
+                                codigo = c.codigo,
+                                razonSocial = c.razonSocial,
+                                localidad = c.localidad,
+                                telefono = c.telefono,
+                                email = c.email
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+
+        public List<ReportClient> ClientReport(string razonSocial)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from c in ctx.client
+                            where (string.IsNullOrEmpty(razonSocial) || c.razonSocial.Contains(razonSocial))
+                            && c.activo == 1
+                            select new ReportClient
+                            {
+                                codigo = c.codigo,
+                                razonSocial = c.razonSocial,
+                                localidad = c.localidad,
+                                provincia = c.provincia,
+                                telefono = c.telefono,
+                                email = c.email,
+                                emailFacturacion = c.emailFacturacon
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
 
     }
 }
