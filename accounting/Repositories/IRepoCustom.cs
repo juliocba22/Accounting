@@ -215,6 +215,18 @@ namespace accounting.Repositories
         List<ReportClient> ClientReport(string razonSocial);
         #endregion
 
+        #region --[PROVEEDOR]--
+
+        IEnumerable<ListProveedor> ProveedorList(string razonSocial);
+        List<ReportProveedor> ProveedorReport(string razonSocial);
+        #endregion
+
+        #region --[CATEGORIA IMPOSITIVA]--
+        IEnumerable<ListCategoriaImpositiva> CategoriaImpositivaGetById(int categoria_impositiva_id);
+        #endregion
+
+
+
 
 
     }

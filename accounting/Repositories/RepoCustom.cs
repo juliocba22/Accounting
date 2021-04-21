@@ -546,5 +546,85 @@ namespace accounting.Repositories
         }
         #endregion
 
+        #region --[PROVEEDOR]--
+
+        public IEnumerable<ListProveedor> ProveedorList(string razonSocial)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from p in ctx.proveedor
+                            where (string.IsNullOrEmpty(razonSocial) || p.razon_social.Contains(razonSocial))
+                            && p.activo == 1
+                            select new ListProveedor
+                            {
+                                id = p.id,
+                                codigo = p.codigo.ToString(),
+                                razonSocial = p.razon_social,
+                                localidad = p.localidad,
+                                telefono = p.telefono,
+                                email = p.mail
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+
+        public List<ReportProveedor> ProveedorReport(string razonSocial)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from p in ctx.proveedor
+                            where (string.IsNullOrEmpty(razonSocial) || p.razon_social.Contains(razonSocial))
+                            && p.activo == 1
+                            select new ReportProveedor
+                            {
+                                codigo = p.codigo.ToString(),
+                                dni= p.dni,
+                                cuit=p.cuit,
+                                razonSocial = p.razon_social,
+                                localidad = p.localidad,
+                                provincia = p.provincia,
+                                telefono = p.telefono,
+                                email = p.mail,
+                                emailFacturacion = p.mail_facturacion 
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region --[CATEGORIA IMPOSITIVA]--
+        ///<summary>
+        ///Obtiene listado de tipo de categoria impositiva por id 
+        ///</summary>
+        ///<param name="categoria_impositiva_id"></param>
+        public IEnumerable<ListCategoriaImpositiva> CategoriaImpositivaGetById(int categoria_impositiva_id)
+        {
+
+            using (AccountingEntities ctx = new AccountingEntities())
+            {
+                return (from c in ctx.categoria_impositiva
+                        where (c.id == categoria_impositiva_id)
+                        select new ListCategoriaImpositiva
+                        {
+                            id = c.id,
+                            descripcion = c.descripcion
+
+                        }).Distinct().ToList();
+            }
+        }
+
+        #endregion
+
     }
 }

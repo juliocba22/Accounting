@@ -30,6 +30,8 @@ namespace accounting.Models
         public virtual DbSet<expense> expense { get; set; }
         public virtual DbSet<expense_type> expense_type { get; set; }
         public virtual DbSet<social_work> social_work { get; set; }
+        public virtual DbSet<categoria_impositiva> categoria_impositiva { get; set; }
         public virtual DbSet<client> client { get; set; }
+        public virtual DbSet<proveedor> proveedor { get; set; }
     }
 }
