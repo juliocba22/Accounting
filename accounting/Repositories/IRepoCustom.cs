@@ -225,5 +225,15 @@ namespace accounting.Repositories
         IEnumerable<ListProfesional> ProfesionalList(string nombre);
         IEnumerable<ReportProfesional> ProfesionalReport(string nombre);
         #endregion
+
+        #region --[PROVEEDOR]--
+
+        IEnumerable<ListProveedor> ProveedorList(string razonSocial);
+        List<ReportProveedor> ProveedorReport(string razonSocial);
+        #endregion
+
+        #region --[CATEGORIA IMPOSITIVA]--
+        IEnumerable<ListCategoriaImpositiva> CategoriaImpositivaGetById(int categoria_impositiva_id);
+        #endregion
     }
 }
