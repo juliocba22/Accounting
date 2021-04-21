@@ -33,5 +33,9 @@ namespace accounting.Models
         public virtual DbSet<client> client { get; set; }
         public virtual DbSet<product_service> product_service { get; set; }
         public virtual DbSet<profesional> profesional { get; set; }
+        public virtual DbSet<work_order_status> work_order_status { get; set; }
+        public virtual DbSet<work_order> work_order { get; set; }
+        public virtual DbSet<categoria_impositiva> categoria_impositiva { get; set; }
+        public virtual DbSet<proveedor> proveedor { get; set; }
     }
 }

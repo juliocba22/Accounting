@@ -9,10 +9,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/accounting.dll">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:49:59</publishTime>
     </File>
     <File Include="bin/accounting.pdb">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:49:59</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -351,7 +351,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/16/2021 19:09:31</publishTime>
     </File>
     <File Include="Models/Model1.edmx.diagram">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:49:59</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>04/16/2021 19:09:31</publishTime>
@@ -429,7 +429,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/16/2021 19:09:31</publishTime>
     </File>
     <File Include="Views/Client/Create.cshtml">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:48:38</publishTime>
     </File>
     <File Include="Views/Client/Delete.cshtml">
       <publishTime>04/18/2021 16:34:58</publishTime>
@@ -486,19 +486,34 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/16/2021 19:09:31</publishTime>
     </File>
     <File Include="Views/ProductService/Create.cshtml">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:49:59</publishTime>
     </File>
     <File Include="Views/ProductService/Delete.cshtml">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:48:38</publishTime>
     </File>
     <File Include="Views/ProductService/Details.cshtml">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:48:38</publishTime>
     </File>
     <File Include="Views/ProductService/Edit.cshtml">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:48:38</publishTime>
     </File>
     <File Include="Views/ProductService/Index.cshtml">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:48:38</publishTime>
+    </File>
+    <File Include="Views/Profesional/Create.cshtml">
+      <publishTime>04/21/2021 14:49:59</publishTime>
+    </File>
+    <File Include="Views/Profesional/Delete.cshtml">
+      <publishTime>04/21/2021 14:49:59</publishTime>
+    </File>
+    <File Include="Views/Profesional/Details.cshtml">
+      <publishTime>04/21/2021 14:49:59</publishTime>
+    </File>
+    <File Include="Views/Profesional/Edit.cshtml">
+      <publishTime>04/21/2021 14:49:59</publishTime>
+    </File>
+    <File Include="Views/Profesional/Index.cshtml">
+      <publishTime>04/21/2021 14:49:59</publishTime>
     </File>
     <File Include="Views/Shared/AccessDenied.cshtml">
       <publishTime>04/16/2021 19:09:31</publishTime>
@@ -510,7 +525,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/16/2021 19:09:31</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/21/2021 09:20:31</publishTime>
+      <publishTime>04/21/2021 14:49:59</publishTime>
     </File>
     <File Include="Views/Shared/_Login.cshtml">
       <publishTime>04/16/2021 19:09:31</publishTime>
@@ -573,7 +588,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/16/2021 19:09:31</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/21/2021 09:25:32</publishTime>
+      <publishTime>04/21/2021 14:54:10</publishTime>
     </File>
   </ItemGroup>
 </Project>

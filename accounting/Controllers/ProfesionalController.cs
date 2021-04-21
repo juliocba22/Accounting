@@ -25,7 +25,7 @@ namespace accounting.Controllers
         #region Listado
         // GET: profesionals
         public ActionResult Index(string nombre, int page=1)
-        {
+        { 
             ProfesionalVMIndex model = new ProfesionalVMIndex { nombre = nombre, page = page };
             try
             {

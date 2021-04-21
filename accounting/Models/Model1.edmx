@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AccountingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria_impositiva">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="client">
           <Key>
             <PropertyRef Name="id" />
@@ -74,6 +81,32 @@
           <Property Name="update_user_id" Type="int" />
           <Property Name="activo" Type="tinyint" />
         </EntityType>
+        <EntityType Name="proveedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dni" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cuit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="razon_social" Type="varchar" MaxLength="250" />
+          <Property Name="nombre_fantasia" Type="varchar" MaxLength="250" />
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="categoria_impositiva_id" Type="tinyint" Nullable="false" />
+          <Property Name="personeria" Type="varchar" MaxLength="100" />
+          <Property Name="provincia" Type="varchar" MaxLength="100" />
+          <Property Name="mail" Type="varchar" MaxLength="150" />
+          <Property Name="mail_facturacion" Type="varchar" MaxLength="150" />
+          <Property Name="direccion" Type="varchar" MaxLength="250" />
+          <Property Name="piso_dpto" Type="varchar" MaxLength="10" />
+          <Property Name="codigo_postal" Type="varchar" MaxLength="30" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="localidad" Type="varchar" MaxLength="250" />
+          <Property Name="register_date" Type="datetime" Nullable="false" />
+          <Property Name="update_user_id" Type="bigint" />
+          <Property Name="update_date" Type="datetime" />
+          <Property Name="create_user_id" Type="int" />
+          <Property Name="activo" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="rol">
           <Key>
             <PropertyRef Name="id" />
@@ -112,6 +145,29 @@
           <Property Name="update_date" Type="datetime" />
           <Property Name="create_user_id" Type="int" />
         </EntityType>
+        <EntityType Name="work_order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nro_orden" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="descripcion" Type="varchar(max)" />
+          <Property Name="product_service_id" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="float" />
+          <Property Name="nombre_paciente" Type="varchar" MaxLength="100" />
+          <Property Name="social_work_id" Type="int" />
+          <Property Name="profesional_id" Type="int" />
+          <Property Name="motivo_eliminacion" Type="varchar(max)" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="work_order_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <Association Name="FK_expense_expense_type_expense_id">
           <End Role="expense_type" Type="Self.expense_type" Multiplicity="1" />
           <End Role="expense" Type="Self.expense" Multiplicity="*" />
@@ -121,6 +177,18 @@
             </Principal>
             <Dependent Role="expense">
               <PropertyRef Name="expense_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_proveedor_categoria_impositiva_categoria_impositiva_id">
+          <End Role="categoria_impositiva" Type="Self.categoria_impositiva" Multiplicity="1" />
+          <End Role="proveedor" Type="Self.proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria_impositiva">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="proveedor">
+              <PropertyRef Name="categoria_impositiva_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -137,17 +205,25 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AccountingModelStoreContainer">
+          <EntitySet Name="categoria_impositiva" EntityType="Self.categoria_impositiva" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense_type" EntityType="Self.expense_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_service" EntityType="Self.product_service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesional" EntityType="Self.profesional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="social_work" EntityType="Self.social_work" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="work_order" EntityType="Self.work_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="work_order_status" EntityType="Self.work_order_status" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_expense_expense_type_expense_id" Association="Self.FK_expense_expense_type_expense_id">
             <End Role="expense_type" EntitySet="expense_type" />
             <End Role="expense" EntitySet="expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_proveedor_categoria_impositiva_categoria_impositiva_id" Association="Self.FK_proveedor_categoria_impositiva_categoria_impositiva_id">
+            <End Role="categoria_impositiva" EntitySet="categoria_impositiva" />
+            <End Role="proveedor" EntitySet="proveedor" />
           </AssociationSet>
           <AssociationSet Name="FK_users_rol_rol_id" Association="Self.FK_users_rol_rol_id">
             <End Role="rol" EntitySet="rol" />
@@ -213,6 +289,14 @@
           <EntitySet Name="client" EntityType="AccountingModel.client" />
           <EntitySet Name="product_service" EntityType="AccountingModel.product_service" />
           <EntitySet Name="profesional" EntityType="AccountingModel.profesional" />
+          <EntitySet Name="work_order_status" EntityType="AccountingModel.work_order_status" />
+          <EntitySet Name="work_order" EntityType="AccountingModel.work_order" />
+          <EntitySet Name="categoria_impositiva" EntityType="AccountingModel.categoria_impositiva" />
+          <EntitySet Name="proveedor" EntityType="AccountingModel.proveedor" />
+          <AssociationSet Name="FK_proveedor_categoria_impositiva_categoria_impositiva_id" Association="AccountingModel.FK_proveedor_categoria_impositiva_categoria_impositiva_id">
+            <End Role="categoria_impositiva" EntitySet="categoria_impositiva" />
+            <End Role="proveedor" EntitySet="proveedor" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="expense">
           <Key>
@@ -311,6 +395,76 @@
           <Property Name="update_user_id" Type="Int32" />
           <Property Name="activo" Type="Byte" />
         </EntityType>
+        <EntityType Name="work_order_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="work_order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_orden" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="product_service_id" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Double" />
+          <Property Name="nombre_paciente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="social_work_id" Type="Int32" />
+          <Property Name="profesional_id" Type="Int32" />
+          <Property Name="motivo_eliminacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categoria_impositiva">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="proveedor" Relationship="AccountingModel.FK_proveedor_categoria_impositiva_categoria_impositiva_id" FromRole="categoria_impositiva" ToRole="proveedor" />
+        </EntityType>
+        <EntityType Name="proveedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dni" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cuit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="razon_social" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_fantasia" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="categoria_impositiva_id" Type="Byte" Nullable="false" />
+          <Property Name="personeria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mail" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="mail_facturacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="piso_dpto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_postal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="localidad" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_user_id" Type="Int64" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="create_user_id" Type="Int32" />
+          <Property Name="activo" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="categoria_impositiva" Relationship="AccountingModel.FK_proveedor_categoria_impositiva_categoria_impositiva_id" FromRole="proveedor" ToRole="categoria_impositiva" />
+        </EntityType>
+        <Association Name="FK_proveedor_categoria_impositiva_categoria_impositiva_id">
+          <End Type="AccountingModel.categoria_impositiva" Role="categoria_impositiva" Multiplicity="1" />
+          <End Type="AccountingModel.proveedor" Role="proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria_impositiva">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="proveedor">
+              <PropertyRef Name="categoria_impositiva_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -428,6 +582,66 @@
                 <ScalarProperty Name="matricula" ColumnName="matricula" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="product_service_id" ColumnName="product_service_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="work_order_status">
+            <EntityTypeMapping TypeName="AccountingModel.work_order_status">
+              <MappingFragment StoreEntitySet="work_order_status">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="work_order">
+            <EntityTypeMapping TypeName="AccountingModel.work_order">
+              <MappingFragment StoreEntitySet="work_order">
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="motivo_eliminacion" ColumnName="motivo_eliminacion" />
+                <ScalarProperty Name="profesional_id" ColumnName="profesional_id" />
+                <ScalarProperty Name="social_work_id" ColumnName="social_work_id" />
+                <ScalarProperty Name="nombre_paciente" ColumnName="nombre_paciente" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="product_service_id" ColumnName="product_service_id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="nro_orden" ColumnName="nro_orden" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categoria_impositiva">
+            <EntityTypeMapping TypeName="AccountingModel.categoria_impositiva">
+              <MappingFragment StoreEntitySet="categoria_impositiva">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proveedor">
+            <EntityTypeMapping TypeName="AccountingModel.proveedor">
+              <MappingFragment StoreEntitySet="proveedor">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="register_date" ColumnName="register_date" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="piso_dpto" ColumnName="piso_dpto" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="mail_facturacion" ColumnName="mail_facturacion" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="personeria" ColumnName="personeria" />
+                <ScalarProperty Name="categoria_impositiva_id" ColumnName="categoria_impositiva_id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre_fantasia" ColumnName="nombre_fantasia" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

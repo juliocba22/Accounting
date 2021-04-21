@@ -55,6 +55,7 @@
     <EntitySet Name="client" EntityType="AccountingModel.client" />
     <EntitySet Name="product_service" EntityType="AccountingModel.product_service" />
     <EntitySet Name="profesional" EntityType="AccountingModel.profesional" />
+    <EntitySet Name="work_order" EntityType="AccountingModel.work_order" />
   </EntityContainer>
   <EntityType Name="expense">
     <Key>
@@ -152,5 +153,21 @@
     <Property Name="update_date" Type="DateTime" Precision="3" />
     <Property Name="update_user_id" Type="Int32" />
     <Property Name="activo" Type="Byte" />
+  </EntityType>
+  <EntityType Name="work_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_orden" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_service_id" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Double" />
+    <Property Name="nombre_paciente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="social_work_id" Type="Int32" />
+    <Property Name="profesional_id" Type="Int32" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="motivo_eliminacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

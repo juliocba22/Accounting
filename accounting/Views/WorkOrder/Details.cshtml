@@ -1,0 +1,99 @@
+﻿@model accounting.Models.work_order
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>work_order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nro_orden)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nro_orden)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product_service_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_service_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_paciente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_paciente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.social_work_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.social_work_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motivo_eliminacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motivo_eliminacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
