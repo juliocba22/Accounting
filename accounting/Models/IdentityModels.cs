@@ -31,5 +31,7 @@ namespace accounting.Models
         }
 
         public System.Data.Entity.DbSet<accounting.Models.product_service> product_service { get; set; }
+
+        public System.Data.Entity.DbSet<accounting.Models.profesional> profesionals { get; set; }
     }
 }

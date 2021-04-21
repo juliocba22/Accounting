@@ -121,4 +121,34 @@ namespace accounting.Infra
     }
     #endregion
 
+    #region Profesional
+    public class ListProfesional
+    {
+        public int id { get; set; }
+        public string servicio { get; set; }
+        public string nombre { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
+    }
+
+    public class ReportProfesional
+    {
+        public string nombre { get; set; }
+        public string servicio { get; set; }
+        public string matricula { get; set; }
+        public string cuit { get; set; }
+        public string domicilio { get; set; }
+        public string localidad { get; set; }
+        public string provincia { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nombre};{servicio};{matricula};{cuit};{domicilio};{localidad};{provincia};{telefono};{email}";
+        }
+
+    }
+    #endregion
+
 }

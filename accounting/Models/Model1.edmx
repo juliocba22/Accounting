@@ -56,6 +56,24 @@
           <Property Name="update_user_id" Type="int" Nullable="false" />
           <Property Name="activo" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="profesional">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_service_id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="matricula" Type="varchar" MaxLength="50" />
+          <Property Name="cuit" Type="varchar" MaxLength="50" />
+          <Property Name="domicilio" Type="varchar" MaxLength="100" />
+          <Property Name="localidad" Type="varchar" MaxLength="50" />
+          <Property Name="provincia" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="update_date" Type="datetime" />
+          <Property Name="update_user_id" Type="int" />
+          <Property Name="activo" Type="tinyint" />
+        </EntityType>
         <EntityType Name="rol">
           <Key>
             <PropertyRef Name="id" />
@@ -123,6 +141,7 @@
           <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense_type" EntityType="Self.expense_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_service" EntityType="Self.product_service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profesional" EntityType="Self.profesional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="social_work" EntityType="Self.social_work" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
@@ -193,6 +212,7 @@
           </AssociationSet>
           <EntitySet Name="client" EntityType="AccountingModel.client" />
           <EntitySet Name="product_service" EntityType="AccountingModel.product_service" />
+          <EntitySet Name="profesional" EntityType="AccountingModel.profesional" />
         </EntityContainer>
         <EntityType Name="expense">
           <Key>
@@ -272,6 +292,24 @@
           <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="update_user_id" Type="Int32" Nullable="false" />
           <Property Name="activo" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="profesional">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_service_id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="matricula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cuit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="domicilio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="update_user_id" Type="Int32" />
+          <Property Name="activo" Type="Byte" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -371,6 +409,25 @@
                 <ScalarProperty Name="valorUnitario" ColumnName="valorUnitario" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profesional">
+            <EntityTypeMapping TypeName="AccountingModel.profesional">
+              <MappingFragment StoreEntitySet="profesional">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="domicilio" ColumnName="domicilio" />
+                <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="matricula" ColumnName="matricula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="product_service_id" ColumnName="product_service_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,5 +1,6 @@
 ﻿using accounting.Infra;
 using accounting.Models;
+using accounting.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,12 +32,12 @@ namespace accounting.Repositories
         /// </summary>
         /// <param name="user"></param>
         void UserDelete(users user);
+       
         /// <summary>
         /// Find User
         /// </summary>
         /// <param name="id"></param>
         users UserFind(long id);
-
         /// <summary>
         /// Get user -> user pass 
         /// </summary>
@@ -217,6 +218,12 @@ namespace accounting.Repositories
         #region [--PRODUCTSERVICE--]
         IEnumerable<ListProductService> ProductServiceList(string nombre);
         IEnumerable<ReportProductService> ProductServiceReport(string nombre);
+        #endregion
+
+        #region --[PROFESIONAL]
+        ProfesionalVM GetDetalleProfesional(int? id);
+        IEnumerable<ListProfesional> ProfesionalList(string nombre);
+        IEnumerable<ReportProfesional> ProfesionalReport(string nombre);
         #endregion
     }
 }

@@ -217,7 +217,7 @@ namespace accounting.Controllers
         {
             Enumerables e = new Enumerables();
 
-            ViewBag.Tipo = e.GetComboTipo;
+            ViewBag.Tipo = e.GetComboTipo();
         }
         public FileContentResult Export([Bind(Include = "nombre")] string nombre)
         {

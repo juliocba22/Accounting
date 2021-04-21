@@ -14,6 +14,7 @@
         <AssociationConnector Association="AccountingModel.FK_expense_expense_type_expense_id" />
         <EntityTypeShape EntityType="AccountingModel.client" Width="1.5" PointX="10.75" PointY="1" />
         <EntityTypeShape EntityType="AccountingModel.product_service" Width="1.5" PointX="12.625" PointY="1" />
+        <EntityTypeShape EntityType="AccountingModel.profesional" Width="1.5" PointX="12.625" PointY="3.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
