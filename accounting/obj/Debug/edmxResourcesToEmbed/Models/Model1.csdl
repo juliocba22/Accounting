@@ -53,6 +53,7 @@
       <End Role="expense" EntitySet="expense" />
     </AssociationSet>
     <EntitySet Name="client" EntityType="AccountingModel.client" />
+    <EntitySet Name="product_service" EntityType="AccountingModel.product_service" />
   </EntityContainer>
   <EntityType Name="expense">
     <Key>
@@ -119,6 +120,18 @@
     <Property Name="emailFacturacon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="update_date" Type="DateTime" Precision="3" />
     <Property Name="update_user_id" Type="Int32" />
+    <Property Name="activo" Type="Byte" Nullable="false" />
+  </EntityType>
+  <EntityType Name="product_service">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipo" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="valorUnitario" Type="Double" Nullable="false" />
+    <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="update_user_id" Type="Int32" Nullable="false" />
     <Property Name="activo" Type="Byte" Nullable="false" />
   </EntityType>
 </Schema>

@@ -43,7 +43,6 @@ namespace accounting.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
-                //log.Error($"Index - {ex.Message}", ex);
             }
 
             return View(model);
@@ -211,11 +210,19 @@ namespace accounting.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            client client = db.client.Find(id);
-            client.activo = 0;
-            db.Entry(client).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                client client = db.client.Find(id);
+                client.activo = 0;
+                db.Entry(client).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
+            }
+            return View();
         }
 
         #endregion

@@ -10,9 +10,10 @@
         <AssociationConnector Association="AccountingModel.FK_users_rol_rol_id" ManuallyRouted="false" />
         <EntityTypeShape EntityType="AccountingModel.expense" Width="1.5" PointX="8" PointY="1" />
         <EntityTypeShape EntityType="AccountingModel.expense_type" Width="1.5" PointX="5.75" PointY="1.5" />
-        <EntityTypeShape EntityType="AccountingModel.social_work" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="AccountingModel.social_work" Width="1.5" PointX="0.75" PointY="5" />
         <AssociationConnector Association="AccountingModel.FK_expense_expense_type_expense_id" />
         <EntityTypeShape EntityType="AccountingModel.client" Width="1.5" PointX="10.75" PointY="1" />
+        <EntityTypeShape EntityType="AccountingModel.product_service" Width="1.5" PointX="12.625" PointY="1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

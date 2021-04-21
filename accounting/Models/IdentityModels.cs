@@ -29,5 +29,7 @@ namespace accounting.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<accounting.Models.product_service> product_service { get; set; }
     }
 }
