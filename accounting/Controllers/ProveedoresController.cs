@@ -27,6 +27,8 @@ namespace accounting.Controllers
         int _pageSize = 20;
         #endregion
 
+
+
         #region listado
          // GET: Proveedores
         public ActionResult Index(string razonsocial, int page  = 1 )
