@@ -207,7 +207,6 @@ namespace accounting.Repositories
         //}
         #endregion --[USUARIO]--
 
-
         #region --[ROL]--
 
         /// <summary>
@@ -351,7 +350,6 @@ namespace accounting.Repositories
         }
         #endregion --[GASTOS]--
 
-
         #region --[TIPO GASTO]--
 
         /// <summary>
@@ -417,7 +415,6 @@ namespace accounting.Repositories
         }
 
         #endregion --[TIPO GASTO]--
-
 
         #region --[OBRA SOCIAL]--
 
@@ -544,6 +541,52 @@ namespace accounting.Repositories
                 return null;
             }
         }
+        #endregion
+
+        #region --[PRODUCTSERVICE]--
+        public IEnumerable<ListProductService> ProductServiceList(string nombre)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from ps in ctx.product_service
+                            where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
+                            && ps.activo == 1
+                            select new ListProductService
+                            {
+                               id = ps.id,
+                               nombre = ps.nombre,
+                               tipo = ps.tipo == 0 ? "Producto" : "Servicio",
+                               valorUnitario = ps.valorUnitario
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+        public IEnumerable<ReportProductService> ProductServiceReport(string nombre)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from ps in ctx.product_service
+                            where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
+                            && ps.activo == 1
+                            select new ReportProductService
+                            {
+                                id = ps.id,
+                                nombre = ps.nombre,
+                                tipo = ps.tipo == 0 ? "Producto" : "Servicio",
+                                valorUnitario = ps.valorUnitario
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+
         #endregion
 
     }

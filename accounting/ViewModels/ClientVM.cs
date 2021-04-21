@@ -65,9 +65,4 @@ namespace accounting.ViewModels
 
     }
 
-    public class ClientReporteVM
-    { 
-    }
-
-
 }

@@ -31,7 +31,6 @@ namespace accounting.Repositories
         /// </summary>
         /// <param name="user"></param>
         void UserDelete(users user);
-      
         /// <summary>
         /// Find User
         /// </summary>
@@ -215,7 +214,9 @@ namespace accounting.Repositories
         List<ReportClient> ClientReport(string razonSocial);
         #endregion
 
-
-
+        #region [--PRODUCTSERVICE--]
+        IEnumerable<ListProductService> ProductServiceList(string nombre);
+        IEnumerable<ReportProductService> ProductServiceReport(string nombre);
+        #endregion
     }
 }

@@ -100,4 +100,25 @@ namespace accounting.Infra
 
     #endregion
 
+    #region ProductService
+    public class ListProductService
+    {  
+        public int id { get; set; }
+        public string tipo { get; set; }
+        public string nombre { get; set; }
+        public double valorUnitario { get; set; }
+    }
+    public class ReportProductService
+    {
+        public int id { get; set; }
+        public string tipo { get; set; }
+        public string nombre { get; set; }
+        public double valorUnitario { get; set; }
+        public override string ToString()
+        {
+            return $"{id};{nombre};{tipo};{valorUnitario}";
+        }
+    }
+    #endregion
+
 }

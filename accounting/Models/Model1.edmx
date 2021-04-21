@@ -44,6 +44,18 @@
           <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <EntityType Name="product_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="valorUnitario" Type="float" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+          <Property Name="update_user_id" Type="int" Nullable="false" />
+          <Property Name="activo" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="rol">
           <Key>
             <PropertyRef Name="id" />
@@ -110,6 +122,7 @@
           <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense_type" EntityType="Self.expense_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_service" EntityType="Self.product_service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="social_work" EntityType="Self.social_work" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
@@ -179,6 +192,7 @@
             <End Role="expense" EntitySet="expense" />
           </AssociationSet>
           <EntitySet Name="client" EntityType="AccountingModel.client" />
+          <EntitySet Name="product_service" EntityType="AccountingModel.product_service" />
         </EntityContainer>
         <EntityType Name="expense">
           <Key>
@@ -245,6 +259,18 @@
           <Property Name="emailFacturacon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="update_date" Type="DateTime" Precision="3" />
           <Property Name="update_user_id" Type="Int32" />
+          <Property Name="activo" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="valorUnitario" Type="Double" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_user_id" Type="Int32" Nullable="false" />
           <Property Name="activo" Type="Byte" Nullable="false" />
         </EntityType>
       </Schema>
@@ -332,6 +358,19 @@
                 <ScalarProperty Name="nombreFantasia" ColumnName="nombreFantasia" />
                 <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_service">
+            <EntityTypeMapping TypeName="AccountingModel.product_service">
+              <MappingFragment StoreEntitySet="product_service">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="valorUnitario" ColumnName="valorUnitario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
