@@ -36,7 +36,7 @@ namespace accounting.ViewModels
 
         [Display(Name = "* Telefono")]
         [Required(ErrorMessage = "* requerido")]
-        [Range(0, 9999999999, ErrorMessage = "Debe ingresar un valor numérico de 10 dígitos")]
+        [Range(1111111111, 9999999999, ErrorMessage = "Debe ingresar un valor numérico de 10 dígitos")]
         public string telefono { get; set; }
 
         [Display(Name = "* Email")]

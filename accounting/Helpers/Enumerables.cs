@@ -4,14 +4,13 @@ namespace accounting.Helpers
 {
     public class Enumerables
     {
-        public Dictionary<int, string> GetComboTipo { get; } = new Dictionary<int, string>()
+        public Dictionary<int, string> GetComboTipo()
         {
-
-             {0,"Producto"},
-             {1,"Servicio"},
-        };
-
-
-
+            return new Dictionary<int, string>
+            {
+               {0,"Producto"},
+                {1,"Servicio"}
+            };
+        }
     }
 }

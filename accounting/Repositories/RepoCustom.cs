@@ -1,12 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Data.Entity;
 using accounting.Models;
 using accounting.Infra;
+using accounting.ViewModels;
 
 namespace accounting.Repositories
 {
@@ -587,6 +585,87 @@ namespace accounting.Repositories
             { return null; }
         }
 
+        #endregion
+
+        #region --[PROFESIONAL]
+        public ProfesionalVM GetDetalleProfesional(int? id)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from pr in ctx.profesional
+                            join ps in ctx.product_service on pr.product_service_id equals ps.id
+                            where pr.id == id
+                            select new ProfesionalVM
+                            {
+                                id = pr.id,
+                                product_service_id = pr.product_service_id,
+                                nombre = pr.nombre,
+                                domicilio = pr.domicilio,
+                                cuit = pr.cuit,
+                                matricula = pr.matricula,
+                                localidad = pr.localidad,
+                                provincia = pr.provincia,
+                                telefono = pr.telefono,
+                                email = pr.email,
+                                servicioDesc = ps.nombre
+                            }).First();
+                }
+            }
+            catch
+            { return null; }
+        }
+        public IEnumerable<ListProfesional> ProfesionalList(string nombre)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from pr in ctx.profesional
+                            join ps in ctx.product_service on pr.product_service_id equals ps.id
+                            where (string.IsNullOrEmpty(nombre) || pr.nombre.Contains(nombre))
+                            && pr.activo == 1
+                            select new ListProfesional
+                            {
+                                id = pr.id,
+                                nombre = pr.nombre,
+                                servicio = ps.nombre,
+                                telefono = pr.telefono,
+                                email = pr.email
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+        public IEnumerable<ReportProfesional> ProfesionalReport(string nombre)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from pr in ctx.profesional
+                            join ps in ctx.product_service on pr.product_service_id equals ps.id
+                            where (string.IsNullOrEmpty(nombre) || pr.nombre.Contains(nombre))
+                            && pr.activo == 1
+                            select new ReportProfesional
+                            {
+                                nombre = pr.nombre,
+                                servicio = ps.nombre,
+                                domicilio = pr.domicilio,
+                                cuit = pr.cuit,
+                                matricula = pr.matricula,
+                                localidad = pr.localidad,
+                                provincia = pr.provincia,
+                                telefono = pr.telefono,
+                                email = pr.email                               
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
         #endregion
 
     }

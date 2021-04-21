@@ -32,5 +32,6 @@ namespace accounting.Models
         public virtual DbSet<social_work> social_work { get; set; }
         public virtual DbSet<client> client { get; set; }
         public virtual DbSet<product_service> product_service { get; set; }
+        public virtual DbSet<profesional> profesional { get; set; }
     }
 }
