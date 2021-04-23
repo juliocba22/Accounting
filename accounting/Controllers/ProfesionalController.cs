@@ -13,6 +13,9 @@ using accounting.ViewModels;
 
 namespace accounting.Controllers
 {
+    [Authorize]
+    [CustomAuthorizeAttribute]
+    [SessionExpireFilter]
     public class ProfesionalController : Controller
     {
         #region Variables
@@ -25,7 +28,7 @@ namespace accounting.Controllers
         #region Listado
         // GET: profesionals
         public ActionResult Index(string nombre, int page=1)
-        {
+        { 
             ProfesionalVMIndex model = new ProfesionalVMIndex { nombre = nombre, page = page };
             try
             {
@@ -226,7 +229,7 @@ namespace accounting.Controllers
         #region Metodos Privados
         private void GetComboServicios()
         {
-            ViewBag.Servicio = db.product_service.Where(x=> x.tipo == 1).OrderBy(x => x.nombre); //solo Servicio.
+            ViewBag.Servicio = db.product_service.Where(x=> x.tipo == 1 && x.activo == 1).OrderBy(x => x.nombre); //solo Servicio.
         }
         public FileContentResult Export([Bind(Include = "nombre")] string nombre)
         {

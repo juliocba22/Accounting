@@ -72,7 +72,6 @@ namespace accounting.Controllers
 
         #endregion --[INDEX]--
 
-
         #region --[CREATE]--
 
         public ActionResult Create()
@@ -250,8 +249,8 @@ namespace accounting.Controllers
         {
 
             social_work sw = _repo.SocialWorkFind(id);
-
-            _repo.SocialWorkDelete(sw);
+            sw.activo = 0;
+            _repo.SocialWorkUpdate(sw);
 
             return RedirectToAction("Index");
 

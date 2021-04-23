@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -192,4 +193,43 @@ namespace accounting.Infra
     }
     #endregion
 
+    #region WorkOrder
+    public class ComboProductService
+    {
+        public int id { get; set; }
+        public string nombre { get; set; }
+    }
+
+    public class ListWorkOrder
+    {
+        public long id { get; set; }
+        public string NroOrden { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Fecha { get; set; }
+        public string ProductServiceDesc { get; set; }
+        public string StatusDesc { get; set; }
+    }
+
+    public class ReportWorkOrder
+    {
+        public string NroOrden { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Fecha { get; set; }
+        public string Descripcion { get; set; }
+        public string ProductServiceDesc { get; set; }
+        public string SocialWorkDesc { get; set; }
+        public string ProfesionalDesc { get; set; }
+        public string StatusDesc { get; set; }
+        public double? Cantidad { get; set; }
+        public string Paciente { get; set; }
+        public string MotivoEliminacion { get; set; }
+
+        public override string ToString()
+        {
+            return $"{NroOrden};{Fecha};{Descripcion};{ProductServiceDesc};{Cantidad};{Paciente};{SocialWorkDesc};{ProfesionalDesc};{StatusDesc};{MotivoEliminacion}";
+        }
+    }
+    #endregion
 }

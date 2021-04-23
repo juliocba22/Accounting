@@ -23,5 +23,6 @@ namespace accounting.Models
         public Nullable<long> update_user_id { get; set; }
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> create_user_id { get; set; }
+        public Nullable<byte> activo { get; set; }
     }
 }
