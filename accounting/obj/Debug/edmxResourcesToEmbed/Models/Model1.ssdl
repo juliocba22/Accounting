@@ -127,6 +127,13 @@
     <Property Name="create_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" />
   </EntityType>
+  <EntityType Name="tax_category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
   <EntityType Name="users">
     <Key>
       <PropertyRef Name="id" />
@@ -215,6 +222,7 @@
     <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="social_work" EntityType="Self.social_work" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tax_category" EntityType="Self.tax_category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="work_order" EntityType="Self.work_order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="work_order_status" EntityType="Self.work_order_status" Schema="dbo" store:Type="Tables" />

@@ -13,10 +13,10 @@ namespace accounting.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AccountingEntities : DbContext
+    public partial class AccountingEntities1 : DbContext
     {
-        public AccountingEntities()
-            : base("name=AccountingEntities")
+        public AccountingEntities1()
+            : base("name=AccountingEntities1")
         {
         }
     
@@ -25,12 +25,18 @@ namespace accounting.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<rol> rol { get; set; }
-        public virtual DbSet<users> users { get; set; }
-        public virtual DbSet<expense_type> expense_type { get; set; }
-        public virtual DbSet<social_work> social_work { get; set; }
+        public virtual DbSet<categoria_impositiva> categoria_impositiva { get; set; }
         public virtual DbSet<client> client { get; set; }
+        public virtual DbSet<expense> expense { get; set; }
+        public virtual DbSet<expense_type> expense_type { get; set; }
         public virtual DbSet<product_service> product_service { get; set; }
         public virtual DbSet<profesional> profesional { get; set; }
+        public virtual DbSet<proveedor> proveedor { get; set; }
+        public virtual DbSet<rol> rol { get; set; }
+        public virtual DbSet<social_work> social_work { get; set; }
+        public virtual DbSet<tax_category> tax_category { get; set; }
+        public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<work_order> work_order { get; set; }
+        public virtual DbSet<work_order_status> work_order_status { get; set; }
     }
 }

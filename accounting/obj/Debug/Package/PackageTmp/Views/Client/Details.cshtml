@@ -1,0 +1,90 @@
+﻿@model accounting.ViewModels.ClientVM
+
+@{
+    ViewBag.Title = "Datos del Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Datos del Cliente</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Código:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo)
+        </dd>
+
+        <dt>
+            @Html.Label("Razón Social:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.razonSocial)
+        </dd>
+
+        <dt>
+            @Html.Label("Nombre de Fantasía:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreFantasia)
+        </dd>
+
+        <dt>
+            @Html.Label("Localidad:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localidad)
+        </dd>
+
+        <dt>
+            @Html.Label("Provincia:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.provincia)
+        </dd>
+
+        <dt>
+            @Html.Label("Personería:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.personeria)
+        </dd>
+
+        <dt>
+            @Html.Label("Teléfono:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.Label("Email:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.Label("Email de Facturación:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emailFacturacon)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al Listado", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+
+</p>

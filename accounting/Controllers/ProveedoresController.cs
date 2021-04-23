@@ -22,7 +22,7 @@ namespace accounting.Controllers
     public class ProveedoresController : Controller
     {
         #region Variables
-        private AccountingEntities db = new AccountingEntities();
+        private AccountingEntities1 db = new AccountingEntities1();
         private IRepoCustom _repo = new RepoCustom();
         int _pageSize = 20;
         #endregion
