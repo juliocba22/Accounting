@@ -26,7 +26,7 @@ namespace accounting.Repositories
         public RepoCustom()
         {
            // Cnn = ConfigurationManager.ConnectionStrings["strCnn"].ConnectionString;
-            DbContext context = new AccountingEntities();
+            DbContext context = new AccountingEntities1();
             _repoUser = new RepoGeneric<users>(context);
             _repoRol = new RepoGeneric<rol>(context);
             _repoExpense = new RepoGeneric<expense>(context);
@@ -101,7 +101,7 @@ namespace accounting.Repositories
         {
             var username = "";
 
-            using (AccountingEntities ctx = new AccountingEntities())
+            using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 var query = ctx.users.Where(c => c.user_name == user).FirstOrDefault();
 
@@ -139,7 +139,7 @@ namespace accounting.Repositories
             //if (string.IsNullOrEmpty(name))
             //    return Enumerable.Empty<ListUsers>();
 
-            using (AccountingEntities ctx = new AccountingEntities())
+            using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from u in ctx.users
                         join r in ctx.rol on u.rol_id equals r.id
@@ -224,7 +224,7 @@ namespace accounting.Repositories
         public IEnumerable<ListRol> RolGetById(int rol_id)
         {
 
-            using (AccountingEntities ctx = new AccountingEntities())
+            using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from c in ctx.rol
                         where (c.id == rol_id)
@@ -330,7 +330,7 @@ namespace accounting.Repositories
         {
             List<ListExpense> list = new List<ListExpense>();
 
-            using (AccountingEntities ctx = new AccountingEntities())
+            using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from e in ctx.expense
                         join t in ctx.expense_type on e.expense_id equals t.id
@@ -369,7 +369,7 @@ namespace accounting.Repositories
         public IEnumerable<ListExpenseType> ExpenseTypeGetById(int expense_id)
         {
 
-            using (AccountingEntities ctx = new AccountingEntities())
+            using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from c in ctx.expense_type
                         where (c.id == expense_id)
@@ -473,7 +473,7 @@ namespace accounting.Repositories
 
         public IEnumerable<ListSocialWork> SocialWorkList(string name)
         {
-            using (AccountingEntities ctx = new AccountingEntities())
+            using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from s in ctx.social_work
                         //join t in ctx.expense_type on e.expense_id equals t.id
@@ -496,7 +496,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from c in ctx.client
                             where (string.IsNullOrEmpty(razonSocial) || c.razonSocial.Contains(razonSocial))
@@ -520,7 +520,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from c in ctx.client
                             where (string.IsNullOrEmpty(razonSocial) || c.razonSocial.Contains(razonSocial))
@@ -549,7 +549,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from ps in ctx.product_service
                             where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
@@ -570,7 +570,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from ps in ctx.product_service
                             where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
@@ -595,7 +595,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from pr in ctx.profesional
                             join ps in ctx.product_service on pr.product_service_id equals ps.id
@@ -623,7 +623,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from pr in ctx.profesional
                             join ps in ctx.product_service on pr.product_service_id equals ps.id
@@ -646,7 +646,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from pr in ctx.profesional
                             join ps in ctx.product_service on pr.product_service_id equals ps.id
@@ -677,7 +677,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from p in ctx.proveedor
                             where (string.IsNullOrEmpty(razonSocial) || p.razon_social.Contains(razonSocial))
@@ -701,7 +701,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from p in ctx.proveedor
                             where (string.IsNullOrEmpty(razonSocial) || p.razon_social.Contains(razonSocial))
@@ -736,7 +736,7 @@ namespace accounting.Repositories
         public IEnumerable<ListCategoriaImpositiva> CategoriaImpositivaGetById(int categoria_impositiva_id)
         {
 
-            using (AccountingEntities ctx = new AccountingEntities())
+            using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from c in ctx.categoria_impositiva
                         where (c.id == categoria_impositiva_id)
@@ -756,7 +756,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
@@ -786,7 +786,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
@@ -819,7 +819,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
@@ -844,7 +844,7 @@ namespace accounting.Repositories
             
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
@@ -878,7 +878,7 @@ namespace accounting.Repositories
         {
             try
             {
-                using (AccountingEntities ctx = new AccountingEntities())
+                using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
