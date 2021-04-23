@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using accounting.Data;
 using accounting.Helpers;
@@ -20,12 +24,12 @@ namespace accounting.Controllers
     /// GASTOS(EXPENSES)
     /// </summary>
 
-    [Authorize]
-    [CustomAuthorizeAttribute]
-    [SessionExpireFilter]
+    //[Authorize]
+    //[CustomAuthorizeAttribute]
+    //[SessionExpireFilter]
     public class ExpensesController : Controller
     {
-        //private accountingContext db = new accountingContext();
+        private accountingContext db = new accountingContext();
 
         private IRepoCustom _repo;
         int _pageSize = 5;
@@ -78,7 +82,7 @@ namespace accounting.Controllers
         public ActionResult Create()
         {
             ViewBagCreate(0);
-            return View(new ExpenseCreateVM { register_date = DateTime.Now, date_expense=DateTime.Now });
+            return View(new ExpenseCreateVM { register_date = DateTime.Now, date_expense = DateTime.Now });
         }
 
         [HttpPost]
@@ -89,14 +93,27 @@ namespace accounting.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
+                    byte[] img_load = null;
+                    if (model.file != null)
+                    {
+                        WebImage img = new WebImage(model.file.InputStream);
+                        img_load = img.GetBytes();
+
+                    }
+
+
+
                     expense exp = new expense()
                     {
                         name = model.name,
                         description = model.description,
                         expense_id = model.expense_id,
-                        date_expense=model.date_expense,//ver fecha cuando no selecciona nada, no da required y da error(esta como nulleable en la base)
+                        date_expense = model.date_expense,
                         register_date = DateTime.Now,
                         create_user_id = int.Parse(Session["UserID"].ToString()),
+                        amount = decimal.Parse(model.amount.ToString()),
+                        image = img_load,//img.GetBytes(),
 
                     };
 
@@ -135,9 +152,10 @@ namespace accounting.Controllers
             {
                 id = exp.id,
                 name = exp.name,
-                description= exp.description,
+                description = exp.description,
                 expense_id = exp.expense_id,
-                date_expense= (DateTime)exp.date_expense,
+                date_expense = (DateTime)exp.date_expense,
+                amount = (decimal)exp.amount,
             };
 
 
@@ -172,6 +190,7 @@ namespace accounting.Controllers
                 description = exp.description,
                 expense_id = exp.expense_id,
                 date_expense = (DateTime)exp.date_expense,
+                amount = (decimal)exp.amount,
             };
 
             ViewBagCreate(model.expense_id);
@@ -204,6 +223,7 @@ namespace accounting.Controllers
                         register_date = DateTime.Now,//no se deberia modificar
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
+                        amount = decimal.Parse(model.amount.ToString()),
                     };
 
                     _repo.ExpenseUpdate(exp);
@@ -279,6 +299,8 @@ namespace accounting.Controllers
             ViewBag.expense_name = list.Select(s => s.description).FirstOrDefault();
         }
 
+
+
         #endregion --[EXTRA]--
 
         //protected override void Dispose(bool disposing)
@@ -288,6 +310,85 @@ namespace accounting.Controllers
         //        db.Dispose();
         //    }
         //    base.Dispose(disposing);
+        //}
+
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult getImage(int id)
+        {
+            // expense exp = db.expenses.Find(id);
+            expense exp = _repo.ExpenseFind(id);
+            byte[] byteImage = exp.image;
+            MemoryStream memoryStream = new MemoryStream(byteImage);
+            Image image = Image.FromStream(memoryStream);
+
+            memoryStream = new MemoryStream();
+            image.Save(memoryStream, ImageFormat.Jpeg);
+            memoryStream.Position = 0;
+
+            return File(memoryStream, "image/jpg");
+            //return File(memoryStream,"");
+
+
+            //exp.image = memoryStream.ToArray();
+
+            //ExpenseCreateVM model = new ExpenseCreateVM()
+            //{
+            //    id = exp.id,
+            //    name = exp.name,
+            //    description = exp.description,
+            //    expense_id = exp.expense_id,
+            //    date_expense = (DateTime)exp.date_expense,
+            //    amount = (decimal)exp.amount,
+            //    image=exp.image,
+            //};
+
+            //return File(exp.image, "image/jpg");
+
+
+        }
+
+
+        //[ActionName("getImage")]
+        //public byte [] getImage(int id)
+        //{
+        //    expense exp = _repo.ExpenseFind(id);
+        //    byte[] byteImage = exp.image;
+        //    MemoryStream memoryStream = new MemoryStream(byteImage);
+        //    Image image = Image.FromStream(memoryStream);
+
+        //    memoryStream = new MemoryStream();
+        //    image.Save(memoryStream, ImageFormat.Jpeg);
+        //    memoryStream.Position = 0;
+
+        //    //return File(memoryStream, "image/jpg");
+        //    return memoryStream.ToArray();
+        //}
+
+        //public FileContentResult getImage(int id)
+        //{
+        //    //var owin = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+        //    //var result = owin.FindByEmail<ApplicationUser, string>(User.Identity.Name);
+        //    expense exp = _repo.ExpenseFind(id);
+
+        //    //byte[] byteImage = exp.image;
+
+        //    byte[] biteIMG = exp.image;
+
+        //    MemoryStream m = new MemoryStream(biteIMG);
+
+
+        //    Image image = Image.FromStream(m);
+
+        //    m = new MemoryStream();
+
+        //    image.Save(m, ImageFormat.Png);
+
+        //    m.Position = 0;
+
+
+        //    return new FileContentResult(biteIMG, "image/png");
         //}
     }
 }

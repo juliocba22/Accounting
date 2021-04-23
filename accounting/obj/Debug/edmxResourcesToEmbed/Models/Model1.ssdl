@@ -38,6 +38,9 @@
     <Property Name="update_date" Type="datetime" />
     <Property Name="create_user_id" Type="int" />
     <Property Name="date_expense" Type="datetime" />
+    <Property Name="amount" Type="decimal" Precision="5" Scale="4" />
+    <Property Name="image" Type="image" />
+    <Property Name="activo" Type="tinyint" />
   </EntityType>
   <EntityType Name="expense_type">
     <Key>

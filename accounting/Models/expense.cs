@@ -23,6 +23,9 @@ namespace accounting.Models
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> create_user_id { get; set; }
         public Nullable<System.DateTime> date_expense { get; set; }
+        public Nullable<decimal> amount { get; set; }
+        public byte[] image { get; set; }
+        public Nullable<byte> activo { get; set; }
     
         public virtual expense_type expense_type { get; set; }
     }

@@ -2,14 +2,14 @@
 @using accounting.Helpers
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de gastos";
 }
 
-<h2>Gastos</h2>
+<h2>Listado de Gastos</h2>
 
 
 <p>
-    @Html.ActionLink("Crear Nuevo", "Create")
+    @Html.ActionLink("Nuevo Gasto", "Create")
 </p>
 
 @using (Html.BeginForm("Index", "Expenses", FormMethod.Post, new { page = 1 }))
@@ -45,6 +45,12 @@
         <th>
             @Html.Label("fecha gasto")
         </th>
+        <th>
+            @Html.Label("monto gasto")
+        </th>
+        @*<th>
+            @Html.Label("imagen gasto")
+        </th>*@
         <th></th>
     </tr>
 
@@ -72,6 +78,12 @@
         @*@Html.DisplayFor(modelItem => item.date_expense)*@
         @item.date_expense.ToString("dd/MM/yyyy")
     </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.amount)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.image)
+    </td>*@
     <td>
         @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
         @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
