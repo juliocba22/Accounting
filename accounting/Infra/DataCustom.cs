@@ -45,6 +45,8 @@ namespace accounting.Infra
         public byte expense_id { get; set; }//para el combo
         public string expense_description { get; set; }
         public DateTime date_expense { get; set; }
+        public decimal amount { get; set; }
+        public byte[] image { get; set; }
     }
 
     #endregion --[Expense]--

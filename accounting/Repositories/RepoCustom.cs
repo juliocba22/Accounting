@@ -343,6 +343,8 @@ namespace accounting.Repositories
                             expense_id = e.expense_id,
                             expense_description = t.description,
                             date_expense= (DateTime)e.date_expense,
+                            amount= (decimal)e.amount,
+                            image =  e.image,
                         }).ToList();
             }
         }

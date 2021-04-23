@@ -27,21 +27,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="expense">
-      <EntityTypeMapping TypeName="AccountingModel.expense">
-        <MappingFragment StoreEntitySet="expense">
-          <ScalarProperty Name="date_expense" ColumnName="date_expense" />
-          <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
-          <ScalarProperty Name="update_date" ColumnName="update_date" />
-          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
-          <ScalarProperty Name="register_date" ColumnName="register_date" />
-          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="expense_type">
       <EntityTypeMapping TypeName="AccountingModel.expense_type">
         <MappingFragment StoreEntitySet="expense_type">
@@ -147,6 +132,24 @@
           <ScalarProperty Name="razon_social" ColumnName="razon_social" />
           <ScalarProperty Name="cuit" ColumnName="cuit" />
           <ScalarProperty Name="dni" ColumnName="dni" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expense">
+      <EntityTypeMapping TypeName="AccountingModel.expense">
+        <MappingFragment StoreEntitySet="expense">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="date_expense" ColumnName="date_expense" />
+          <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+          <ScalarProperty Name="register_date" ColumnName="register_date" />
+          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

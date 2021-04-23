@@ -43,6 +43,9 @@
           <Property Name="update_date" Type="datetime" />
           <Property Name="create_user_id" Type="int" />
           <Property Name="date_expense" Type="datetime" />
+          <Property Name="amount" Type="decimal" Precision="5" Scale="4" />
+          <Property Name="image" Type="image" />
+          <Property Name="activo" Type="tinyint" />
         </EntityType>
         <EntityType Name="expense_type">
           <Key>
@@ -254,13 +257,8 @@
             <End Role="rol" EntitySet="rol" />
             <End Role="users" EntitySet="users" />
           </AssociationSet>
-          <EntitySet Name="expense" EntityType="AccountingModel.expense" />
           <EntitySet Name="expense_type" EntityType="AccountingModel.expense_type" />
           <EntitySet Name="social_work" EntityType="AccountingModel.social_work" />
-          <AssociationSet Name="FK_expense_expense_type_expense_id" Association="AccountingModel.FK_expense_expense_type_expense_id">
-            <End Role="expense_type" EntitySet="expense_type" />
-            <End Role="expense" EntitySet="expense" />
-          </AssociationSet>
           <EntitySet Name="client" EntityType="AccountingModel.client" />
           <EntitySet Name="product_service" EntityType="AccountingModel.product_service" />
           <EntitySet Name="profesional" EntityType="AccountingModel.profesional" />
@@ -270,22 +268,12 @@
             <End Role="categoria_impositiva" EntitySet="categoria_impositiva" />
             <End Role="proveedor" EntitySet="proveedor" />
           </AssociationSet>
+          <EntitySet Name="expense" EntityType="AccountingModel.expense" />
+          <AssociationSet Name="FK_expense_expense_type_expense_id" Association="AccountingModel.FK_expense_expense_type_expense_id">
+            <End Role="expense_type" EntitySet="expense_type" />
+            <End Role="expense" EntitySet="expense" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="expense">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="expense_id" Type="Byte" Nullable="false" />
-          <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="update_user_id" Type="Int64" />
-          <Property Name="update_date" Type="DateTime" Precision="3" />
-          <Property Name="create_user_id" Type="Int32" />
-          <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
-          <Property Name="date_expense" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="expense_type">
           <Key>
             <PropertyRef Name="id" />
@@ -308,18 +296,6 @@
           <Property Name="update_date" Type="DateTime" Precision="3" />
           <Property Name="create_user_id" Type="Int32" />
         </EntityType>
-        <Association Name="FK_expense_expense_type_expense_id">
-          <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
-          <End Type="AccountingModel.expense" Role="expense" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="expense_type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="expense">
-              <PropertyRef Name="expense_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="client">
           <Key>
             <PropertyRef Name="id" />
@@ -415,6 +391,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="expense_id" Type="Byte" Nullable="false" />
+          <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_user_id" Type="Int64" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="create_user_id" Type="Int32" />
+          <Property Name="date_expense" Type="DateTime" Precision="3" />
+          <Property Name="amount" Type="Decimal" Precision="5" Scale="4" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="activo" Type="Byte" />
+          <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
+        </EntityType>
+        <Association Name="FK_expense_expense_type_expense_id">
+          <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
+          <End Type="AccountingModel.expense" Role="expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="expense_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="expense">
+              <PropertyRef Name="expense_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -444,21 +450,6 @@
                 <ScalarProperty Name="client_id" ColumnName="client_id" />
                 <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
                 <ScalarProperty Name="update_date" ColumnName="update_date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="expense">
-            <EntityTypeMapping TypeName="AccountingModel.expense">
-              <MappingFragment StoreEntitySet="expense">
-                <ScalarProperty Name="date_expense" ColumnName="date_expense" />
-                <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
-                <ScalarProperty Name="update_date" ColumnName="update_date" />
-                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
-                <ScalarProperty Name="register_date" ColumnName="register_date" />
-                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -567,6 +558,24 @@
                 <ScalarProperty Name="razon_social" ColumnName="razon_social" />
                 <ScalarProperty Name="cuit" ColumnName="cuit" />
                 <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expense">
+            <EntityTypeMapping TypeName="AccountingModel.expense">
+              <MappingFragment StoreEntitySet="expense">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="date_expense" ColumnName="date_expense" />
+                <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="register_date" ColumnName="register_date" />
+                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

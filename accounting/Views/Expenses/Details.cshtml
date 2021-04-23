@@ -1,10 +1,10 @@
 ﻿@model accounting.ViewModels.ExpenseCreateVM
 
 @{
-    ViewBag.Title = "Detalles";
+    ViewBag.Title = "Datos del Gasto";
 }
 
-<h2>Detalles</h2>
+<h2>Datos del Gasto</h2>
 
 <div>
     @*<h4>expense</h4>*@
@@ -41,10 +41,17 @@
         <dd>
             @Html.DisplayFor(model => model.date_expense)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Volver a la Lista", "Index")
+    @Html.ActionLink("Regresar al Listado", "Index")
 </p>
