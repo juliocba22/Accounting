@@ -505,3 +505,4 @@ C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.csproj.CoreCompileInputs.c
 C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.csproj.CopyComplete
 C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.dll
 C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.pdb
+C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
