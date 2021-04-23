@@ -12,18 +12,9 @@ namespace accounting.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class rol
+    public partial class tax_category
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public rol()
-        {
-            this.users = new HashSet<users>();
-        }
-    
         public byte id { get; set; }
         public string description { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users> users { get; set; }
     }
 }

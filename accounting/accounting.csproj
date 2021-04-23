@@ -239,6 +239,9 @@
     <Compile Include="Models\social_work.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tax_category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -377,6 +380,16 @@
     <Content Include="Views\Profesional\Details.cshtml" />
     <Content Include="Views\Profesional\Edit.cshtml" />
     <Content Include="Views\Profesional\Index.cshtml" />
+    <Content Include="Views\Proveedores\Create.cshtml" />
+    <Content Include="Views\Proveedores\Delete.cshtml" />
+    <Content Include="Views\Proveedores\Details.cshtml" />
+    <Content Include="Views\Proveedores\Edit.cshtml" />
+    <Content Include="Views\Proveedores\Index.cshtml" />
+    <Content Include="Views\WorkOrder\Create.cshtml" />
+    <Content Include="Views\WorkOrder\Delete.cshtml" />
+    <Content Include="Views\WorkOrder\Details.cshtml" />
+    <Content Include="Views\WorkOrder\Edit.cshtml" />
+    <Content Include="Views\WorkOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
