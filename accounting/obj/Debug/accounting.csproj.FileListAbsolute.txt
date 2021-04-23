@@ -378,3 +378,4 @@ C:\Proyectos-Julio\accounting\bin\es\Microsoft.Owin.Security.MicrosoftAccount.re
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.csproj.CopyComplete
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.dll
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.pdb
+C:\Proyectos-Julio\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
