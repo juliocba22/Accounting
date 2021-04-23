@@ -46,6 +46,8 @@ namespace accounting.Infra
         public byte expense_id { get; set; }//para el combo
         public string expense_description { get; set; }
         public DateTime date_expense { get; set; }
+        public decimal amount { get; set; }
+        public byte[] image { get; set; }
     }
 
     #endregion --[Expense]--
@@ -149,6 +151,45 @@ namespace accounting.Infra
             return $"{nombre};{servicio};{matricula};{cuit};{domicilio};{localidad};{provincia};{telefono};{email}";
         }
 
+    }
+    #endregion
+    #region Proveedor
+    public class ListProveedor
+    {
+        public long id { get; set; }
+        public string codigo { get; set; }
+        public string razonSocial { get; set; }
+        public string localidad { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
+
+    }
+
+    public class ReportProveedor
+    {
+        public string codigo { get; set; }
+        public string dni { get; set; }
+        public string cuit { get; set; }
+        public string razonSocial { get; set; }
+        public string localidad { get; set; }
+        public string provincia { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
+        public string emailFacturacion { get; set; }
+
+        public override string ToString()
+        {
+            return $"{codigo};{dni};{cuit};{razonSocial};{localidad};{provincia};{telefono};{email};{emailFacturacion}";
+        }
+    }
+
+    #endregion
+
+    #region categoria impositiva
+    public class ListCategoriaImpositiva
+    {
+        public int id { get; set; }
+        public string descripcion { get; set; }
     }
     #endregion
 

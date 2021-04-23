@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductServiceController.cs" />
     <Compile Include="Controllers\ProfesionalController.cs" />
+    <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\SocialWorkController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="ViewModels\ExpenseVM.cs" />
     <Compile Include="ViewModels\ProductServiceVM.cs" />
     <Compile Include="ViewModels\ProfesionalVM.cs" />
+    <Compile Include="ViewModels\ProveedorVM.cs" />
     <Compile Include="ViewModels\SocialWorkVM.cs" />
     <Compile Include="ViewModels\UsersVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
@@ -375,11 +377,6 @@
     <Content Include="Views\Profesional\Details.cshtml" />
     <Content Include="Views\Profesional\Edit.cshtml" />
     <Content Include="Views\Profesional\Index.cshtml" />
-    <Content Include="Views\WorkOrder\Create.cshtml" />
-    <Content Include="Views\WorkOrder\Delete.cshtml" />
-    <Content Include="Views\WorkOrder\Details.cshtml" />
-    <Content Include="Views\WorkOrder\Edit.cshtml" />
-    <Content Include="Views\WorkOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

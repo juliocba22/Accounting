@@ -21,7 +21,7 @@ namespace accounting.ViewModels
         public string expense_type { get; set; }
         public int page { get; set; }
         public PagingInfo pagingInfo { get; set; }
-
+       
         #endregion --[INDEX]--
 
     }
@@ -55,6 +55,16 @@ namespace accounting.ViewModels
         public string expense_name { get; set; }//para details
         public DateTime register_date { get; set; }
 
+        [Display(Name = "Monto gasto")]
+        public decimal amount { get; set; }
+
+        [Display(Name = "Imagen del gasto (screenshot) ")]
+        public HttpPostedFileBase file { get; set; }
+
+
+        public byte[] image { get; set; }
+
+      
         #endregion --[CREATE]--
     }
 }

@@ -228,6 +228,15 @@ namespace accounting.Repositories
         IEnumerable<ReportProfesional> ProfesionalReport(string nombre);
         #endregion
 
+        #region --[PROVEEDOR]--
+
+        IEnumerable<ListProveedor> ProveedorList(string razonSocial);
+        List<ReportProveedor> ProveedorReport(string razonSocial);
+        #endregion
+
+        #region --[CATEGORIA IMPOSITIVA]--
+        IEnumerable<ListCategoriaImpositiva> CategoriaImpositivaGetById(int categoria_impositiva_id);
+        #endregion
         #region --[WORKORDER] 
         WorkOrderVM GetDetalleWorkOrder(long? id);
         WorkOrderVM GetDeleteWorkOrder(long? id);
