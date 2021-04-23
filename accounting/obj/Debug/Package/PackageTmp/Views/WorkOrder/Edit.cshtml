@@ -97,8 +97,17 @@
                         CamposGet($("#ProductServiceId").val(), valor);
                     }
                 });
-            });
 
+              
+                  var valor1 = $("#ProductServiceId").val();
+                if (valor1 > 0) {
+                    $("#HiddenTipo").val(valor1);
+                    CamposGet($("#ProductServiceId").val(), valor1);
+                    }
+                    
+                });
+
+            
 
         function CamposGet(value) {
                 $.getJSON(
