@@ -1,99 +1,90 @@
-﻿@model accounting.Models.work_order
+﻿@model accounting.ViewModels.WorkOrderVM
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Datos de la Orden de Trabajo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Datos del Cliente</h2>
 
 <div>
-    <h4>work_order</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nro_orden)
+            @Html.Label("Nro de Orden:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nro_orden)
+            @Html.DisplayFor(model => model.NroOrden)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.fecha)
+            @Html.Label("Fecha:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.fecha)
+            @Html.DisplayFor(model => model.Fecha)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
+            @Html.Label("Descripción:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.descripcion)
+            @Html.DisplayFor(model => model.Descripcion)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.product_service_id)
+            @Html.Label("Producto/Servicio:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.product_service_id)
+            @Html.DisplayFor(model => model.ProductServiceDesc)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.cantidad)
+            @Html.Label("Cantidad:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cantidad)
+            @Html.DisplayFor(model => model.Cantidad)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.nombre_paciente)
+            @Html.Label("Paciente:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nombre_paciente)
+            @Html.DisplayFor(model => model.Paciente)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.social_work_id)
+            @Html.Label("Obra Social:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.social_work_id)
+            @Html.DisplayFor(model => model.SocialWorkDesc)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.profesional_id)
+            @Html.Label("Profesional:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.profesional_id)
+            @Html.DisplayFor(model => model.ProfesionalDesc)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.status)
+            @Html.Label("Estado:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.status)
+            @Html.DisplayFor(model => model.StatusDesc)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.motivo_eliminacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.motivo_eliminacion)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver al Listado", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+
 </p>

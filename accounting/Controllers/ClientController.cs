@@ -14,6 +14,9 @@ using accounting.ViewModels;
 
 namespace accounting.Controllers
 {
+    [Authorize]
+    [CustomAuthorizeAttribute]
+    [SessionExpireFilter]
     public class ClientController : Controller
     {
         #region Variables

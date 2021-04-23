@@ -8,7 +8,7 @@ using accounting.ViewModels;
 
 namespace accounting.Repositories
 {
-    public class RepoCustom:IRepoCustom
+    public class RepoCustom: IRepoCustom
     {
 
         #region --[GLOBAL]--
@@ -476,6 +476,7 @@ namespace accounting.Repositories
                 return (from s in ctx.social_work
                         //join t in ctx.expense_type on e.expense_id equals t.id
                         where (string.IsNullOrEmpty(name) || s.name.Contains(name))
+                        && s.activo == 1
                         select new ListSocialWork
                         {
                             id = s.id,
@@ -664,6 +665,154 @@ namespace accounting.Repositories
                 }
             }
             catch
+            { return null; }
+        }
+        #endregion
+
+        #region --[WORKORDER]--
+        public WorkOrderVM GetDeleteWorkOrder(long? id)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from wo in ctx.work_order
+                            join ps in ctx.product_service on wo.product_service_id equals ps.id
+                            join st in ctx.work_order_status on wo.status_id equals st.id
+                            where wo.id == id
+                            select new WorkOrderVM
+                            {
+                               id = wo.id, 
+                               NroOrden = wo.nro_orden,
+                               Fecha = wo.fecha, 
+                               ProductServiceId = ps.id,
+                               StatusId = st.id,
+                               Descripcion = wo.descripcion,
+                               Cantidad = wo.cantidad,
+                               ProfesionalId = wo.profesional_id,
+                               SocialWorkId = wo.social_work_id,
+                               Paciente = wo.nombre_paciente,
+
+                            }).First();
+                }
+            }
+            catch(Exception ex)
+            { return null; }
+        }
+
+        public WorkOrderVM GetDetalleWorkOrder(long? id)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from wo in ctx.work_order
+                            join ps in ctx.product_service on wo.product_service_id equals ps.id
+                            join st in ctx.work_order_status on wo.status_id equals st.id
+                            join sw in ctx.social_work on wo.social_work_id equals sw.id into temp
+                            from temp1 in temp.DefaultIfEmpty()
+                            join pr in ctx.profesional on wo.profesional_id equals pr.id into temp2
+                            from temp3 in temp2.DefaultIfEmpty()
+                            where wo.id == id 
+                            select new WorkOrderVM
+                            {
+                                id = wo.id,
+                                NroOrden = wo.nro_orden,
+                                Fecha = wo.fecha,
+                                Descripcion = wo.descripcion,
+                                ProductServiceDesc = ps.nombre,
+                                Cantidad = wo.cantidad,
+                                Paciente = wo.nombre_paciente,
+                                SocialWorkDesc = temp1.name,
+                                ProfesionalDesc = temp3.nombre,
+                                StatusDesc = st.descripcion
+                            }).First();
+                }
+            }
+            catch (Exception ex)
+            { return null; }
+        }
+
+        public IEnumerable<ListWorkOrder> WorkOrderList(int? status)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from wo in ctx.work_order
+                            join ps in ctx.product_service on wo.product_service_id equals ps.id
+                            join st in ctx.work_order_status on wo.status_id equals st.id
+                            where (st.id == status || status == null)
+                            select new ListWorkOrder
+                            {
+                                id = wo.id,
+                                NroOrden = wo.nro_orden,
+                                Fecha = wo.fecha,
+                                ProductServiceDesc = ps.nombre,
+                                StatusDesc = st.descripcion
+                            }).ToList();
+                }
+            }
+            catch (Exception ex)
+            { return null; }
+        }
+
+        public IEnumerable<ReportWorkOrder> WorkOrderReport(int? status)
+        {
+            
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from wo in ctx.work_order
+                            join ps in ctx.product_service on wo.product_service_id equals ps.id
+                            join st in ctx.work_order_status on wo.status_id equals st.id
+                            join sw in ctx.social_work on wo.social_work_id equals sw.id into temp
+                            from temp1 in temp.DefaultIfEmpty()
+                            join pr in ctx.profesional on wo.profesional_id equals pr.id into temp2
+                            from temp3 in temp2.DefaultIfEmpty()
+                            where (st.id == status || status == null)
+                            select new ReportWorkOrder
+                            {
+                                NroOrden = wo.nro_orden,
+                                Fecha = wo.fecha,
+                                Descripcion = wo.descripcion,
+                                ProductServiceDesc = ps.nombre,
+                                Cantidad = wo.cantidad,
+                                Paciente = wo.nombre_paciente,
+                                SocialWorkDesc = temp1.name,
+                                ProfesionalDesc = temp3.nombre,
+                                StatusDesc = st.descripcion,                               
+                                MotivoEliminacion = wo.motivo_eliminacion                             
+                            }).ToList();
+                }
+            }
+            catch (Exception ex)
+            { return null; }
+
+        }
+
+        public WorkOrderDeleteVM GetDelete(long? id)
+        {
+            try
+            {
+                using (AccountingEntities ctx = new AccountingEntities())
+                {
+                    return (from wo in ctx.work_order
+                            join ps in ctx.product_service on wo.product_service_id equals ps.id
+                            join st in ctx.work_order_status on wo.status_id equals st.id
+                            where wo.id == id
+                            select new WorkOrderDeleteVM
+                            {
+                                id = wo.id,
+                                NroOrden = wo.nro_orden,
+                                Fecha = wo.fecha,
+                                ProductService = ps.nombre,
+                                Status = st.descripcion
+                            }).First();
+                }
+            }
+            catch (Exception ex)
             { return null; }
         }
         #endregion

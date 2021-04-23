@@ -127,6 +127,7 @@
           <Property Name="update_user_id" Type="bigint" />
           <Property Name="update_date" Type="datetime" />
           <Property Name="create_user_id" Type="int" />
+          <Property Name="activo" Type="tinyint" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -160,6 +161,8 @@
           <Property Name="profesional_id" Type="int" />
           <Property Name="motivo_eliminacion" Type="varchar(max)" />
           <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="update_date" Type="datetime" />
+          <Property Name="update_user_id" Type="int" />
         </EntityType>
         <EntityType Name="work_order_status">
           <Key>
@@ -334,6 +337,7 @@
           <Property Name="update_user_id" Type="Int64" />
           <Property Name="update_date" Type="DateTime" Precision="3" />
           <Property Name="create_user_id" Type="Int32" />
+          <Property Name="activo" Type="Byte" />
         </EntityType>
         <Association Name="FK_expense_expense_type_expense_id">
           <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
@@ -417,6 +421,8 @@
           <Property Name="profesional_id" Type="Int32" />
           <Property Name="motivo_eliminacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="update_user_id" Type="Int32" />
         </EntityType>
         <EntityType Name="categoria_impositiva">
           <Key>
@@ -523,6 +529,7 @@
           <EntitySetMapping Name="social_work">
             <EntityTypeMapping TypeName="AccountingModel.social_work">
               <MappingFragment StoreEntitySet="social_work">
+                <ScalarProperty Name="activo" ColumnName="activo" />
                 <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
                 <ScalarProperty Name="update_date" ColumnName="update_date" />
                 <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
@@ -597,6 +604,8 @@
           <EntitySetMapping Name="work_order">
             <EntityTypeMapping TypeName="AccountingModel.work_order">
               <MappingFragment StoreEntitySet="work_order">
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
                 <ScalarProperty Name="status_id" ColumnName="status_id" />
                 <ScalarProperty Name="motivo_eliminacion" ColumnName="motivo_eliminacion" />
                 <ScalarProperty Name="profesional_id" ColumnName="profesional_id" />

@@ -213,6 +213,7 @@ namespace accounting.Repositories
         #region --[CLIENTE]--
         IEnumerable<ListClient> ClientList(string razonSocial);
         List<ReportClient> ClientReport(string razonSocial);
+       
         #endregion
 
         #region [--PRODUCTSERVICE--]
@@ -222,8 +223,17 @@ namespace accounting.Repositories
 
         #region --[PROFESIONAL]
         ProfesionalVM GetDetalleProfesional(int? id);
+        
         IEnumerable<ListProfesional> ProfesionalList(string nombre);
         IEnumerable<ReportProfesional> ProfesionalReport(string nombre);
+        #endregion
+
+        #region --[WORKORDER] 
+        WorkOrderVM GetDetalleWorkOrder(long? id);
+        WorkOrderVM GetDeleteWorkOrder(long? id);
+        IEnumerable<ListWorkOrder> WorkOrderList(int? status);
+        IEnumerable<ReportWorkOrder> WorkOrderReport(int? status);
+        WorkOrderDeleteVM GetDelete(long? id);
         #endregion
     }
 }

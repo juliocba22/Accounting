@@ -25,5 +25,7 @@ namespace accounting.Models
         public Nullable<int> profesional_id { get; set; }
         public string motivo_eliminacion { get; set; }
         public int status_id { get; set; }
+        public Nullable<System.DateTime> update_date { get; set; }
+        public Nullable<int> update_user_id { get; set; }
     }
 }

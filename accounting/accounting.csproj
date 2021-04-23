@@ -262,6 +262,7 @@
     <Compile Include="ViewModels\SocialWorkVM.cs" />
     <Compile Include="ViewModels\UsersVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
+    <Compile Include="ViewModels\WorkOrderVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
