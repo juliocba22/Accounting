@@ -61,6 +61,9 @@
       <End Role="expense_type" EntitySet="expense_type" />
       <End Role="expense" EntitySet="expense" />
     </AssociationSet>
+    <EntitySet Name="client" EntityType="AccountingModel.client" />
+    <EntitySet Name="product_service" EntityType="AccountingModel.product_service" />
+    <EntitySet Name="profesional" EntityType="AccountingModel.profesional" />
   </EntityContainer>
   <EntityType Name="expense_type">
     <Key>
@@ -83,6 +86,7 @@
     <Property Name="update_user_id" Type="Int64" />
     <Property Name="update_date" Type="DateTime" Precision="3" />
     <Property Name="create_user_id" Type="Int32" />
+    <Property Name="activo" Type="Byte" />
   </EntityType>
   <EntityType Name="client">
     <Key>
@@ -197,16 +201,4 @@
     <Property Name="activo" Type="Byte" />
     <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
   </EntityType>
-  <Association Name="FK_expense_expense_type_expense_id">
-    <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
-    <End Type="AccountingModel.expense" Role="expense" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="expense_type">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="expense">
-        <PropertyRef Name="expense_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>
