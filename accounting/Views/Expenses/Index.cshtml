@@ -48,9 +48,9 @@
         <th>
             @Html.Label("monto gasto")
         </th>
-        @*<th>
-            @Html.Label("imagen gasto")
-        </th>*@
+        <th>
+            @Html.Label("Archivo")
+        </th>
         <th></th>
     </tr>
 
@@ -81,9 +81,19 @@
     <td>
         @Html.DisplayFor(modelItem => item.amount)
     </td>
-    @*<td>
-        @Html.DisplayFor(modelItem => item.image)
-    </td>*@
+    <td>
+        @*@Html.DisplayFor(modelItem => item.image)*@
+        @if (!string.IsNullOrEmpty(item.name_file))
+        {
+            @Html.ActionLink("Download", "Download", new { path_file = item.path_file, name_file = item.name_file })
+          
+        }
+        else
+        {
+            <img src="~/img/file_notaviable.png" alt="sin archivo" width="30" height="30" />
+        }
+
+    </td>
     <td>
         @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
         @Html.ActionLink("Detalles", "Details", new { id = item.id }) |

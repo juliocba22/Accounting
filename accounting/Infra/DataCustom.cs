@@ -48,6 +48,8 @@ namespace accounting.Infra
         public DateTime date_expense { get; set; }
         public decimal amount { get; set; }
         public byte[] image { get; set; }
+        public string path_file { get; set; }
+        public string name_file { get; set; }
     }
 
     #endregion --[Expense]--

@@ -28,24 +28,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="expense">
-      <EntityTypeMapping TypeName="AccountingModel.expense">
-        <MappingFragment StoreEntitySet="expense">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
-          <ScalarProperty Name="register_date" ColumnName="register_date" />
-          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
-          <ScalarProperty Name="update_date" ColumnName="update_date" />
-          <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
-          <ScalarProperty Name="date_expense" ColumnName="date_expense" />
-          <ScalarProperty Name="amount" ColumnName="amount" />
-          <ScalarProperty Name="image" ColumnName="image" />
-          <ScalarProperty Name="activo" ColumnName="activo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="expense_type">
       <EntityTypeMapping TypeName="AccountingModel.expense_type">
         <MappingFragment StoreEntitySet="expense_type">
@@ -137,14 +119,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tax_category">
-      <EntityTypeMapping TypeName="AccountingModel.tax_category">
-        <MappingFragment StoreEntitySet="tax_category">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="users">
       <EntityTypeMapping TypeName="AccountingModel.users">
         <MappingFragment StoreEntitySet="users">
@@ -187,6 +161,26 @@
         <MappingFragment StoreEntitySet="work_order_status">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expense">
+      <EntityTypeMapping TypeName="AccountingModel.expense">
+        <MappingFragment StoreEntitySet="expense">
+          <ScalarProperty Name="name_file" ColumnName="name_file" />
+          <ScalarProperty Name="path_url" ColumnName="path_url" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="date_expense" ColumnName="date_expense" />
+          <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+          <ScalarProperty Name="register_date" ColumnName="register_date" />
+          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
