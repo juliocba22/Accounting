@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Drawing;
@@ -33,12 +34,14 @@ namespace accounting.Controllers
 
         private IRepoCustom _repo;
         int _pageSize = 5;
+        string path_file;
 
         #region --[CONSTRUCTOR]--
 
         public ExpensesController()
         {
             _repo = new RepoCustom();
+            path_file = ConfigurationManager.AppSettings["path_files"].ToString();
         }
 
         public ExpensesController(IRepoCustom repoCustom)
@@ -94,15 +97,19 @@ namespace accounting.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    byte[] img_load = null;
-                    if (model.file != null)
-                    {
-                        WebImage img = new WebImage(model.file.InputStream);
-                        img_load = img.GetBytes();
+                    //byte[] img_load = null;
+                    //if (model.file != null)
+                    //{
+                    //    WebImage img = new WebImage(model.file.InputStream);
+                    //    img_load = img.GetBytes();
 
-                    }
+                    //}
 
-
+                    //subimos al server
+                    //model.file.SaveAs(Path.Combine(@"d:temp", Path.GetFileName(model.file.FileName)));
+                    string url_path= Path.Combine(@path_file, Path.GetFileName(model.file.FileName));
+                    //model.file.SaveAs(Path.Combine(@path_file, Path.GetFileName(model.file.FileName)));
+                    model.file.SaveAs(url_path);
 
                     expense exp = new expense()
                     {
@@ -113,7 +120,10 @@ namespace accounting.Controllers
                         register_date = DateTime.Now,
                         create_user_id = int.Parse(Session["UserID"].ToString()),
                         amount = decimal.Parse(model.amount.ToString()),
-                        image = img_load,//img.GetBytes(),
+                        //image = img_load,//img.GetBytes(),
+                        path_url= url_path,
+                        name_file= model.file.FileName,
+                        activo=1,
 
                     };
 
@@ -224,6 +234,7 @@ namespace accounting.Controllers
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
                         amount = decimal.Parse(model.amount.ToString()),
+                        activo=1,
                     };
 
                     _repo.ExpenseUpdate(exp);
@@ -279,8 +290,9 @@ namespace accounting.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             expense exp = _repo.ExpenseFind(id);
-
-            _repo.ExpenseDelete(exp);
+            exp.activo = 0;
+            //_repo.ExpenseDelete(exp);
+            _repo.ExpenseUpdate(exp);
 
             return RedirectToAction("Index");
         }
@@ -311,6 +323,17 @@ namespace accounting.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+
+        public FileResult Download(string path_file,string name_file)
+        {
+            //return File("~/Download/EjemploAltaDirecta.csv", "text/csv", "AltaDirecta.csv");
+
+            if (!string.IsNullOrEmpty(name_file))
+             return File(path_file, "img/jpg", name_file);
+
+            return null;
+        }
+
 
 
         [AcceptVerbs(HttpVerbs.Get)]

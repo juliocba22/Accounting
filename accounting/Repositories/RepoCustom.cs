@@ -335,6 +335,7 @@ namespace accounting.Repositories
                 return (from e in ctx.expense
                         join t in ctx.expense_type on e.expense_id equals t.id
                         where (string.IsNullOrEmpty(expense_type) || t.description.Contains(expense_type))
+                          && e.activo == 1
                         select new ListExpense
                         {
                             id = e.id,
@@ -345,6 +346,8 @@ namespace accounting.Repositories
                             date_expense= (DateTime)e.date_expense,
                             amount= (decimal)e.amount,
                             image =  e.image,
+                            path_file=e.path_url,
+                            name_file=e.name_file,
                         }).ToList();
             }
         }

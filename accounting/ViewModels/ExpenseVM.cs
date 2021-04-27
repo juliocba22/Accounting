@@ -58,7 +58,7 @@ namespace accounting.ViewModels
         [Display(Name = "Monto gasto")]
         public decimal amount { get; set; }
 
-        [Display(Name = "Imagen del gasto (screenshot) ")]
+        [Display(Name = "Archivo del gasto (image,excel,word,notes..) ")]
         public HttpPostedFileBase file { get; set; }
 
 

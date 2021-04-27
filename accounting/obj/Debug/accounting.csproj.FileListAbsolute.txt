@@ -500,8 +500,8 @@ C:\Proyectos\Sistemas\accounting\bin\es\Microsoft.Owin.Security.Facebook.resourc
 C:\Proyectos\Sistemas\accounting\bin\es\Microsoft.Owin.Security.Google.resources.dll
 C:\Proyectos\Sistemas\accounting\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Proyectos\Sistemas\accounting\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
 C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.csproj.CoreCompileInputs.cache
 C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.csproj.CopyComplete
 C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.dll
 C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.pdb
+C:\Proyectos\Sistemas\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
