@@ -34,9 +34,10 @@ namespace accounting.Models
         public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<social_work> social_work { get; set; }
-        public virtual DbSet<tax_category> tax_category { get; set; }
         public virtual DbSet<users> users { get; set; }
         public virtual DbSet<work_order> work_order { get; set; }
         public virtual DbSet<work_order_status> work_order_status { get; set; }
+        public virtual DbSet<tipo_comprobante> tipo_comprobante { get; set; }
+        public virtual DbSet<compra> compra { get; set; }
     }
 }

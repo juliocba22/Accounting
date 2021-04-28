@@ -31,6 +31,8 @@
     <EntitySetMapping Name="expense">
       <EntityTypeMapping TypeName="AccountingModel.expense">
         <MappingFragment StoreEntitySet="expense">
+          <ScalarProperty Name="name_file" ColumnName="name_file" />
+          <ScalarProperty Name="path_url" ColumnName="path_url" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
@@ -137,14 +139,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tax_category">
-      <EntityTypeMapping TypeName="AccountingModel.tax_category">
-        <MappingFragment StoreEntitySet="tax_category">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="users">
       <EntityTypeMapping TypeName="AccountingModel.users">
         <MappingFragment StoreEntitySet="users">
@@ -187,6 +181,36 @@
         <MappingFragment StoreEntitySet="work_order_status">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipo_comprobante">
+      <EntityTypeMapping TypeName="AccountingModel.tipo_comprobante">
+        <MappingFragment StoreEntitySet="tipo_comprobante">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="signo" ColumnName="signo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="compra">
+      <EntityTypeMapping TypeName="AccountingModel.compra">
+        <MappingFragment StoreEntitySet="compra">
+          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="descuento_global" ColumnName="descuento_global" />
+          <ScalarProperty Name="importe" ColumnName="importe" />
+          <ScalarProperty Name="vencimiento_2" ColumnName="vencimiento_2" />
+          <ScalarProperty Name="vencimiento_1" ColumnName="vencimiento_1" />
+          <ScalarProperty Name="fecha_contable" ColumnName="fecha_contable" />
+          <ScalarProperty Name="fecha_emision" ColumnName="fecha_emision" />
+          <ScalarProperty Name="nro_factura" ColumnName="nro_factura" />
+          <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
+          <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -899,5 +899,121 @@ namespace accounting.Repositories
         }
         #endregion
 
+        #region --[COMPRA]--
+        public CompraDeleteVM GetDeleteCompra(long? id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from co in ctx.compra
+                            join pr in ctx.proveedor on co.proveedor_id equals pr.id
+                            join tp in ctx.tipo_comprobante on co.tipo_comprobante_id equals tp.id
+                            where co.id == id
+                            select new CompraDeleteVM
+                            {
+                                id = co.id,
+                                Proveedor = pr.razon_social,
+                                TipoComprobante = tp.descripcion,
+                                NroFactura = co.nro_factura,
+                                FechaEmision = co.fecha_emision,
+                                Importe = co.importe
+                            }).First();
+                }
+            }
+            catch
+            { return null; }
+        }
+
+        public CompraVM GetDetalleCompra(long? id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from co in ctx.compra
+                            join pr in ctx.proveedor on co.proveedor_id equals pr.id
+                            join tp in ctx.tipo_comprobante on co.tipo_comprobante_id equals tp.id
+                            where co.id == id
+                            select new CompraVM
+                            {
+                                id = co.id,
+                                Proveedor = pr.razon_social,
+                                TipoComprobante = tp.descripcion,
+                                NroFactura = co.nro_factura,
+                                FechaEmision = co.fecha_emision,
+                                FechaContable = co.fecha_contable,
+                                PrimerVencimiento = co.vencimiento_1,
+                                SdoVencimiento = co.vencimiento_2,
+                                Importe = co.importe,
+                                DescuentoGlobal = co.descuento_global
+                            }).First();
+                }
+            }
+            catch
+            { return null; }
+        }
+
+        public IEnumerable<ListCompra> CompraList(int? proveedor, DateTime? fechaEmisionDesde, DateTime? fechaEmisionHasta)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from co in ctx.compra
+                            join pr in ctx.proveedor on co.proveedor_id equals pr.id
+                            join tp in ctx.tipo_comprobante on co.tipo_comprobante_id equals tp.id
+                            where (co.proveedor_id == proveedor || proveedor == null) 
+                            && (co.fecha_emision >= fechaEmisionDesde || fechaEmisionDesde == null)
+                            && (co.fecha_emision <= fechaEmisionHasta || fechaEmisionHasta == null)
+                            && co.activo == 1
+                            select new ListCompra
+                            {
+                                id = co.id,
+                                Proveedor = pr.razon_social,
+                                TipoComprobante = tp.descripcion,
+                                NroFactura = co.nro_factura,
+                                FechaEmision = co.fecha_emision,         
+                                Importe = co.importe
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+
+        public IEnumerable<ReportCompra> CompraReport(int? proveedor, DateTime? fechaEmisionDesde, DateTime? fechaEmisionHasta)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from co in ctx.compra
+                            join pr in ctx.proveedor on co.proveedor_id equals pr.id
+                            join tp in ctx.tipo_comprobante on co.tipo_comprobante_id equals tp.id
+                            where (co.proveedor_id == proveedor || proveedor == null)
+                            && (co.fecha_emision >= fechaEmisionDesde || fechaEmisionDesde == null)
+                            && (co.fecha_emision <= fechaEmisionHasta || fechaEmisionHasta == null)
+                            && co.activo == 1
+                            select new ReportCompra
+                            {
+                                Proveedor = pr.razon_social,
+                                TipoComprobante = tp.descripcion,
+                                NroFactura = co.nro_factura,
+                                FechaEmision = co.fecha_emision,
+                                FechaContable = co.fecha_contable,
+                                PrimerVencimiento = co.vencimiento_1,
+                                SdoVencimiento = co.vencimiento_2,
+                                Importe = co.importe,
+                                DescuentoGlobal = co.descuento_global
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+
+        #endregion 
+
     }
 }

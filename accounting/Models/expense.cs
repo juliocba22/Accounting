@@ -26,6 +26,8 @@ namespace accounting.Models
         public Nullable<decimal> amount { get; set; }
         public byte[] image { get; set; }
         public Nullable<byte> activo { get; set; }
+        public string path_url { get; set; }
+        public string name_file { get; set; }
     
         public virtual expense_type expense_type { get; set; }
     }

@@ -106,7 +106,7 @@ namespace accounting.Controllers
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }

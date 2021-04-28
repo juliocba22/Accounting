@@ -25,6 +25,24 @@
     <Property Name="update_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" Nullable="false" />
   </EntityType>
+  <EntityType Name="compra">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="proveedor_id" Type="bigint" Nullable="false" />
+    <Property Name="tipo_comprobante_id" Type="int" Nullable="false" />
+    <Property Name="nro_factura" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fecha_emision" Type="date" Nullable="false" />
+    <Property Name="fecha_contable" Type="date" Nullable="false" />
+    <Property Name="vencimiento_1" Type="date" />
+    <Property Name="vencimiento_2" Type="date" />
+    <Property Name="importe" Type="float" Nullable="false" />
+    <Property Name="descuento_global" Type="float" />
+    <Property Name="activo" Type="tinyint" Nullable="false" />
+    <Property Name="update_date" Type="date" />
+    <Property Name="update_user_id" Type="int" />
+  </EntityType>
   <EntityType Name="expense">
     <Key>
       <PropertyRef Name="id" />
@@ -41,6 +59,8 @@
     <Property Name="amount" Type="decimal" Precision="5" Scale="4" />
     <Property Name="image" Type="image" />
     <Property Name="activo" Type="tinyint" />
+    <Property Name="path_url" Type="varchar" MaxLength="100" />
+    <Property Name="name_file" Type="varchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="expense_type">
     <Key>
@@ -127,12 +147,15 @@
     <Property Name="create_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" />
   </EntityType>
-  <EntityType Name="tax_category">
+  <EntityType Name="tipo_comprobante">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigo" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="signo" Type="varchar" MaxLength="50" />
+    <Property Name="activo" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="users">
     <Key>
@@ -215,6 +238,7 @@
   <EntityContainer Name="AccountingModelStoreContainer">
     <EntitySet Name="categoria_impositiva" EntityType="Self.categoria_impositiva" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="compra" EntityType="Self.compra" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expense_type" EntityType="Self.expense_type" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product_service" EntityType="Self.product_service" Schema="dbo" store:Type="Tables" />
@@ -222,7 +246,7 @@
     <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="social_work" EntityType="Self.social_work" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tax_category" EntityType="Self.tax_category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tipo_comprobante" EntityType="Self.tipo_comprobante" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="work_order" EntityType="Self.work_order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="work_order_status" EntityType="Self.work_order_status" Schema="dbo" store:Type="Tables" />

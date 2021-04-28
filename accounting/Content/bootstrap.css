@@ -3029,7 +3029,7 @@ select[multiple].input-lg {
   }
   .form-inline .input-group {
     display: inline-table;
-    vertical-align: middle;
+    vertical-align: bottom;
   }
   .form-inline .input-group .input-group-addon,
   .form-inline .input-group .input-group-btn,
@@ -3041,7 +3041,7 @@ select[multiple].input-lg {
   }
   .form-inline .control-label {
     margin-bottom: 0;
-    vertical-align: middle;
+    vertical-align: bottom;
   }
   .form-inline .radio,
   .form-inline .checkbox {
@@ -3969,7 +3969,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .input-group-btn {
   width: 1%;
   white-space: nowrap;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 .input-group-addon {
   padding: 6px 12px;
