@@ -1,0 +1,52 @@
+﻿@model accounting.ViewModels.WorkOrderDeleteVM
+
+@{
+    ViewBag.Title = "Eliminación de una Orden de Trabajo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminación de una Orden de Trabajo</h2>
+<h3>¿Está seguro que desea eliminar la Orden?</h3>
+<div>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.Label("Nro de Orden:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NroOrden)
+            </dd>
+            <dt>
+                @Html.Label("Fecha:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Fecha)
+            </dd>
+            <dt>
+                @Html.Label("Producto/Servicio:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductService)
+            </dd>
+            <dt>
+                @Html.Label("Estado:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+        </dl>
+        <div class="form-actions no-color">
+                @Html.ActionLink("Regresar al Listado ", "Index") |
+                <input type="submit" value="Eliminar" class="btn btn-default" />
+        </div>
+    }
+</div>
+

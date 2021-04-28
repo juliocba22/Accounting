@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Segunda instancia [Nombre de la materia]",
+    "start": "2019-04-20T10:30",
+    "end": "2019-04-20T11:30",
+	  "className": "",
+    "backgroundColor": "white"
+  },
+  {
+    "id": "999",
+    "title": "Examen 1er parcial [Nombre de la materia]",
+    "start": "2019-04-19T16:00:00-05:00",
+    "className": "",
+    "backgroundColor": "#f96868"
+  },
+  {
+    "id": "999",
+    "title": "Presentación proyecto",
+    "start": "2019-04-16T16:00:00-05:00",
+    "className": "",
+    "backgroundColor": "white"
+  },
+  {
+    "title": "Feria de emprendedores 2019 [Nombre de la materia]",
+    "url": "https://www.cordoba.gob.ar/etiqueta/feria-de-emprendedores/",
+    "start": "2019-04-16",
+    "end": "2019-04-18",
+    "className": "",
+    "backgroundColor": "white"
+  },
+  {
+    "title": "Laboratorio",
+    "start": "2019-04-13T12:00:00-05:00",
+    "backgroundColor": "white"
+  },
+  {
+    "title": "Reunión de grupo",
+    "start": "2017-12-12T14:30:00-05:00"
+  },
+  {
+    "title": "Descanso pedagógico",
+    "start": "2019-04-22",
+    "end": "2019-04-28",
+    "backgroundColor": "#48b0f7"
+  }
+]

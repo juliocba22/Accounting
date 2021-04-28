@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2ebcbe7601fa4490810b4e5ff6776c43" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="AccountingModel.categoria_impositiva" Width="1.5" PointX="5.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.client" Width="1.5" PointX="5.125" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.expense" Width="1.5" PointX="2.875" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.expense_type" Width="1.5" PointX="0.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.product_service" Width="1.5" PointX="7.125" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.profesional" Width="1.5" PointX="8.875" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.proveedor" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.rol" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.social_work" Width="1.5" PointX="10.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.users" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.work_order" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.work_order_status" Width="1.5" PointX="10.75" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="AccountingModel.FK_proveedor_categoria_impositiva_categoria_impositiva_id" ManuallyRouted="false" />
+        <AssociationConnector Association="AccountingModel.FK_expense_expense_type_expense_id" ManuallyRouted="false" />
+        <AssociationConnector Association="AccountingModel.FK_users_rol_rol_id" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AccountingModel.tipo_comprobante" Width="1.5" PointX="2.5" PointY="9.125" />
+        <EntityTypeShape EntityType="AccountingModel.compra" Width="1.5" PointX="0.5" PointY="6.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

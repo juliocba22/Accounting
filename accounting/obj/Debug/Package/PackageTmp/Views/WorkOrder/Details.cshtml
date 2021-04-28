@@ -1,0 +1,90 @@
+﻿@model accounting.ViewModels.WorkOrderVM
+
+@{
+    ViewBag.Title = "Datos de la Orden de Trabajo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Datos del Cliente</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nro de Orden:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NroOrden)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.Label("Descripción:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.Label("Producto/Servicio:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductServiceDesc)
+        </dd>
+
+        <dt>
+            @Html.Label("Cantidad:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.Label("Paciente:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paciente)
+        </dd>
+
+        <dt>
+            @Html.Label("Obra Social:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SocialWorkDesc)
+        </dd>
+
+        <dt>
+            @Html.Label("Profesional:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDesc)
+        </dd>
+
+        <dt>
+            @Html.Label("Estado:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusDesc)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al Listado", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+
+</p>
