@@ -126,9 +126,9 @@ namespace accounting.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GetComboTipo();
             product_service product_service = db.product_service.Find(id);
-           
+            GetComboTipo();
+
             ProductServiceVM psVm = new ProductServiceVM()
             {
                 id = product_service.id,

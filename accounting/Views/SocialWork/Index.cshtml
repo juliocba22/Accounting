@@ -2,10 +2,10 @@
 @using accounting.Helpers
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de Obras Sociales";
 }
 
-<h2>Obra Social</h2>
+<h2>Listado de Obras Sociales</h2>
 
 
 <p>
@@ -45,7 +45,7 @@
         <th>
             @Html.Label("mail")
         </th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
 
     @if (@Model.list.Count() == 0)

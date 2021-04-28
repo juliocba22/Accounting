@@ -155,6 +155,7 @@ namespace accounting.Infra
 
     }
     #endregion
+
     #region Proveedor
     public class ListProveedor
     {
@@ -231,6 +232,53 @@ namespace accounting.Infra
         public override string ToString()
         {
             return $"{NroOrden};{Fecha};{Descripcion};{ProductServiceDesc};{Cantidad};{Paciente};{SocialWorkDesc};{ProfesionalDesc};{StatusDesc};{MotivoEliminacion}";
+        }
+    }
+    #endregion
+
+    #region Compra
+    public class ListCompra
+    {
+        public long id { get; set; }
+
+        public string Proveedor { get; set; }
+
+        public string TipoComprobante { get; set; }
+
+        public string NroFactura { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime FechaEmision { get; set; }
+
+        public double Importe { get; set; }
+    }
+
+    public class ReportCompra
+    {
+        public string Proveedor { get; set; }
+
+        public string TipoComprobante { get; set; }
+
+        public string NroFactura { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime FechaEmision { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime FechaContable { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? PrimerVencimiento { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? SdoVencimiento { get; set; }
+
+        public double Importe { get; set; }
+
+        public double? DescuentoGlobal { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Proveedor};{TipoComprobante};{NroFactura};{FechaEmision};{FechaContable};{PrimerVencimiento};{SdoVencimiento};{Importe};{DescuentoGlobal}";
         }
     }
     #endregion

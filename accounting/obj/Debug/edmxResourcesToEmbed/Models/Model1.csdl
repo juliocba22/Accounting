@@ -26,13 +26,33 @@
     <Property Name="update_user_id" Type="Int32" />
     <Property Name="activo" Type="Byte" Nullable="false" />
   </EntityType>
+  <EntityType Name="expense">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="expense_id" Type="Byte" Nullable="false" />
+    <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="update_user_id" Type="Int64" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <Property Name="create_user_id" Type="Int32" />
+    <Property Name="date_expense" Type="DateTime" Precision="3" />
+    <Property Name="amount" Type="Decimal" Precision="5" Scale="4" />
+    <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="activo" Type="Byte" />
+    <NavigationProperty Name="expense_type" Relationship="Self.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
+    <Property Name="path_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="name_file" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="expense_type">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="expense" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense_type" ToRole="expense" />
+    <NavigationProperty Name="expense" Relationship="Self.FK_expense_expense_type_expense_id" FromRole="expense_type" ToRole="expense" />
   </EntityType>
   <EntityType Name="product_service">
     <Key>
@@ -169,6 +189,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_expense_expense_type_expense_id">
+    <End Role="expense_type" Type="Self.expense_type" Multiplicity="1" />
+    <End Role="expense" Type="Self.expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="expense_type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="expense">
+        <PropertyRef Name="expense_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_users_rol_rol_id">
     <End Role="rol" Type="Self.rol" Multiplicity="1" />
     <End Role="users" Type="Self.users" Multiplicity="*" />
@@ -184,6 +216,7 @@
   <EntityContainer Name="AccountingEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="categoria_impositiva" EntityType="Self.categoria_impositiva" />
     <EntitySet Name="client" EntityType="Self.client" />
+    <EntitySet Name="expense" EntityType="Self.expense" />
     <EntitySet Name="expense_type" EntityType="Self.expense_type" />
     <EntitySet Name="product_service" EntityType="Self.product_service" />
     <EntitySet Name="profesional" EntityType="Self.profesional" />
@@ -197,46 +230,43 @@
       <End Role="categoria_impositiva" EntitySet="categoria_impositiva" />
       <End Role="proveedor" EntitySet="proveedor" />
     </AssociationSet>
+    <AssociationSet Name="FK_expense_expense_type_expense_id" Association="Self.FK_expense_expense_type_expense_id">
+      <End Role="expense_type" EntitySet="expense_type" />
+      <End Role="expense" EntitySet="expense" />
+    </AssociationSet>
     <AssociationSet Name="FK_users_rol_rol_id" Association="Self.FK_users_rol_rol_id">
       <End Role="rol" EntitySet="rol" />
       <End Role="users" EntitySet="users" />
     </AssociationSet>
-    <EntitySet Name="expense" EntityType="AccountingModel.expense" />
-    <AssociationSet Name="FK_expense_expense_type_expense_id" Association="AccountingModel.FK_expense_expense_type_expense_id">
-      <End Role="expense_type" EntitySet="expense_type" />
-      <End Role="expense" EntitySet="expense" />
-    </AssociationSet>
+    <EntitySet Name="tipo_comprobante" EntityType="AccountingModel.tipo_comprobante" />
+    <EntitySet Name="compra" EntityType="AccountingModel.compra" />
   </EntityContainer>
-  <EntityType Name="expense">
+  <EntityType Name="tipo_comprobante">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo" Type="Int32" Nullable="false" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="signo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Byte" Nullable="false" />
+  </EntityType>
+  <EntityType Name="compra">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="expense_id" Type="Byte" Nullable="false" />
-    <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="update_user_id" Type="Int64" />
-    <Property Name="update_date" Type="DateTime" Precision="3" />
-    <Property Name="create_user_id" Type="Int32" />
-    <Property Name="date_expense" Type="DateTime" Precision="3" />
-    <Property Name="amount" Type="Decimal" Precision="5" Scale="4" />
-    <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="activo" Type="Byte" />
-    <Property Name="path_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="name_file" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
+    <Property Name="proveedor_id" Type="Int64" Nullable="false" />
+    <Property Name="tipo_comprobante_id" Type="Int32" Nullable="false" />
+    <Property Name="nro_factura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_emision" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fecha_contable" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="vencimiento_1" Type="DateTime" Precision="0" />
+    <Property Name="vencimiento_2" Type="DateTime" Precision="0" />
+    <Property Name="importe" Type="Double" Nullable="false" />
+    <Property Name="descuento_global" Type="Double" />
+    <Property Name="activo" Type="Byte" Nullable="false" />
+    <Property Name="update_date" Type="DateTime" Precision="0" />
+    <Property Name="update_user_id" Type="Int32" />
   </EntityType>
-  <Association Name="FK_expense_expense_type_expense_id">
-    <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
-    <End Type="AccountingModel.expense" Role="expense" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="expense_type">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="expense">
-        <PropertyRef Name="expense_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

@@ -71,8 +71,6 @@ namespace accounting.ViewModels
     public class WorkOrderVMIndex
     {
         public IEnumerable<ListWorkOrder> list { get; set; }
-
-        [Display(Name = "Nombre y Apellido")]
         public int? status { get; set; }
         public int page { get; set; }
         public PagingInfo pagingInfo { get; set; }

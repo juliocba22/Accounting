@@ -38,6 +38,7 @@ namespace accounting.Repositories
         /// </summary>
         /// <param name="id"></param>
         users UserFind(long id);
+        
         /// <summary>
         /// Get user -> user pass 
         /// </summary>
@@ -237,12 +238,20 @@ namespace accounting.Repositories
         #region --[CATEGORIA IMPOSITIVA]--
         IEnumerable<ListCategoriaImpositiva> CategoriaImpositivaGetById(int categoria_impositiva_id);
         #endregion
+
         #region --[WORKORDER] 
         WorkOrderVM GetDetalleWorkOrder(long? id);
         WorkOrderVM GetDeleteWorkOrder(long? id);
         IEnumerable<ListWorkOrder> WorkOrderList(int? status);
         IEnumerable<ReportWorkOrder> WorkOrderReport(int? status);
         WorkOrderDeleteVM GetDelete(long? id);
+        #endregion
+
+        #region --[COMPRA]--
+        CompraDeleteVM GetDeleteCompra(long? id);
+        CompraVM GetDetalleCompra(long? id);
+        IEnumerable<ListCompra> CompraList(int? proveedor, DateTime? fechaEmisionHasta1, DateTime? fechaEmisionHasta2);
+        IEnumerable<ReportCompra> CompraReport(int? proveedor, DateTime? fechaEmisionDesde, DateTime? fechaEmisionHasta);
         #endregion
     }
 }
