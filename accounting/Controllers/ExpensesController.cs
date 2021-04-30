@@ -107,8 +107,11 @@ namespace accounting.Controllers
 
                     //subimos al server
                     //model.file.SaveAs(Path.Combine(@"d:temp", Path.GetFileName(model.file.FileName)));
-                    string url_path= Path.Combine(@path_file, Path.GetFileName(model.file.FileName));
                     //model.file.SaveAs(Path.Combine(@path_file, Path.GetFileName(model.file.FileName)));
+
+                    //string url_path = Path.Combine(@path_file, Path.GetFileName(model.file.FileName));
+                    string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(model.file.FileName));
+                    //string url_path = Path.Combine(Server.MapPath(path_file), Path.GetFileName(model.file.FileName));
                     model.file.SaveAs(url_path);
 
                     expense exp = new expense()
@@ -121,7 +124,7 @@ namespace accounting.Controllers
                         create_user_id = int.Parse(Session["UserID"].ToString()),
                         amount = decimal.Parse(model.amount.ToString()),
                         //image = img_load,//img.GetBytes(),
-                        path_url= url_path,
+                        //path_url= url_path,
                         name_file= model.file.FileName,
                         activo=1,
 
@@ -324,12 +327,27 @@ namespace accounting.Controllers
         //    base.Dispose(disposing);
         //}
 
-        public FileResult Download(string path_file,string name_file)
+        //public FileResult Download(string path_file,string name_file)
+        //{
+        //    //return File("~/Download/EjemploAltaDirecta.csv", "text/csv", "AltaDirecta.csv");
+
+        //    if (!string.IsNullOrEmpty(name_file))
+        //     return File(path_file, "img/jpg", name_file);
+
+        //    return null;
+        //}
+
+        public FileResult Download(string name_file)
         {
             //return File("~/Download/EjemploAltaDirecta.csv", "text/csv", "AltaDirecta.csv");
 
+
             if (!string.IsNullOrEmpty(name_file))
-             return File(path_file, "img/jpg", name_file);
+            {
+                string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(name_file));
+                return File(url_path, "img/jpg", name_file);
+            }
+               
 
             return null;
         }
