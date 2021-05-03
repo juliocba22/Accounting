@@ -28,6 +28,18 @@ namespace accounting.Models
         public Nullable<byte> activo { get; set; }
         public string path_url { get; set; }
         public string name_file { get; set; }
+        public double amount_money { get; set; }
+        public string selling_point { get; set; }
+        public string nro_comprobante { get; set; }
+        public string cuit_cuil { get; set; }
+        public string nro_cuit_cuil { get; set; }
+        public string denominacion_emisor { get; set; }
+        public Nullable<double> imp_neto_gravado { get; set; }
+        public Nullable<double> imp_neto_no_gravado { get; set; }
+        public Nullable<double> imp_op_exentas { get; set; }
+        public Nullable<double> iva { get; set; }
+        public Nullable<double> importe_total { get; set; }
+        public int tipo_comprobante_id { get; set; }
     
         public virtual expense_type expense_type { get; set; }
     }

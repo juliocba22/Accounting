@@ -25,12 +25,13 @@ namespace accounting.Controllers
     /// GASTOS(EXPENSES)
     /// </summary>
 
-    //[Authorize]
-    //[CustomAuthorizeAttribute]
-    //[SessionExpireFilter]
+    [Authorize]
+    [CustomAuthorizeAttribute]
+    [SessionExpireFilter]
     public class ExpensesController : Controller
     {
-        private accountingContext db = new accountingContext();
+        //private accountingContext db = new accountingContext();
+        private AccountingEntities1 db = new AccountingEntities1();
 
         private IRepoCustom _repo;
         int _pageSize = 5;
@@ -85,6 +86,7 @@ namespace accounting.Controllers
         public ActionResult Create()
         {
             ViewBagCreate(0);
+            ViewBagCreateTipoComprobante(0);
             return View(new ExpenseCreateVM { register_date = DateTime.Now, date_expense = DateTime.Now });
         }
 
@@ -96,23 +98,14 @@ namespace accounting.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    string FileName = "";
+                    if (model.file != null)
+                    {
+                        FileName = model.file.FileName;
+                        string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(FileName));
+                        model.file.SaveAs(url_path);
 
-                    //byte[] img_load = null;
-                    //if (model.file != null)
-                    //{
-                    //    WebImage img = new WebImage(model.file.InputStream);
-                    //    img_load = img.GetBytes();
-
-                    //}
-
-                    //subimos al server
-                    //model.file.SaveAs(Path.Combine(@"d:temp", Path.GetFileName(model.file.FileName)));
-                    //model.file.SaveAs(Path.Combine(@path_file, Path.GetFileName(model.file.FileName)));
-
-                    //string url_path = Path.Combine(@path_file, Path.GetFileName(model.file.FileName));
-                    string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(model.file.FileName));
-                    //string url_path = Path.Combine(Server.MapPath(path_file), Path.GetFileName(model.file.FileName));
-                    model.file.SaveAs(url_path);
+                    }
 
                     expense exp = new expense()
                     {
@@ -122,12 +115,20 @@ namespace accounting.Controllers
                         date_expense = model.date_expense,
                         register_date = DateTime.Now,
                         create_user_id = int.Parse(Session["UserID"].ToString()),
-                        amount = decimal.Parse(model.amount.ToString()),
-                        //image = img_load,//img.GetBytes(),
-                        //path_url= url_path,
-                        name_file= model.file.FileName,
-                        activo=1,
-
+                        amount_money = model.amount_money,
+                        name_file = FileName,
+                        activo = 1,
+                        selling_point = model.selling_point,
+                        tipo_comprobante_id=model.tipo_comprobante_id,
+                        nro_comprobante=model.nro_comprobante,
+                        cuit_cuil=model.cuit_cuil,
+                        nro_cuit_cuil=model.nro_cuit_cuil,
+                        denominacion_emisor=model.denominacion_emisor,
+                        imp_neto_gravado=model.imp_neto_gravado,
+                        imp_neto_no_gravado=model.imp_neto_no_gravado,
+                        imp_op_exentas = model.imp_op_exentas,
+                        iva=model.iva,    
+                        importe_total=model.importe_total,
                     };
 
                     _repo.ExpenseAdd(exp);
@@ -143,6 +144,7 @@ namespace accounting.Controllers
             }
 
             ViewBagCreate(model.expense_id);
+            ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
 
             return View(model);
         }
@@ -168,7 +170,7 @@ namespace accounting.Controllers
                 description = exp.description,
                 expense_id = exp.expense_id,
                 date_expense = (DateTime)exp.date_expense,
-                amount = (decimal)exp.amount,
+                amount_money=exp.amount_money,
             };
 
 
@@ -203,10 +205,22 @@ namespace accounting.Controllers
                 description = exp.description,
                 expense_id = exp.expense_id,
                 date_expense = (DateTime)exp.date_expense,
-                amount = (decimal)exp.amount,
+                amount_money = exp.amount_money,
+               // name_file = exp.name_file,
+                selling_point = exp.selling_point,
+                tipo_comprobante_id = exp.tipo_comprobante_id,
+                nro_comprobante = exp.nro_comprobante,
+                cuit_cuil = exp.cuit_cuil,
+                nro_cuit_cuil = exp.nro_cuit_cuil,
+                denominacion_emisor = exp.denominacion_emisor,
+                imp_neto_gravado = exp.imp_neto_gravado,
+                imp_neto_no_gravado = exp.imp_neto_no_gravado,
+                imp_op_exentas = exp.imp_op_exentas,
+                iva = exp.iva,
+                importe_total = exp.importe_total,
             };
 
-            ViewBagCreate(model.expense_id);
+           // ViewBagCreate(model.expense_id);
 
             if (exp == null)
             {
@@ -214,6 +228,7 @@ namespace accounting.Controllers
             }
 
             ViewBagCreate(model.expense_id);
+            ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
 
             return View(model);
         }
@@ -236,8 +251,19 @@ namespace accounting.Controllers
                         register_date = DateTime.Now,//no se deberia modificar
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        amount = decimal.Parse(model.amount.ToString()),
-                        activo=1,
+                        amount_money = model.amount_money,
+                        activo = 1,
+                        selling_point = model.selling_point,
+                        tipo_comprobante_id = model.tipo_comprobante_id,
+                        nro_comprobante = model.nro_comprobante,
+                        cuit_cuil = model.cuit_cuil,
+                        nro_cuit_cuil = model.nro_cuit_cuil,
+                        denominacion_emisor = model.denominacion_emisor,
+                        imp_neto_gravado = model.imp_neto_gravado,
+                        imp_neto_no_gravado = model.imp_neto_no_gravado,
+                        imp_op_exentas = model.imp_op_exentas,
+                        iva = model.iva,
+                        importe_total =model.importe_total,
                     };
 
                     _repo.ExpenseUpdate(exp);
@@ -253,6 +279,7 @@ namespace accounting.Controllers
             }
 
             ViewBagCreate(model.expense_id);
+            ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
             return View(model);
         }
         #endregion --[EDIT]--
@@ -306,6 +333,12 @@ namespace accounting.Controllers
         void ViewBagCreate(int expense_id)
         {
             ViewBag.expense_id = new SelectList(_repo.ExpenseTypeAll().Select(x => new { id = x.id, description = x.description }).ToList().OrderBy(o => o.description), "id", "description", expense_id);
+
+        }
+
+        void ViewBagCreateTipoComprobante(int tipo_comprobante_id)
+        {
+            ViewBag.tipo_comprobante_id = new SelectList(db.tipo_comprobante, "id", "descripcion", tipo_comprobante_id);
         }
 
         void ViewBagDetail(int expense_id)
@@ -318,38 +351,52 @@ namespace accounting.Controllers
 
         #endregion --[EXTRA]--
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        //public FileResult Download(string path_file,string name_file)
-        //{
-        //    //return File("~/Download/EjemploAltaDirecta.csv", "text/csv", "AltaDirecta.csv");
-
-        //    if (!string.IsNullOrEmpty(name_file))
-        //     return File(path_file, "img/jpg", name_file);
-
-        //    return null;
-        //}
-
         public FileResult Download(string name_file)
         {
             //return File("~/Download/EjemploAltaDirecta.csv", "text/csv", "AltaDirecta.csv");
 
 
+            //if (!string.IsNullOrEmpty(name_file))
+            //{
+            //    string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(name_file));
+            //    //return File(url_path, "img/jpg", name_file);
+            //    return File(url_path, "application/force- download", name_file);
+            //}
+
+
+            //return null;
+
+            //-----------
+
             if (!string.IsNullOrEmpty(name_file))
             {
-                string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(name_file));
-                return File(url_path, "img/jpg", name_file);
+                //string arc = "ftp://wi381664.ferozo.com/path/" + name_file;
+                string arc = "ftp://wi381664.ferozo.com/fundacion/path/" + name_file;
+                string folder = ConfigurationManager.AppSettings["folder"];
+                string archivo = folder + name_file;
+                 //string archivo = "C:/Users/mcejas.NEWLINK/Desktop/Files/" + name_file;
+
+                using (WebClient request = new WebClient())
+                {
+                    request.Credentials = new NetworkCredential("developer@institutosanignacio.com.ar", "Jmolina22");
+                    byte[] fileData = request.DownloadData(arc);
+
+                    using (FileStream file = System.IO.File.Create(@archivo))
+                    {
+                        file.Write(fileData, 0, fileData.Length);
+                        file.Close();
+                    }
+
+                }
+
+                return File(archivo, "img/jpg", name_file);
             }
-               
 
             return null;
+
+            //----------
+
+
         }
 
 
@@ -368,68 +415,7 @@ namespace accounting.Controllers
             memoryStream.Position = 0;
 
             return File(memoryStream, "image/jpg");
-            //return File(memoryStream,"");
-
-
-            //exp.image = memoryStream.ToArray();
-
-            //ExpenseCreateVM model = new ExpenseCreateVM()
-            //{
-            //    id = exp.id,
-            //    name = exp.name,
-            //    description = exp.description,
-            //    expense_id = exp.expense_id,
-            //    date_expense = (DateTime)exp.date_expense,
-            //    amount = (decimal)exp.amount,
-            //    image=exp.image,
-            //};
-
-            //return File(exp.image, "image/jpg");
-
-
         }
-
-
-        //[ActionName("getImage")]
-        //public byte [] getImage(int id)
-        //{
-        //    expense exp = _repo.ExpenseFind(id);
-        //    byte[] byteImage = exp.image;
-        //    MemoryStream memoryStream = new MemoryStream(byteImage);
-        //    Image image = Image.FromStream(memoryStream);
-
-        //    memoryStream = new MemoryStream();
-        //    image.Save(memoryStream, ImageFormat.Jpeg);
-        //    memoryStream.Position = 0;
-
-        //    //return File(memoryStream, "image/jpg");
-        //    return memoryStream.ToArray();
-        //}
-
-        //public FileContentResult getImage(int id)
-        //{
-        //    //var owin = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-        //    //var result = owin.FindByEmail<ApplicationUser, string>(User.Identity.Name);
-        //    expense exp = _repo.ExpenseFind(id);
-
-        //    //byte[] byteImage = exp.image;
-
-        //    byte[] biteIMG = exp.image;
-
-        //    MemoryStream m = new MemoryStream(biteIMG);
-
-
-        //    Image image = Image.FromStream(m);
-
-        //    m = new MemoryStream();
-
-        //    image.Save(m, ImageFormat.Png);
-
-        //    m.Position = 0;
-
-
-        //    return new FileContentResult(biteIMG, "image/png");
-        //}
+        
     }
 }

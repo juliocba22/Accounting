@@ -344,10 +344,11 @@ namespace accounting.Repositories
                             expense_id = e.expense_id,
                             expense_description = t.description,
                             date_expense= (DateTime)e.date_expense,
-                            amount= (decimal)e.amount,
+                           // amount= (decimal)e.amount,
                             image =  e.image,
                             path_file=e.path_url,
                             name_file=e.name_file,
+                            amount_money=e.amount_money,
                         }).ToList();
             }
         }

@@ -27,5 +27,6 @@ namespace accounting.Models
         public byte activo { get; set; }
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> update_user_id { get; set; }
+        public Nullable<int> estado { get; set; }
     }
 }
