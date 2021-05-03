@@ -1612,6 +1612,7 @@
     <Folder Include="Content\assets\js\script\partials\" />
     <Folder Include="Content\assets\js\script\plugins\" />
     <Folder Include="Content\assets\plugin\" />
+    <Folder Include="path\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

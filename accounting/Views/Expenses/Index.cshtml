@@ -79,14 +79,15 @@
         @item.date_expense.ToString("dd/MM/yyyy")
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.amount)
+        @Html.DisplayFor(modelItem => item.amount_money)
     </td>
     <td>
         @*@Html.DisplayFor(modelItem => item.image)*@
         @if (!string.IsNullOrEmpty(item.name_file))
         {
-            @Html.ActionLink("Download", "Download", new { path_file = item.path_file, name_file = item.name_file })
-          
+            @*@Html.ActionLink("Download", "Download", new { name_file = item.name_file })*@
+            <a target="_blank" href="http://institutosanignacio.com.ar/Fundacion/path/@item.name_file">DOWNLOAD</a>
+
         }
         else
         {

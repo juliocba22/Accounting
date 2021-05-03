@@ -3,6 +3,7 @@ using accounting.Infra;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -55,8 +56,51 @@ namespace accounting.ViewModels
         public string expense_name { get; set; }//para details
         public DateTime register_date { get; set; }
 
+        //[Display(Name = "Monto gasto")]
+        ////[Column, Display(Name = "Monto gasto"), Required, DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        //public decimal amount { get; set; }
+
         [Display(Name = "Monto gasto")]
-        public decimal amount { get; set; }
+        //[Column, Display(Name = "Monto gasto"), Required, DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        public double amount_money { get; set; }
+
+        [Display(Name = "Punto de venta")]
+        public string selling_point { get; set; }
+
+        [Display(Name = "tipo comprobante")]
+        [Required(ErrorMessage = "* required")]
+        public int tipo_comprobante_id { get; set; }
+
+        [Display(Name = "Nro. comprobante")]
+        [Required(ErrorMessage = "* required")]
+        public string nro_comprobante { get; set; }
+
+        [Display(Name = "cuit/cuil")]
+        [Required(ErrorMessage = "* required")]
+        public string cuit_cuil { get; set; }
+
+        [Display(Name = "Nro. cuit/cuil")]
+        [Required(ErrorMessage = "* required")]
+        public string nro_cuit_cuil { get; set; }
+
+        [Display(Name = "Denominacion Emisor")]
+        public string denominacion_emisor { get; set; }
+
+        [Display(Name = "Imp. Neto Gravado")]
+        public double? imp_neto_gravado { get; set; }
+
+        [Display(Name = "Imp. Neto No Gravado")]
+        public double? imp_neto_no_gravado { get; set; }
+
+        [Display(Name = "Imp. Op. Exentas")]
+        public double? imp_op_exentas { get; set; }
+
+        [Display(Name = "IVA")]
+        public double? iva { get; set; }
+
+        [Display(Name = "Importe Total")]
+        public double? importe_total { get; set; }
+
 
         [Display(Name = "Archivo del gasto (image,excel,word,notes..) ")]
         public HttpPostedFileBase file { get; set; }
