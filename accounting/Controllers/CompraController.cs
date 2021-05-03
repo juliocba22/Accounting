@@ -80,8 +80,12 @@ namespace accounting.Controllers
 
             co = _repo.GetDetalleCompra(id);
 
+            co.EstadoDesc = GetEstadoDesc(co.Estado);
+
             return View(co);
         }
+
+       
         #endregion
 
         #region nuevo
@@ -115,7 +119,8 @@ namespace accounting.Controllers
                         descuento_global = compraVM.DescuentoGlobal,
                         activo = 1,
                         update_date = DateTime.Now,
-                        update_user_id = int.Parse(Session["UserID"].ToString())
+                        update_user_id = int.Parse(Session["UserID"].ToString()),
+                        estado = 0
                     };
 
                     db.compra.Add(co);
@@ -158,7 +163,8 @@ namespace accounting.Controllers
                 PrimerVencimiento = co.vencimiento_1,
                 SdoVencimiento = co.vencimiento_2,
                 Importe = co.importe,
-                DescuentoGlobal = co.descuento_global
+                DescuentoGlobal = co.descuento_global,
+                Estado = co.estado
             };
             return View(c);
         }
@@ -185,7 +191,8 @@ namespace accounting.Controllers
                         descuento_global = compraVM.DescuentoGlobal,
                         activo = 1,
                         update_date = DateTime.Now,
-                        update_user_id = int.Parse(Session["UserID"].ToString())
+                        update_user_id = int.Parse(Session["UserID"].ToString()),
+                        estado = compraVM.Estado
                     };
 
                     db.Entry(co).State = EntityState.Modified;
@@ -258,7 +265,26 @@ namespace accounting.Controllers
 
             ViewBag.Tipo = db.tipo_comprobante.Where(x => x.activo == 1).OrderBy(x => x.descripcion);
         }
-
+        private string GetEstadoDesc(int? estado)
+        {
+            string est= "";
+            switch (estado)
+            {
+                case 0:
+                    est = "Pendiente de Pago";
+                    break;
+                case 1:
+                    est = "Pago incompleto";
+                    break;
+                case 2:
+                    est = "Pagada";
+                    break;
+                default:
+                    est = "Pendiente de Pago";
+                    break;
+            }
+            return est;
+        }
         public FileContentResult Export([Bind(Include = "proveedor, FechaD, FechaH")] int? proveedor, DateTime? FechaD, DateTime? FechaH)
         {
             StringBuilder csv = new StringBuilder();

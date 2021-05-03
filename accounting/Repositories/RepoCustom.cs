@@ -950,7 +950,8 @@ namespace accounting.Repositories
                                 PrimerVencimiento = co.vencimiento_1,
                                 SdoVencimiento = co.vencimiento_2,
                                 Importe = co.importe,
-                                DescuentoGlobal = co.descuento_global
+                                DescuentoGlobal = co.descuento_global,
+                                Estado = co.estado
                             }).First();
                 }
             }
@@ -978,7 +979,8 @@ namespace accounting.Repositories
                                 TipoComprobante = tp.descripcion,
                                 NroFactura = co.nro_factura,
                                 FechaEmision = co.fecha_emision,         
-                                Importe = co.importe
+                                Importe = co.importe,
+                                EstadoDesc = co.estado == 0 ? "Pendiente de Pago" : co.estado == 1 ? "Pago incompleto" : "Pagada"
                             }).ToList();
                 }
             }
