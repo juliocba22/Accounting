@@ -28,26 +28,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="expense">
-      <EntityTypeMapping TypeName="AccountingModel.expense">
-        <MappingFragment StoreEntitySet="expense">
-          <ScalarProperty Name="name_file" ColumnName="name_file" />
-          <ScalarProperty Name="path_url" ColumnName="path_url" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
-          <ScalarProperty Name="register_date" ColumnName="register_date" />
-          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
-          <ScalarProperty Name="update_date" ColumnName="update_date" />
-          <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
-          <ScalarProperty Name="date_expense" ColumnName="date_expense" />
-          <ScalarProperty Name="amount" ColumnName="amount" />
-          <ScalarProperty Name="image" ColumnName="image" />
-          <ScalarProperty Name="activo" ColumnName="activo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="expense_type">
       <EntityTypeMapping TypeName="AccountingModel.expense_type">
         <MappingFragment StoreEntitySet="expense_type">
@@ -198,6 +178,7 @@
     <EntitySetMapping Name="compra">
       <EntityTypeMapping TypeName="AccountingModel.compra">
         <MappingFragment StoreEntitySet="compra">
+          <ScalarProperty Name="estado" ColumnName="estado" />
           <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
           <ScalarProperty Name="update_date" ColumnName="update_date" />
           <ScalarProperty Name="activo" ColumnName="activo" />
@@ -210,6 +191,38 @@
           <ScalarProperty Name="nro_factura" ColumnName="nro_factura" />
           <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
           <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expense">
+      <EntityTypeMapping TypeName="AccountingModel.expense">
+        <MappingFragment StoreEntitySet="expense">
+          <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
+          <ScalarProperty Name="importe_total" ColumnName="importe_total" />
+          <ScalarProperty Name="iva" ColumnName="iva" />
+          <ScalarProperty Name="imp_op_exentas" ColumnName="imp_op_exentas" />
+          <ScalarProperty Name="imp_neto_no_gravado" ColumnName="imp_neto_no_gravado" />
+          <ScalarProperty Name="imp_neto_gravado" ColumnName="imp_neto_gravado" />
+          <ScalarProperty Name="denominacion_emisor" ColumnName="denominacion_emisor" />
+          <ScalarProperty Name="nro_cuit_cuil" ColumnName="nro_cuit_cuil" />
+          <ScalarProperty Name="cuit_cuil" ColumnName="cuit_cuil" />
+          <ScalarProperty Name="nro_comprobante" ColumnName="nro_comprobante" />
+          <ScalarProperty Name="selling_point" ColumnName="selling_point" />
+          <ScalarProperty Name="amount_money" ColumnName="amount_money" />
+          <ScalarProperty Name="name_file" ColumnName="name_file" />
+          <ScalarProperty Name="path_url" ColumnName="path_url" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="date_expense" ColumnName="date_expense" />
+          <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+          <ScalarProperty Name="register_date" ColumnName="register_date" />
+          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

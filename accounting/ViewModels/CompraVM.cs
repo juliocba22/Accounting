@@ -50,6 +50,11 @@ namespace accounting.ViewModels
         public string Proveedor { get; set; }
 
         public string TipoComprobante { get; set; }
+
+        public int? Estado { get; set; }
+
+        public string EstadoDesc { get; set; }
+
     }
 
     public class CompraDeleteVM

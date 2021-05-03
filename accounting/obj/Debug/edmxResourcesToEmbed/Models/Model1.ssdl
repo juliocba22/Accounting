@@ -42,6 +42,7 @@
     <Property Name="activo" Type="tinyint" Nullable="false" />
     <Property Name="update_date" Type="date" />
     <Property Name="update_user_id" Type="int" />
+    <Property Name="estado" Type="int" />
   </EntityType>
   <EntityType Name="expense">
     <Key>
@@ -61,6 +62,18 @@
     <Property Name="activo" Type="tinyint" />
     <Property Name="path_url" Type="varchar" MaxLength="100" />
     <Property Name="name_file" Type="varchar" MaxLength="150" />
+    <Property Name="amount_money" Type="float" Nullable="false" />
+    <Property Name="selling_point" Type="varchar" MaxLength="150" />
+    <Property Name="nro_comprobante" Type="varchar" MaxLength="150" />
+    <Property Name="cuit_cuil" Type="varchar" MaxLength="15" />
+    <Property Name="nro_cuit_cuil" Type="varchar" MaxLength="150" />
+    <Property Name="denominacion_emisor" Type="varchar" MaxLength="150" />
+    <Property Name="imp_neto_gravado" Type="float" />
+    <Property Name="imp_neto_no_gravado" Type="float" />
+    <Property Name="imp_op_exentas" Type="float" />
+    <Property Name="iva" Type="float" />
+    <Property Name="importe_total" Type="float" />
+    <Property Name="tipo_comprobante_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="expense_type">
     <Key>

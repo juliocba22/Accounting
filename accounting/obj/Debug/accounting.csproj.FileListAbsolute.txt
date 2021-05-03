@@ -505,3 +505,4 @@ C:\Proyectos-Julio\accounting\obj\Debug\accounting.csproj.CoreCompileInputs.cach
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.csproj.CopyComplete
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.dll
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.pdb
+C:\Proyectos-Julio\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
