@@ -32,22 +32,22 @@ namespace accounting.ViewModels
         #region --[CREATE]--
         public long id { get; set; }
 
-        [Display(Name = "nombre")]
+        [Display(Name = "* Nombre del Voluntario")]
         [Required(ErrorMessage = "* required")]
         public string name { get; set; }
 
-        [Display(Name = "descripcion")]
+        [Display(Name = "* Descripcion")]
         [Required(ErrorMessage = "* required")]
         public string description { get; set; }
 
-        [Display(Name = "fecha gasto")]
+        [Display(Name = "* Fecha gasto")]
         [Required(ErrorMessage = "* required")]
         [DataType(DataType.DateTime, ErrorMessage = "Formato inválido.")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime date_expense { get; set; }
+        public DateTime? date_expense { get; set; }
 
 
-        [Display(Name = "tipo gasto")]
+        [Display(Name = "* Tipo gasto")]
         [Required(ErrorMessage = "* required")]
         public byte expense_id { get; set; }
 
@@ -56,30 +56,25 @@ namespace accounting.ViewModels
         public string expense_name { get; set; }//para details
         public DateTime register_date { get; set; }
 
-        //[Display(Name = "Monto gasto")]
-        ////[Column, Display(Name = "Monto gasto"), Required, DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
-        //public decimal amount { get; set; }
-
         [Display(Name = "Monto gasto")]
-        //[Column, Display(Name = "Monto gasto"), Required, DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public double amount_money { get; set; }
 
         [Display(Name = "Punto de venta")]
         public string selling_point { get; set; }
 
-        [Display(Name = "tipo comprobante")]
+        [Display(Name = "* Tipo comprobante")]
         [Required(ErrorMessage = "* required")]
         public int tipo_comprobante_id { get; set; }
 
-        [Display(Name = "Nro. comprobante")]
+        [Display(Name = "* Nro. comprobante")]
         [Required(ErrorMessage = "* required")]
         public string nro_comprobante { get; set; }
 
-        [Display(Name = "cuit/cuil")]
+        [Display(Name = "* CUIT/CUIL")]
         [Required(ErrorMessage = "* required")]
         public string cuit_cuil { get; set; }
 
-        [Display(Name = "Nro. cuit/cuil")]
+        [Display(Name = "* Nro. cuit/cuil")]
         [Required(ErrorMessage = "* required")]
         public string nro_cuit_cuil { get; set; }
 
@@ -108,7 +103,8 @@ namespace accounting.ViewModels
 
         public byte[] image { get; set; }
 
-      
+        public string tipo_comprobante { get; set; }
+
         #endregion --[CREATE]--
     }
 }

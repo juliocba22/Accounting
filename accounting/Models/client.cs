@@ -15,7 +15,6 @@ namespace accounting.Models
     public partial class client
     {
         public int id { get; set; }
-        public string codigo { get; set; }
         public string razonSocial { get; set; }
         public string nombreFantasia { get; set; }
         public string localidad { get; set; }
@@ -27,5 +26,6 @@ namespace accounting.Models
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> update_user_id { get; set; }
         public byte activo { get; set; }
+        public string codigo { get; set; }
     }
 }

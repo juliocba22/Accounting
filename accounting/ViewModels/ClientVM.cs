@@ -10,10 +10,10 @@ namespace accounting.ViewModels
 {
     public class ClientVM
     {
+        [Display(Name = "Código")]
         public int id { get; set; }
 
-        [Display(Name = "* Código")]
-        [Required(ErrorMessage = "* requerido")]
+        [Display(Name = "CUIT/CUIL/DNI")]
         public string codigo { get; set; }
 
         [Display(Name = "* Razón Social")]

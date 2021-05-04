@@ -34,7 +34,7 @@ namespace accounting.Controllers
             {
                 IEnumerable<ListProductService> list = _repo.ProductServiceList(model.nombre);
 
-                model.list = list.OrderBy(o => o.id).Skip((page - 1) * _pageSize).Take(_pageSize);
+                model.list = list.OrderByDescending(o => o.id).Skip((page - 1) * _pageSize).Take(_pageSize);
                 model.pagingInfo = new PagingInfo
                 {
                     CurrentPage = page,

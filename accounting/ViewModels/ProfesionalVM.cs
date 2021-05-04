@@ -19,7 +19,7 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requerido")]
         public string nombre { get; set; }
 
-        [Display(Name = "Matrícula")]
+        [Display(Name = "Nro de Matrícula")]
         public string matricula { get; set; }
 
         [Display(Name = "CUIT")]

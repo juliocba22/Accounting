@@ -2,8 +2,6 @@
 using accounting.Repositories;
 using accounting.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -13,8 +11,6 @@ namespace accounting.Controllers
     public class UserController : Controller
     {
         #region --[GLOBAL]--
-
-        //protected static readonly log4net.ILog log = log4net.LogManager.GetLogger("UsuarioController");
         private IRepoCustom _repo;
 
         #endregion --[GLOBAL]--
@@ -36,7 +32,6 @@ namespace accounting.Controllers
         #region --[LOGIN]--
 
         [AllowAnonymous]
-        //[OutputCache(NoStore = true, Duration = 0)]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -46,7 +41,6 @@ namespace accounting.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        //[OutputCache(NoStore = true, Duration = 0)]
         public ActionResult Login(UserLoginVM model, string returnUrl)
         {
             try {
@@ -72,7 +66,7 @@ namespace accounting.Controllers
                                     1,
                                     user.name,
                                     DateTime.Now,
-                                    DateTime.Now.AddMinutes(60), // Expira en 60 minutos.
+                                    DateTime.Now.AddMinutes(720), // Expira en 60 minutos.
                                     model.rememberme,
                                     user.rol.description);
 
@@ -130,7 +124,6 @@ namespace accounting.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            //Session["ClientID"] = null;
             Session["UserID"] = null;
             return RedirectToAction("Login", "User");
         }

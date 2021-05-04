@@ -7,11 +7,6 @@
 
 <h2>Listado de Compras</h2>
 
-
-<p>
-    @Html.ActionLink("Nueva Compra", "Create")
-</p>
-
 @using (Html.BeginForm("Index", "Compra", FormMethod.Post, new { page = 1 }))
 {
     <div class="panel panel-default">
@@ -53,7 +48,9 @@
     </div>
 }
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+<div class="form-group">
+    @Html.ActionLink("NUEVA COMPRA", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+</div>
 <table class="table">
     <tr>
         <th>

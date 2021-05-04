@@ -7,11 +7,6 @@
 
     <h2>Listado de Productos y Servicios</h2>
 
-
-<p>
-    @Html.ActionLink("Nuevo Producto/Servicio", "Create")
-</p>
-
 @using (Html.BeginForm("Index", "ProductService", FormMethod.Post, new { page = 1 }))
 {
     <div class="panel panel-default">
@@ -39,7 +34,9 @@
     </div>
 }
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+<div class="form-group">
+    @Html.ActionLink("NUEVO PROD/SERV", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+</div>
 <table class="table">
     <tr>
         <th>

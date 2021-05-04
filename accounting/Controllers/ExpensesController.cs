@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -34,7 +35,7 @@ namespace accounting.Controllers
         private AccountingEntities1 db = new AccountingEntities1();
 
         private IRepoCustom _repo;
-        int _pageSize = 5;
+        int _pageSize = 20;
         string path_file;
 
         #region --[CONSTRUCTOR]--
@@ -161,25 +162,8 @@ namespace accounting.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            expense exp = _repo.ExpenseFind(id);
-
-            ExpenseCreateVM model = new ExpenseCreateVM()
-            {
-                id = exp.id,
-                name = exp.name,
-                description = exp.description,
-                expense_id = exp.expense_id,
-                date_expense = (DateTime)exp.date_expense,
-                amount_money=exp.amount_money,
-            };
-
-
-            if (exp == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBagDetail(model.expense_id);
+            ExpenseCreateVM model = new ExpenseCreateVM();
+            model = _repo.GetExpenseDetail(id);
 
             return View(model);
         }
@@ -347,10 +331,6 @@ namespace accounting.Controllers
             ViewBag.expense_name = list.Select(s => s.description).FirstOrDefault();
         }
 
-
-
-        #endregion --[EXTRA]--
-
         public FileResult Download(string name_file)
         {
             //return File("~/Download/EjemploAltaDirecta.csv", "text/csv", "AltaDirecta.csv");
@@ -374,7 +354,7 @@ namespace accounting.Controllers
                 string arc = "ftp://wi381664.ferozo.com/fundacion/path/" + name_file;
                 string folder = ConfigurationManager.AppSettings["folder"];
                 string archivo = folder + name_file;
-                 //string archivo = "C:/Users/mcejas.NEWLINK/Desktop/Files/" + name_file;
+                //string archivo = "C:/Users/mcejas.NEWLINK/Desktop/Files/" + name_file;
 
                 using (WebClient request = new WebClient())
                 {
@@ -399,8 +379,6 @@ namespace accounting.Controllers
 
         }
 
-
-
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult getImage(int id)
         {
@@ -416,6 +394,23 @@ namespace accounting.Controllers
 
             return File(memoryStream, "image/jpg");
         }
+
+        public FileContentResult Export([Bind(Include = "expense_type")] string expense_type)
+        {
+            StringBuilder csv = new StringBuilder();
+            IEnumerable<ReportExpense> listado = _repo.ExpenseReport(expense_type);
+
+            csv.AppendLine("Nombre;Tipo comprobante;Punto de venta;Nro. comprobante;cuit/cuil;Nro. cuit/cuil;Emisor; Imp. Neto Gravado;Imp. Neto No Gravado;Imp. Op. Exentas;IVA;Importe Total;Descripcion;Tipo gasto;Fecha gasto;Monto gasto");
+            foreach (var item in listado)
+                csv.AppendLine(item.ToString());
+
+            string archivo = "ReporteGastos_" + DateTime.Now.ToString("yyyyMMdd");
+            return File(Encoding.Default.GetBytes(csv.ToString()), "text/csv", archivo + ".csv");
+        }
+
+        #endregion --[EXTRA]--
+
+       
         
     }
 }

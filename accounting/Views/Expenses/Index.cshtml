@@ -7,11 +7,6 @@
 
 <h2>Listado de Gastos</h2>
 
-
-<p>
-    @Html.ActionLink("Nuevo Gasto", "Create")
-</p>
-
 @using (Html.BeginForm("Index", "Expenses", FormMethod.Post, new { page = 1 }))
 {
     <div class="panel panel-default">
@@ -26,95 +21,108 @@
                     </div>
                 </div>
             </div>
+            @if (Model.list != null && Model.list.ToList().Count > 0)
+            {
+                <div class="row">
+                    <div class="col-xs-6" style="margin-top:10px;">
+                        <span class="glyphicon glyphicon-download"></span>
+                        @Html.ActionLink("Exportar listado a CSV", "Export", new { expense_type = Model.expense_type})
+                    </div>
+                </div>
+            }
         </div>
     </div>
 }
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("nombre")
-        </th>
-        <th>
-            @Html.Label("descripcion")
-        </th>
-        <th>
-            @Html.Label("tipo gasto")
-        </th>
-        <th>
-            @Html.Label("fecha gasto")
-        </th>
-        <th>
-            @Html.Label("monto gasto")
-        </th>
-        <th>
-            @Html.Label("Archivo")
-        </th>
-        <th></th>
-    </tr>
+<div class="form-group">
+    @Html.ActionLink("NUEVO GASTO", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+</div>
 
-    @if (@Model.list.Count() == 0)
-    {
+    <table class="table">
         <tr>
-            <td colspan="10">no se encontraron registros.</td>
+            <th>
+                @Html.Label("nombre")
+            </th>
+            <th>
+                @Html.Label("descripcion")
+            </th>
+            <th>
+                @Html.Label("tipo gasto")
+            </th>
+            <th>
+                @Html.Label("fecha gasto")
+            </th>
+            <th>
+                @Html.Label("monto gasto")
+            </th>
+            <th>
+                @Html.Label("Archivo")
+            </th>
+            <th></th>
         </tr>
-    }
-    else
-    {
-        foreach (var item in Model.list)
-        {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.expense_description)
-    </td>
-    <td>
-        @*@Html.DisplayFor(modelItem => item.date_expense)*@
-        @item.date_expense.ToString("dd/MM/yyyy")
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.amount_money)
-    </td>
-    <td>
-        @*@Html.DisplayFor(modelItem => item.image)*@
-        @if (!string.IsNullOrEmpty(item.name_file))
-        {
-            @*@Html.ActionLink("Download", "Download", new { name_file = item.name_file })*@
-            <a target="_blank" href="http://institutosanignacio.com.ar/Fundacion/path/@item.name_file">DOWNLOAD</a>
 
+        @if (@Model.list.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">no se encontraron registros.</td>
+            </tr>
         }
         else
         {
-            <img src="~/img/file_notaviable.png" alt="sin archivo" width="30" height="30" />
+            foreach (var item in Model.list)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.expense_description)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.date_expense)*@
+                        @item.date_expense.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.amount_money)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.image)*@
+                        @if (!string.IsNullOrEmpty(item.name_file))
+                        {
+                            @*@Html.ActionLink("Download", "Download", new { name_file = item.name_file })*@
+                            <a target="_blank" href="http://institutosanignacio.com.ar/Fundacion/path/@item.name_file">DOWNLOAD</a>
+
+                        }
+                        else
+                        {
+                            <img src="~/img/file_notaviable.png" alt="sin archivo" width="30" height="30" />
+                        }
+
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+                    </td>
+                </tr>
+            }
         }
 
-    </td>
-    <td>
-        @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-        @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
-    </td>
-</tr>
-        }
-    }
+    </table>
 
-</table>
-
-@if (Model.list.ToList().Count > 0)
-{
-    if (Model.pagingInfo.TotalPages > 1)
+    @if (Model.list.ToList().Count > 0)
     {
-        <ul class="paginate pag1 clearfix">
-            <li class="single">Pág. @Model.pagingInfo.CurrentPage de @Model.pagingInfo.TotalPages</li>
-            @Html.PageLinks(Model.pagingInfo, x => Url.Action("Index", "Expenses", new { page = x, name = Model.name }))
-        </ul>
+        if (Model.pagingInfo.TotalPages > 1)
+        {
+            <ul class="paginate pag1 clearfix">
+                <li class="single">Pág. @Model.pagingInfo.CurrentPage de @Model.pagingInfo.TotalPages</li>
+                @Html.PageLinks(Model.pagingInfo, x => Url.Action("Index", "Expenses", new { page = x, name = Model.name }))
+            </ul>
+        }
     }
-}
 
-@*}*@
+    @*}*@

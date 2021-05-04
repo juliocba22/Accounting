@@ -9,25 +9,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="client">
-      <EntityTypeMapping TypeName="AccountingModel.client">
-        <MappingFragment StoreEntitySet="client">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="codigo" ColumnName="codigo" />
-          <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
-          <ScalarProperty Name="nombreFantasia" ColumnName="nombreFantasia" />
-          <ScalarProperty Name="localidad" ColumnName="localidad" />
-          <ScalarProperty Name="provincia" ColumnName="provincia" />
-          <ScalarProperty Name="personeria" ColumnName="personeria" />
-          <ScalarProperty Name="telefono" ColumnName="telefono" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="emailFacturacon" ColumnName="emailFacturacon" />
-          <ScalarProperty Name="update_date" ColumnName="update_date" />
-          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
-          <ScalarProperty Name="activo" ColumnName="activo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="expense_type">
       <EntityTypeMapping TypeName="AccountingModel.expense_type">
         <MappingFragment StoreEntitySet="expense_type">
@@ -137,25 +118,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="work_order">
-      <EntityTypeMapping TypeName="AccountingModel.work_order">
-        <MappingFragment StoreEntitySet="work_order">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="nro_orden" ColumnName="nro_orden" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="product_service_id" ColumnName="product_service_id" />
-          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-          <ScalarProperty Name="nombre_paciente" ColumnName="nombre_paciente" />
-          <ScalarProperty Name="social_work_id" ColumnName="social_work_id" />
-          <ScalarProperty Name="profesional_id" ColumnName="profesional_id" />
-          <ScalarProperty Name="motivo_eliminacion" ColumnName="motivo_eliminacion" />
-          <ScalarProperty Name="status_id" ColumnName="status_id" />
-          <ScalarProperty Name="update_date" ColumnName="update_date" />
-          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="work_order_status">
       <EntityTypeMapping TypeName="AccountingModel.work_order_status">
         <MappingFragment StoreEntitySet="work_order_status">
@@ -223,6 +185,43 @@
           <ScalarProperty Name="expense_id" ColumnName="expense_id" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="AccountingModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="emailFacturacon" ColumnName="emailFacturacon" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="personeria" ColumnName="personeria" />
+          <ScalarProperty Name="provincia" ColumnName="provincia" />
+          <ScalarProperty Name="localidad" ColumnName="localidad" />
+          <ScalarProperty Name="nombreFantasia" ColumnName="nombreFantasia" />
+          <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="work_order">
+      <EntityTypeMapping TypeName="AccountingModel.work_order">
+        <MappingFragment StoreEntitySet="work_order">
+          <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="motivo_eliminacion" ColumnName="motivo_eliminacion" />
+          <ScalarProperty Name="profesional_id" ColumnName="profesional_id" />
+          <ScalarProperty Name="social_work_id" ColumnName="social_work_id" />
+          <ScalarProperty Name="nombre_paciente" ColumnName="nombre_paciente" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="product_service_id" ColumnName="product_service_id" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
