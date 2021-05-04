@@ -135,6 +135,11 @@ namespace accounting.Repositories
         expense ExpenseGet(long id);
 
         IEnumerable<ListExpense> ExpenseList(string expense_type);
+
+        ExpenseCreateVM GetExpenseDetail(long id);
+
+        IEnumerable<ReportExpense> ExpenseReport(string expense_type);
+
         #endregion --[GASTOS]--
 
         #region --[TIPO GASTO]--
@@ -252,6 +257,7 @@ namespace accounting.Repositories
         CompraVM GetDetalleCompra(long? id);
         IEnumerable<ListCompra> CompraList(int? proveedor, DateTime? fechaEmisionHasta1, DateTime? fechaEmisionHasta2);
         IEnumerable<ReportCompra> CompraReport(int? proveedor, DateTime? fechaEmisionDesde, DateTime? fechaEmisionHasta);
+       
         #endregion
     }
 }

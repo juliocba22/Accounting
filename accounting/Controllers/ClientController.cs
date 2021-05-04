@@ -35,7 +35,7 @@ namespace accounting.Controllers
             {
                 IEnumerable<ListClient> list = _repo.ClientList(model.razonSocial);
 
-                model.list = list.OrderBy(o => o.razonSocial).Skip((page - 1) * _pageSize).Take(_pageSize);
+                model.list = list.OrderByDescending(o => o.id).Skip((page - 1) * _pageSize).Take(_pageSize);
                 model.pagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -65,7 +65,6 @@ namespace accounting.Controllers
             ClientVM c = new ClientVM()
             {
                 id = client.id,
-                codigo = client.codigo,
                 razonSocial = client.razonSocial,
                 nombreFantasia = client.nombreFantasia,
                 localidad = client.localidad,
@@ -73,7 +72,8 @@ namespace accounting.Controllers
                 personeria = client.personeria,
                 telefono = client.telefono,
                 email = client.email,
-                emailFacturacon = client.emailFacturacon
+                emailFacturacon = client.emailFacturacon,
+                codigo = client.codigo
             };
 
             return View(c);
@@ -97,7 +97,6 @@ namespace accounting.Controllers
                 {
                     client c = new client()
                     {
-                        codigo = client.codigo,
                         razonSocial = client.razonSocial,
                         nombreFantasia = client.nombreFantasia,
                         localidad = client.localidad,
@@ -108,7 +107,8 @@ namespace accounting.Controllers
                         emailFacturacon = client.emailFacturacon,
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        activo = 1
+                        activo = 1,
+                        codigo = client.codigo
                     };
 
                     db.client.Add(c);
@@ -116,7 +116,7 @@ namespace accounting.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
@@ -137,7 +137,6 @@ namespace accounting.Controllers
             ClientVM c = new ClientVM ()
             {
                 id = client.id,
-                codigo = client.codigo,
                 razonSocial = client.razonSocial,
                 nombreFantasia = client.nombreFantasia,
                 localidad = client.localidad,
@@ -145,7 +144,8 @@ namespace accounting.Controllers
                 personeria = client.personeria,
                 telefono = client.telefono,
                 email = client.email,
-                emailFacturacon = client.emailFacturacon
+                emailFacturacon = client.emailFacturacon,
+                codigo = client.codigo
             };
             return View(c);
         }
@@ -161,7 +161,6 @@ namespace accounting.Controllers
                     client c = new client()
                     {
                         id = client.id,
-                        codigo = client.codigo,
                         razonSocial = client.razonSocial,
                         nombreFantasia = client.nombreFantasia,
                         localidad = client.localidad,
@@ -172,7 +171,8 @@ namespace accounting.Controllers
                         emailFacturacon = client.emailFacturacon,
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        activo = 1
+                        activo = 1,
+                        codigo = client.codigo
                     };
 
                     db.Entry(c).State = EntityState.Modified;
@@ -180,7 +180,7 @@ namespace accounting.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
@@ -201,7 +201,6 @@ namespace accounting.Controllers
             ClientVM c = new ClientVM()
             {
                 id = client.id,
-                codigo = client.codigo,
                 razonSocial = client.razonSocial
             };
 
@@ -236,7 +235,7 @@ namespace accounting.Controllers
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportClient> listado = _repo.ClientReport(razonSocial);
 
-            csv.AppendLine("codigo;razonSocial;localidad;provincia;telefono;email;emailFacturacion");
+            csv.AppendLine("codigo;razonSocial;localidad;provincia;telefono;email;emailFacturacion;CUIT/CUIL/DNI");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

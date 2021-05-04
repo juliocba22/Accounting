@@ -8,24 +8,6 @@
     <Property Name="descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="proveedor" Relationship="Self.FK_proveedor_categoria_impositiva_categoria_impositiva_id" FromRole="categoria_impositiva" ToRole="proveedor" />
   </EntityType>
-  <EntityType Name="client">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="razonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="nombreFantasia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="provincia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="personeria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="emailFacturacon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="update_date" Type="DateTime" Precision="3" />
-    <Property Name="update_user_id" Type="Int32" />
-    <Property Name="activo" Type="Byte" Nullable="false" />
-  </EntityType>
   <EntityType Name="expense_type">
     <Key>
       <PropertyRef Name="id" />
@@ -132,24 +114,6 @@
     <Property Name="create_user_id" Type="Int32" />
     <NavigationProperty Name="rol" Relationship="Self.FK_users_rol_rol_id" FromRole="users" ToRole="rol" />
   </EntityType>
-  <EntityType Name="work_order">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nro_orden" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="product_service_id" Type="Int32" Nullable="false" />
-    <Property Name="cantidad" Type="Double" />
-    <Property Name="nombre_paciente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="social_work_id" Type="Int32" />
-    <Property Name="profesional_id" Type="Int32" />
-    <Property Name="motivo_eliminacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="status_id" Type="Int32" Nullable="false" />
-    <Property Name="update_date" Type="DateTime" Precision="3" />
-    <Property Name="update_user_id" Type="Int32" />
-  </EntityType>
   <EntityType Name="work_order_status">
     <Key>
       <PropertyRef Name="id" />
@@ -183,7 +147,6 @@
   </Association>
   <EntityContainer Name="AccountingEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="categoria_impositiva" EntityType="Self.categoria_impositiva" />
-    <EntitySet Name="client" EntityType="Self.client" />
     <EntitySet Name="expense_type" EntityType="Self.expense_type" />
     <EntitySet Name="product_service" EntityType="Self.product_service" />
     <EntitySet Name="profesional" EntityType="Self.profesional" />
@@ -191,7 +154,6 @@
     <EntitySet Name="rol" EntityType="Self.rol" />
     <EntitySet Name="social_work" EntityType="Self.social_work" />
     <EntitySet Name="users" EntityType="Self.users" />
-    <EntitySet Name="work_order" EntityType="Self.work_order" />
     <EntitySet Name="work_order_status" EntityType="Self.work_order_status" />
     <AssociationSet Name="FK_proveedor_categoria_impositiva_categoria_impositiva_id" Association="Self.FK_proveedor_categoria_impositiva_categoria_impositiva_id">
       <End Role="categoria_impositiva" EntitySet="categoria_impositiva" />
@@ -208,6 +170,8 @@
       <End Role="expense_type" EntitySet="expense_type" />
       <End Role="expense" EntitySet="expense" />
     </AssociationSet>
+    <EntitySet Name="client" EntityType="AccountingModel.client" />
+    <EntitySet Name="work_order" EntityType="AccountingModel.work_order" />
   </EntityContainer>
   <EntityType Name="tipo_comprobante">
     <Key>
@@ -282,4 +246,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="razonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="nombreFantasia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="provincia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="personeria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="emailFacturacon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <Property Name="update_user_id" Type="Int32" />
+    <Property Name="activo" Type="Byte" Nullable="false" />
+    <Property Name="codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="work_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_service_id" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Double" />
+    <Property Name="nombre_paciente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="social_work_id" Type="Int32" />
+    <Property Name="profesional_id" Type="Int32" />
+    <Property Name="motivo_eliminacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="status_id" Type="Int32" Nullable="false" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <Property Name="update_user_id" Type="Int32" />
+  </EntityType>
 </Schema>

@@ -8,11 +8,8 @@ namespace accounting.ViewModels
 {
     public class WorkOrderVM
     {
+        [Display(Name = "Nro de Orden")]
         public long id { get; set; }
-
-        [Display(Name = "* Nro de Orden")]
-        [Required(ErrorMessage = "* requerido")]
-        public string NroOrden { get; set; }
 
         [Display(Name = "* Fecha")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
@@ -58,8 +55,6 @@ namespace accounting.ViewModels
     public class WorkOrderDeleteVM
     {
         public long id { get; set; }
-        public string NroOrden { get; set; }
-
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Fecha { get; set; }
         public string ProductService { get; set; }

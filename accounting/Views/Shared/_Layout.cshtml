@@ -37,6 +37,7 @@
     <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
     <style>
         .ir-arriba {
             display: none;
@@ -65,6 +66,7 @@
                 <a class="navbar-brand" href="@Url.Action("Index","Home",new { id=Session["usuario_id"]})">
                     <div style="width: 100%; height:35px; ">
                         ACCOUNTING V1.0
+                      
                     </div>
                 </a>
                 <!-- /.navbar-top-links -->
@@ -85,13 +87,13 @@
                                     <li>@Html.ActionLink("Listado de Gastos", "Index", "Expenses")</li>
                                 </ul>
                             </li>
-                            <li>
+                            @*<li>
                                 <a href="#"><i class="fa  fa-archive"></i> Obras Sociales<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>@Html.ActionLink("Nueva", "Index", "SocialWork")</li>
                                     <li>@Html.ActionLink("Listado de Obras Sociales", "Index", "SocialWork")</li>
                                 </ul>
-                            </li>
+                            </li>*@
                             <li>
                                 <a href="#"><i class="fa  fa-industry"></i> Clientes<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
@@ -141,12 +143,13 @@
                 <!-- /.navbar-static-side -->
             </div>
             <!-- /.navbar-header -->
+
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
+                    <ul class="dropdown-menu dropdown-user"> 
                         @using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
                             @Html.AntiForgeryToken()
@@ -177,6 +180,7 @@
     <script src="~/Content/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
     <script src="~/Content/vendor/datatables-responsive/dataTables.responsive.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
     <!-- Flot Charts JavaScript -->
     <script src="~/Content/vendor/flot/excanvas.min.js"></script>
     <script src="~/Content/vendor/flot/excanvas.min.js"></script>
@@ -190,7 +194,8 @@
     <script src="~/Content/vendor/morrisjs/morris.min.js"></script>
     <script src="~/Content/dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script src="~/dist/js/sb-admin-2.js"></script>
+
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
         $(document).ready(function () {
@@ -265,6 +270,7 @@
                     hideHover: 'auto',
                     resize: true
                 });
+
 });
                 $(document).ready(function () {
 
@@ -282,7 +288,7 @@
                         }
                     });
 
-                });                                                                                                                                        
+                });                                                                                                                                          
     </script>
 </body>
 </html>

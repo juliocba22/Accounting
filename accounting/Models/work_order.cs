@@ -15,7 +15,6 @@ namespace accounting.Models
     public partial class work_order
     {
         public long id { get; set; }
-        public string nro_orden { get; set; }
         public System.DateTime fecha { get; set; }
         public string descripcion { get; set; }
         public int product_service_id { get; set; }

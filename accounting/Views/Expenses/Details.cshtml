@@ -7,11 +7,10 @@
 <h2>Datos del Gasto</h2>
 
 <div>
-    @*<h4>expense</h4>*@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.Label("Nombre:")
         </dt>
 
         <dd>
@@ -19,37 +18,96 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.description)
+            @Html.Label("Tipo de comprobante:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.description)
+            @Html.DisplayFor(model => model.tipo_comprobante)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.expense_name)
+            @Html.Label("Punto de venta:")
         </dt>
 
         <dd>
-            @ViewBag.expense_name
+            @Html.DisplayFor(model => model.selling_point)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.date_expense)
+            @Html.Label("Nro de comprobante:")
         </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.nro_comprobante)
+        </dd>
+        <dt>
+            @Html.Label("CUIT/CUIL:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.cuit_cuil)
+        </dd>
+        <dt>
+            @Html.Label("Nro CUIT/CUIL:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nro_cuit_cuil)
+        </dd>
+        <dt>
+            @Html.Label("Emisor:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.denominacion_emisor)
+        </dd>
+        <dt>
+            @Html.Label("Imp neto gravado:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.imp_neto_gravado)
+        </dd>
+        <dt>
+            @Html.Label("Imp neto no gravado:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.imp_neto_no_gravado)
+        </dd>
+        <dt>
+            @Html.Label("Imp Op. exentas:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.imp_op_exentas)
+        </dd>
+        <dt>
+            @Html.Label("IVA:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.iva)
+        </dd>
+        <dt>
+            @Html.Label("Importe total:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.importe_total)
+        </dd>
+        <dt>
+            @Html.Label("Tipo de gasto:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.expense_name)
+        </dd>
+        <dt>
+            @Html.Label("Fecha de gasto:")
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.date_expense)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.amount_money)
+            @Html.Label("Monto de gasto:")
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.amount_money)
         </dd>
-
     </dl>
+
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |

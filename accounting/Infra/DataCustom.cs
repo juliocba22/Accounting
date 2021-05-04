@@ -53,6 +53,31 @@ namespace accounting.Infra
         public string name_file { get; set; }
     }
 
+    public class ReportExpense
+    {
+        public string name { get; set; }
+        public string description { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? date_expense { get; set; }
+        public string expense_name { get; set; }//para details
+        public double amount_money { get; set; }
+        public string selling_point { get; set; }
+        public string nro_comprobante { get; set; }
+        public string cuit_cuil { get; set; }
+        public string nro_cuit_cuil { get; set; }
+        public string denominacion_emisor { get; set; }
+        public double? imp_neto_gravado { get; set; }
+        public double? imp_neto_no_gravado { get; set; }
+        public double? imp_op_exentas { get; set; }
+        public double? iva { get; set; }
+        public double? importe_total { get; set; }
+        public string tipo_comprobante { get; set; }
+        public override string ToString()
+        {
+            return $"{name};{tipo_comprobante};{selling_point};{nro_comprobante};{cuit_cuil};{nro_cuit_cuil};{denominacion_emisor};{imp_neto_gravado};{imp_neto_no_gravado};{imp_op_exentas};{iva};{importe_total};{description};{expense_name};{date_expense};{amount_money}";
+        }
+    }
+
     #endregion --[Expense]--
 
     #region expense_type
@@ -80,7 +105,6 @@ namespace accounting.Infra
     public class ListClient
     {
         public long id { get; set; }
-        public string codigo { get; set; }
         public string razonSocial { get; set; } 
         public string localidad { get; set; }
         public string telefono { get; set; }
@@ -90,17 +114,18 @@ namespace accounting.Infra
 
     public class ReportClient
     {
-        public string codigo { get; set; }
+        public long id { get; set; }
         public string razonSocial { get; set; }
         public string localidad { get; set; }
         public string provincia { get; set; }
         public string telefono { get; set; }
         public string email { get; set; }
         public string emailFacturacion { get; set; }
+        public string codigo { get; set; }
 
         public override string ToString()
         {
-            return $"{codigo};{razonSocial};{localidad};{provincia};{telefono};{email};{emailFacturacion}";
+            return $"{id};{razonSocial};{localidad};{provincia};{telefono};{email};{emailFacturacion};{codigo}";
         }
     }
 
@@ -207,7 +232,6 @@ namespace accounting.Infra
     public class ListWorkOrder
     {
         public long id { get; set; }
-        public string NroOrden { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Fecha { get; set; }
@@ -217,13 +241,12 @@ namespace accounting.Infra
 
     public class ReportWorkOrder
     {
-        public string NroOrden { get; set; }
+        public long id { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }
-        public string ProductServiceDesc { get; set; }
-        public string SocialWorkDesc { get; set; }
+        public string ProductServiceDesc { get; set; } 
         public string ProfesionalDesc { get; set; }
         public string StatusDesc { get; set; }
         public double? Cantidad { get; set; }
@@ -232,7 +255,7 @@ namespace accounting.Infra
 
         public override string ToString()
         {
-            return $"{NroOrden};{Fecha};{Descripcion};{ProductServiceDesc};{Cantidad};{Paciente};{SocialWorkDesc};{ProfesionalDesc};{StatusDesc};{MotivoEliminacion}";
+            return $"{id};{Fecha};{Descripcion};{ProductServiceDesc};{Cantidad};{Paciente};{ProfesionalDesc};{StatusDesc};{MotivoEliminacion}";
         }
     }
     #endregion

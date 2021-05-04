@@ -326,6 +326,71 @@ namespace accounting.Repositories
             return _repoExpense.Get(id);
         }
 
+        public ExpenseCreateVM GetExpenseDetail(long id)
+        {
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from e in ctx.expense
+                        join t in ctx.expense_type on e.expense_id equals t.id
+                        join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
+                        where e.id == id
+                          && e.activo == 1
+                        select new ExpenseCreateVM
+                        {
+                            id = e.id,
+                            name = e.name,
+                            tipo_comprobante = tc.descripcion,
+                            selling_point = e.selling_point,
+                            nro_comprobante = e.nro_comprobante,
+                            cuit_cuil = e.cuit_cuil,
+                            nro_cuit_cuil = e.nro_cuit_cuil,
+                            denominacion_emisor = e.denominacion_emisor,
+                            imp_neto_gravado = e.imp_neto_gravado,
+                            imp_neto_no_gravado = e.imp_neto_no_gravado,
+                            imp_op_exentas = e.imp_op_exentas,
+                            iva = e.iva,
+                            importe_total = e.importe_total,
+                            description = e.description,
+                            expense_name = t.description,
+                            date_expense = e.date_expense,
+                            amount_money = e.amount_money
+                        }).First();
+            }
+        }
+
+        public IEnumerable<ReportExpense> ExpenseReport(string expense_type)
+        {
+            List<ReportExpense> list = new List<ReportExpense>();
+
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from e in ctx.expense
+                        join t in ctx.expense_type on e.expense_id equals t.id
+                        join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
+                        where (string.IsNullOrEmpty(expense_type) || t.description.Contains(expense_type))
+                          && e.activo == 1
+                        select new ReportExpense
+                        {
+                            name = e.name,
+                            tipo_comprobante = tc.descripcion,
+                            selling_point = e.selling_point,
+                            nro_comprobante = e.nro_comprobante,
+                            cuit_cuil = e.cuit_cuil,
+                            nro_cuit_cuil = e.nro_cuit_cuil,
+                            denominacion_emisor = e.denominacion_emisor,
+                            imp_neto_gravado = e.imp_neto_gravado,
+                            imp_neto_no_gravado = e.imp_neto_no_gravado,
+                            imp_op_exentas = e.imp_op_exentas,
+                            iva = e.iva,
+                            importe_total = e.importe_total,
+                            description = e.description,
+                            expense_name = t.description,
+                            date_expense = e.date_expense,
+                            amount_money = e.amount_money
+                        }).ToList();
+            }
+        }
+
         public IEnumerable<ListExpense> ExpenseList(string expense_type)
         {
             List<ListExpense> list = new List<ListExpense>();
@@ -343,12 +408,12 @@ namespace accounting.Repositories
                             description = e.description,
                             expense_id = e.expense_id,
                             expense_description = t.description,
-                            date_expense= (DateTime)e.date_expense,
-                           // amount= (decimal)e.amount,
-                            image =  e.image,
-                            path_file=e.path_url,
-                            name_file=e.name_file,
-                            amount_money=e.amount_money,
+                            date_expense = (DateTime)e.date_expense,
+                            // amount= (decimal)e.amount,
+                            image = e.image,
+                            path_file = e.path_url,
+                            name_file = e.name_file,
+                            amount_money = e.amount_money,
                         }).ToList();
             }
         }
@@ -508,7 +573,6 @@ namespace accounting.Repositories
                             select new ListClient
                             {
                                 id = c.id,
-                                codigo = c.codigo,
                                 razonSocial = c.razonSocial,
                                 localidad = c.localidad,
                                 telefono = c.telefono,
@@ -531,13 +595,14 @@ namespace accounting.Repositories
                             && c.activo == 1
                             select new ReportClient
                             {
-                                codigo = c.codigo,
+                                id = c.id,
                                 razonSocial = c.razonSocial,
                                 localidad = c.localidad,
                                 provincia = c.provincia,
                                 telefono = c.telefono,
                                 email = c.email,
-                                emailFacturacion = c.emailFacturacon
+                                emailFacturacion = c.emailFacturacon,
+                                codigo = c.codigo
                             }).ToList();
                 }
             }
@@ -769,7 +834,6 @@ namespace accounting.Repositories
                             select new WorkOrderVM
                             {
                                id = wo.id, 
-                               NroOrden = wo.nro_orden,
                                Fecha = wo.fecha, 
                                ProductServiceId = ps.id,
                                StatusId = st.id,
@@ -803,7 +867,6 @@ namespace accounting.Repositories
                             select new WorkOrderVM
                             {
                                 id = wo.id,
-                                NroOrden = wo.nro_orden,
                                 Fecha = wo.fecha,
                                 Descripcion = wo.descripcion,
                                 ProductServiceDesc = ps.nombre,
@@ -815,7 +878,7 @@ namespace accounting.Repositories
                             }).First();
                 }
             }
-            catch (Exception ex)
+            catch
             { return null; }
         }
 
@@ -832,7 +895,6 @@ namespace accounting.Repositories
                             select new ListWorkOrder
                             {
                                 id = wo.id,
-                                NroOrden = wo.nro_orden,
                                 Fecha = wo.fecha,
                                 ProductServiceDesc = ps.nombre,
                                 StatusDesc = st.descripcion
@@ -853,20 +915,17 @@ namespace accounting.Repositories
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
                             join st in ctx.work_order_status on wo.status_id equals st.id
-                            join sw in ctx.social_work on wo.social_work_id equals sw.id into temp
-                            from temp1 in temp.DefaultIfEmpty()
                             join pr in ctx.profesional on wo.profesional_id equals pr.id into temp2
                             from temp3 in temp2.DefaultIfEmpty()
                             where (st.id == status || status == null)
                             select new ReportWorkOrder
                             {
-                                NroOrden = wo.nro_orden,
+                                id = wo.id,
                                 Fecha = wo.fecha,
                                 Descripcion = wo.descripcion,
                                 ProductServiceDesc = ps.nombre,
                                 Cantidad = wo.cantidad,
                                 Paciente = wo.nombre_paciente,
-                                SocialWorkDesc = temp1.name,
                                 ProfesionalDesc = temp3.nombre,
                                 StatusDesc = st.descripcion,                               
                                 MotivoEliminacion = wo.motivo_eliminacion                             
@@ -891,14 +950,13 @@ namespace accounting.Repositories
                             select new WorkOrderDeleteVM
                             {
                                 id = wo.id,
-                                NroOrden = wo.nro_orden,
                                 Fecha = wo.fecha,
                                 ProductService = ps.nombre,
                                 Status = st.descripcion
                             }).First();
                 }
             }
-            catch (Exception ex)
+            catch
             { return null; }
         }
         #endregion

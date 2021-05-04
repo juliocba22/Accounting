@@ -39,7 +39,7 @@ namespace accounting.Controllers
             {
                 IEnumerable<ListWorkOrder> list = _repo.WorkOrderList(model.status);
 
-                model.list = list.OrderBy(o => o.Fecha).Skip((page - 1) * _pageSize).Take(_pageSize);
+                model.list = list.OrderByDescending(o => o.id).Skip((page - 1) * _pageSize).Take(_pageSize);
                 model.pagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -78,7 +78,6 @@ namespace accounting.Controllers
         public ActionResult Create()
         {
             GetComboServicios();
-            GetComboSocialWork();
             GetComboProfesional();
             GetComboStatus();
             return View();
@@ -94,7 +93,6 @@ namespace accounting.Controllers
                 {
                     work_order wo = new work_order()
                     {
-                       nro_orden = woVM.NroOrden,
                        fecha = woVM.Fecha,
                        descripcion = woVM.Descripcion,
                        product_service_id = woVM.ProductServiceId,
@@ -118,7 +116,6 @@ namespace accounting.Controllers
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
             GetComboServicios();
-            GetComboSocialWork();
             GetComboProfesional();
             GetComboStatus();
             return View();
@@ -136,14 +133,12 @@ namespace accounting.Controllers
             work_order wo = db.work_order.Find(id);
 
             GetComboServicios();
-            GetComboSocialWork();
             GetComboProfesional();
             GetComboStatus();
 
             WorkOrderVM p = new WorkOrderVM()
             {
                 id = wo.id,
-                NroOrden = wo.nro_orden,
                 Fecha = wo.fecha,
                 Descripcion = wo.descripcion,
                 ProductServiceId = wo.product_service_id,
@@ -167,7 +162,6 @@ namespace accounting.Controllers
                     work_order wo = new work_order()
                     {
                         id = woVM.id,
-                        nro_orden = woVM.NroOrden,
                         fecha = woVM.Fecha,
                         descripcion = woVM.Descripcion,
                         product_service_id = woVM.ProductServiceId,
@@ -190,7 +184,6 @@ namespace accounting.Controllers
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
             GetComboServicios();
-            GetComboSocialWork();
             GetComboProfesional();
             GetComboStatus();
             return View();
@@ -235,7 +228,6 @@ namespace accounting.Controllers
                     {
                        id = woVM.id,
                        fecha = woBD.Fecha,
-                       nro_orden = woBD.NroOrden,
                        product_service_id = woBD.ProductServiceId,
                        descripcion =  woBD.Descripcion,
                        cantidad = woBD.Cantidad,
@@ -297,10 +289,6 @@ namespace accounting.Controllers
         {
             ViewBag.Profesional = db.profesional.Where(x => x.activo == 1).OrderBy(x => x.nombre); 
         }
-        private void GetComboSocialWork()
-        {
-            ViewBag.SocialWork = db.social_work.Where(x => x.activo == 1).OrderBy(x => x.name);
-        }
         private void GetComboStatus()
         {
             ViewBag.Status = db.work_order_status.Where(x=> x.id != 4).OrderBy(x => x.id); 
@@ -315,7 +303,7 @@ namespace accounting.Controllers
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportWorkOrder> listado = _repo.WorkOrderReport(status);
 
-            csv.AppendLine("Nro de Orden;Fecha;Descripción;Producto/Servicio;Cantidad;Paciente;Obra Social;Profesional;Estado;Motivo Eliminacion");
+            csv.AppendLine("Nro de Orden;Fecha;Descripción;Producto/Servicio;Cantidad;Paciente;Profesional;Estado;Motivo Eliminacion");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

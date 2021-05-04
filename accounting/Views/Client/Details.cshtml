@@ -15,7 +15,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.codigo)
+            @Html.DisplayFor(model => model.id)
         </dd>
 
         <dt>
@@ -80,6 +80,13 @@
 
         <dd>
             @Html.DisplayFor(model => model.emailFacturacon)
+        </dd>
+        <dt>
+            @Html.Label("CUIT/CUIL/DNI:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo)
         </dd>
     </dl>
 </div>
