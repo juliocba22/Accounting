@@ -275,6 +275,8 @@ namespace accounting.Infra
         public DateTime FechaEmision { get; set; }
 
         public double Importe { get; set; }
+
+        public string EstadoDesc { get; set; }
     }
 
     public class ReportCompra
