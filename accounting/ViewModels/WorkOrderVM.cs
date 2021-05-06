@@ -23,7 +23,8 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requerido")]
         public int ProductServiceId { get; set; }
 
-        [Display(Name = "Cantidad")]
+        [Display(Name = "* Cantidad")]
+        [Required(ErrorMessage = "* requerido")]
         public double? Cantidad { get; set; }
 
         [Display(Name = "Paciente")]
@@ -49,6 +50,10 @@ namespace accounting.ViewModels
         public string ProfesionalDesc { get; set; }
 
         public string StatusDesc { get; set; }
+
+        [Display(Name = "* Importe")]
+        [Required(ErrorMessage = "* requerido")]
+        public double? Importe { get; set; }
 
     }
 

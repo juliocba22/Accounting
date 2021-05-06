@@ -280,5 +280,6 @@
     <Property Name="status_id" Type="Int32" Nullable="false" />
     <Property Name="update_date" Type="DateTime" Precision="3" />
     <Property Name="update_user_id" Type="Int32" />
+    <Property Name="importe" Type="Double" />
   </EntityType>
 </Schema>

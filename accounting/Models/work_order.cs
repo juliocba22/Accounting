@@ -26,5 +26,6 @@ namespace accounting.Models
         public int status_id { get; set; }
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> update_user_id { get; set; }
+        public Nullable<double> importe { get; set; }
     }
 }

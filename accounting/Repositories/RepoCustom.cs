@@ -874,6 +874,7 @@ namespace accounting.Repositories
                                 Paciente = wo.nombre_paciente,
                                 SocialWorkDesc = temp1.name,
                                 ProfesionalDesc = temp3.nombre,
+                                Importe = wo.importe,
                                 StatusDesc = st.descripcion
                             }).First();
                 }
@@ -897,7 +898,8 @@ namespace accounting.Repositories
                                 id = wo.id,
                                 Fecha = wo.fecha,
                                 ProductServiceDesc = ps.nombre,
-                                StatusDesc = st.descripcion
+                                StatusDesc = st.descripcion,
+                                Importe = wo.importe
                             }).ToList();
                 }
             }
@@ -927,6 +929,7 @@ namespace accounting.Repositories
                                 Cantidad = wo.cantidad,
                                 Paciente = wo.nombre_paciente,
                                 ProfesionalDesc = temp3.nombre,
+                                Importe = wo.importe,
                                 StatusDesc = st.descripcion,                               
                                 MotivoEliminacion = wo.motivo_eliminacion                             
                             }).ToList();

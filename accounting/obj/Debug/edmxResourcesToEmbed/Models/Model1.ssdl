@@ -203,6 +203,7 @@
     <Property Name="status_id" Type="int" Nullable="false" />
     <Property Name="update_date" Type="datetime" />
     <Property Name="update_user_id" Type="int" />
+    <Property Name="importe" Type="float" />
   </EntityType>
   <EntityType Name="work_order_status">
     <Key>
