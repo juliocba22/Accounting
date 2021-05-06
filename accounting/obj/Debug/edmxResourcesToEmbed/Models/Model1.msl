@@ -211,6 +211,7 @@
     <EntitySetMapping Name="work_order">
       <EntityTypeMapping TypeName="AccountingModel.work_order">
         <MappingFragment StoreEntitySet="work_order">
+          <ScalarProperty Name="importe" ColumnName="importe" />
           <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
           <ScalarProperty Name="update_date" ColumnName="update_date" />
           <ScalarProperty Name="status_id" ColumnName="status_id" />

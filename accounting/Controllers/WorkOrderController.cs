@@ -102,7 +102,8 @@ namespace accounting.Controllers
                        profesional_id = woVM.ProfesionalId,
                        status_id = woVM.StatusId,
                        update_date = DateTime.Now,
-                       update_user_id = int.Parse(Session["UserID"].ToString())
+                       update_user_id = int.Parse(Session["UserID"].ToString()),
+                       importe = woVM.Importe
                     };
 
                     db.work_order.Add(wo);
@@ -111,7 +112,7 @@ namespace accounting.Controllers
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
@@ -146,7 +147,8 @@ namespace accounting.Controllers
                 Paciente = wo.nombre_paciente,
                 SocialWorkId = wo.social_work_id,
                 ProfesionalId = wo.profesional_id,
-                StatusId = wo.status_id
+                StatusId = wo.status_id,
+                Importe = wo.importe
             };
             return View(p);
         }
@@ -171,7 +173,8 @@ namespace accounting.Controllers
                         profesional_id = woVM.ProfesionalId,
                         status_id = woVM.StatusId,
                         update_date = DateTime.Now,
-                        update_user_id = int.Parse(Session["UserID"].ToString())
+                        update_user_id = int.Parse(Session["UserID"].ToString()),
+                        importe = woVM.Importe
                     };
 
                     db.Entry(wo).State = EntityState.Modified;
@@ -179,7 +182,7 @@ namespace accounting.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
@@ -275,7 +278,8 @@ namespace accounting.Controllers
                             select new ComboProductService
                             {
                                 id = ps.tipo,
-                                nombre = ps.nombre
+                                nombre = ps.nombre,
+                                valUnitario = ps.valorUnitario
                             }).ToList();
 
             return tipo;
@@ -303,7 +307,7 @@ namespace accounting.Controllers
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportWorkOrder> listado = _repo.WorkOrderReport(status);
 
-            csv.AppendLine("Nro de Orden;Fecha;Descripción;Producto/Servicio;Cantidad;Paciente;Profesional;Estado;Motivo Eliminacion");
+            csv.AppendLine("Nro de Orden;Fecha;Descripción;Producto/Servicio;Cantidad;Paciente;Profesional;Importe;Estado;Motivo Eliminacion");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

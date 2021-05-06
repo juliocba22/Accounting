@@ -227,6 +227,7 @@ namespace accounting.Infra
     {
         public int id { get; set; }
         public string nombre { get; set; }
+        public double valUnitario { get; set; }
     }
 
     public class ListWorkOrder
@@ -237,6 +238,8 @@ namespace accounting.Infra
         public DateTime Fecha { get; set; }
         public string ProductServiceDesc { get; set; }
         public string StatusDesc { get; set; }
+
+        public double? Importe { get; set; }
     }
 
     public class ReportWorkOrder
@@ -252,10 +255,10 @@ namespace accounting.Infra
         public double? Cantidad { get; set; }
         public string Paciente { get; set; }
         public string MotivoEliminacion { get; set; }
-
+        public double? Importe { get; set; }
         public override string ToString()
         {
-            return $"{id};{Fecha};{Descripcion};{ProductServiceDesc};{Cantidad};{Paciente};{ProfesionalDesc};{StatusDesc};{MotivoEliminacion}";
+            return $"{id};{Fecha};{Descripcion};{ProductServiceDesc};{Cantidad};{Paciente};{ProfesionalDesc};{Importe};{StatusDesc};{MotivoEliminacion}";
         }
     }
     #endregion
