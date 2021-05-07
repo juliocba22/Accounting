@@ -16,8 +16,7 @@ using Newtonsoft.Json;
 namespace accounting.Controllers
 {
     [Authorize]
-    [CustomAuthorizeAttribute]
-    [SessionExpireFilter]
+    [HandleError(View = "Error")]
     public class WorkOrderController : Controller
     {
         #region Variables

@@ -96,14 +96,14 @@ namespace accounting.ViewModels
         [Display(Name = "Importe Total")]
         public double? importe_total { get; set; }
 
-
         [Display(Name = "Archivo del gasto (image,excel,word,notes..) ")]
         public HttpPostedFileBase file { get; set; }
-
 
         public byte[] image { get; set; }
 
         public string tipo_comprobante { get; set; }
+
+        public string user { get; set; }
 
         #endregion --[CREATE]--
     }
