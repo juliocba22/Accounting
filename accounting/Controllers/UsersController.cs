@@ -15,25 +15,12 @@ using accounting.ViewModels;
 
 namespace accounting.Controllers
 {
-    //[Authorize]
-    [CustomAuthorizeAttribute]
-    [SessionExpireFilter]
+    [Authorize]
+    [HandleError(View = "Error")]
     public class UsersController : Controller
     {
-        //private accountingContext db = new accountingContext();
-
-        //public string draw = ""; //Te sirve para que datatable se redibuje
-        //public string start = ""; // Pagian a comenzar
-        //public string length = "";
-        //public string sortColumn = "";
-        //public string sortColumnDir = "";
-        //public string searchValue = "";
-
-        //public int pageSize, skip, recordsTotal;
-
-
         private IRepoCustom _repo;
-        int _pageSize = 5;
+        int _pageSize = 20;
 
         #region --[CONSTRUCTOR]--
 
@@ -114,8 +101,7 @@ namespace accounting.Controllers
         }
 
         #endregion --[DETAILS]--
-
-     
+    
         #region --[CREATE]--
 
         public ActionResult Create()
@@ -279,47 +265,6 @@ namespace accounting.Controllers
         }
 
         #endregion --[DELETE]--
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-
-        //implementacion tabla dinamica jquery
-
-        //    [HttpPost]
-        //    public ActionResult Json()
-        //    {
-        //        try
-        //        {
-        //            //logistica Datatable
-        //            var draw = Request.Form.GetValues("draw").FirstOrDefault();
-        //            var start = Request.Form.GetValues("start").FirstOrDefault();
-        //            var length = Request.Form.GetValues("length").FirstOrDefault();
-        //            var sortColumn = 1;//Request.Form.GetValues("columns["+Request.Form.GetValues("order[0].[column]").FirstOrDefault() + "][apellido]").FirstOrDefault();
-        //            var sortColumnDir = 1;// Request.Form.GetValues("order[0][dir]").FirstOrDefault();
-        //            var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
-
-        //            pageSize = length != null ? Convert.ToInt32(length) : 0;
-        //            skip = length != null ? Convert.ToInt32(start) : 0;
-        //            recordsTotal = 0;
-
-        //            IEnumerable<ListUsers> list = new List<ListUsers>();
-
-        //            list = _repo.UsersList(searchValue, recordsTotal, skip, pageSize);
-
-        //            return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = list });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return Json();
-        //        }
-        //    }
 
         #region --[EXTRA]--
         void ViewBagCreate(int rol_id)

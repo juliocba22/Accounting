@@ -15,8 +15,7 @@ using System.Text;
 namespace accounting.Controllers
 {
     [Authorize]
-    [CustomAuthorizeAttribute]
-    [SessionExpireFilter]
+    [HandleError(View = "Error")]
     public class CompraController : Controller
     {
         #region Variables

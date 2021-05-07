@@ -4,11 +4,10 @@
     ViewBag.Title = "Eliminar";
 }
 
-<h2>Delete</h2>
+    <h2>Eliminación del Gasto</h2>
 
 <h3>Esta seguro de borrar este gasto?</h3>
 <div>
-    @*<h4>expense</h4>*@
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -49,9 +48,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" /> |
-            @Html.ActionLink("Volver a Lista", "Index")
-        </div>
+<div class="form-actions no-color">
+    @Html.ActionLink("Volver a Lista", "Index") |
+    <input type="submit" value="Eliminar" class="btn btn-default" />
+</div>
     }
 </div>

@@ -27,8 +27,7 @@ namespace accounting.Controllers
     /// </summary>
 
     [Authorize]
-    [CustomAuthorizeAttribute]
-    [SessionExpireFilter]
+    [HandleError(View = "Error")]
     public class ExpensesController : Controller
     {
         //private accountingContext db = new accountingContext();
@@ -63,7 +62,7 @@ namespace accounting.Controllers
             {
                 IEnumerable<ListExpense> list = _repo.ExpenseList(model.expense_type);
 
-                model.list = list.OrderBy(o => o.name).Skip((page - 1) * _pageSize).Take(_pageSize);
+                model.list = list.OrderByDescending(o => o.date_expense).Skip((page - 1) * _pageSize).Take(_pageSize);
                 model.pagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -116,6 +115,7 @@ namespace accounting.Controllers
                         date_expense = model.date_expense,
                         register_date = DateTime.Now,
                         create_user_id = int.Parse(Session["UserID"].ToString()),
+                        update_user_id = int.Parse(Session["UserID"].ToString()),
                         amount_money = model.amount_money,
                         name_file = FileName,
                         activo = 1,
@@ -190,7 +190,6 @@ namespace accounting.Controllers
                 expense_id = exp.expense_id,
                 date_expense = (DateTime)exp.date_expense,
                 amount_money = exp.amount_money,
-               // name_file = exp.name_file,
                 selling_point = exp.selling_point,
                 tipo_comprobante_id = exp.tipo_comprobante_id,
                 nro_comprobante = exp.nro_comprobante,
@@ -247,19 +246,17 @@ namespace accounting.Controllers
                         imp_neto_no_gravado = model.imp_neto_no_gravado,
                         imp_op_exentas = model.imp_op_exentas,
                         iva = model.iva,
-                        importe_total =model.importe_total,
+                        importe_total =model.importe_total
                     };
 
                     _repo.ExpenseUpdate(exp);
 
-                    //log.Info($"Usuario:{Session["UserID"]} - {User.Identity.Name} carga el archivo {model.file.FileName} - Grupo {model.group_name} con {cant} número de teléfonos.");
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
-                //log.Error($"Create - {ex.Message}", ex);
             }
 
             ViewBagCreate(model.expense_id);

@@ -14,8 +14,7 @@ using accounting.ViewModels;
 namespace accounting.Controllers
 {
     [Authorize]
-    [CustomAuthorizeAttribute]
-    [SessionExpireFilter]
+    [HandleError(View = "Error")]
     public class ProfesionalController : Controller
     {
         #region Variables
