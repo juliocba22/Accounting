@@ -257,7 +257,18 @@ namespace accounting.Repositories
         CompraVM GetDetalleCompra(long? id);
         IEnumerable<ListCompra> CompraList(int? proveedor, DateTime? fechaEmisionHasta1, DateTime? fechaEmisionHasta2);
         IEnumerable<ReportCompra> CompraReport(int? proveedor, DateTime? fechaEmisionDesde, DateTime? fechaEmisionHasta);
-       
+
+        #endregion
+
+        #region --[PERMISOS]--
+        IEnumerable<ListPermisos> PermisosList(byte rol_id);
+        IEnumerable<ListPaginas> PaginasList(byte rol_id);
+
+        IEnumerable<ListPaginas> PaginasGet(byte rol_id);
+        IEnumerable<ListPaginas> PageName(byte pagina_id);
+        IEnumerable<ListRol> RolName(byte rol_id);
+        IEnumerable<ListMenu> GetMenu(byte rol_id);
+
         #endregion
     }
 }

@@ -1,7 +1,9 @@
-﻿using accounting.Models;
+﻿using accounting.Infra;
+using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -73,11 +75,12 @@ namespace accounting.Controllers
                                 string hashCookies = FormsAuthentication.Encrypt(ticket);
                                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashCookies);
                                 Response.Cookies.Add(cookie);
-
                                 Session["UserID"] = user.id;
 
-                                //Session["ClientID"] = user.client_id;
-
+                                //cargamos menu desde db
+                                IEnumerable<ListMenu> menu = _repo.GetMenu(user.rol_id);
+                                Session["Menu"] = menu;
+                              
                                 return RedirectToLocal(returnUrl);
                             case 1:
                                 // Usuario Bloquedo.

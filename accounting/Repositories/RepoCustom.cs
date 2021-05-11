@@ -1080,7 +1080,119 @@ namespace accounting.Repositories
             { return null; }
         }
 
-        #endregion 
+        #endregion
+
+        #region --[PERMISOS]--
+
+        public IEnumerable<ListPermisos> PermisosList(byte rol_id)
+        {
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from rp in ctx.rolpagina
+                        join p in ctx.pagina on rp.pagina_id equals p.id
+                        join u in ctx.users on (int)rp.update_user_id equals u.id
+                        where rp.rol_id == rol_id && rp.asignada == true
+                        select new ListPermisos
+                        {
+                            id = rp.id,
+                            pagina=p.link_text,
+                            FechaAsignacion= (DateTime)rp.update_date,
+                            AsignadoPor=u.user_name     
+                        }).ToList();
+            }
+        }
+
+        public IEnumerable<ListPaginas> PaginasList(byte rol_id)
+        {
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from p in ctx.pagina
+                        let pages = (from rp in ctx.rolpagina
+                                       where rp.asignada == true && rp.rol_id == rol_id
+                                       select rp.pagina_id)
+                        where !pages.Contains(p.id) && p.activo == 1
+                        orderby p.id
+                        select new ListPaginas
+                        {
+                            id= p.id,
+                            pagina=p.link_text
+
+                        }).ToList();
+            }
+        }
+
+
+        public IEnumerable<ListPaginas> PaginasGet(byte rol_id)
+        {
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from p in ctx.pagina
+                        let pages = (from rp in ctx.rolpagina
+                                     where rp.asignada == true && rp.rol_id == rol_id
+                                     select rp.pagina_id)
+                        where !pages.Contains(p.id) && p.activo == 1
+                        orderby p.id
+                        select new ListPaginas
+                        {
+                            id = p.id,
+                            pagina = p.link_text
+
+                        }).ToList();
+            }
+        }
+
+        public IEnumerable<ListPaginas> PageName(byte pagina_id)
+        {
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from p in ctx.pagina
+                        where (p.id == pagina_id)
+                        select new ListPaginas
+                        {
+                            id = p.id,
+                            pagina = p.link_text,
+
+                        }).Distinct().ToList();
+            }
+        }
+
+        public IEnumerable<ListRol> RolName(byte rol_id)
+        {
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from r in ctx.rol
+                        where (r.id == rol_id)
+                        select new ListRol
+                        {
+                           id=r.id,
+                           description=r.description,
+
+                        }).Distinct().ToList();
+            }
+        }
+
+        public IEnumerable<ListMenu> GetMenu(byte rol_id)
+        {
+            using (AccountingEntities1 ctx = new AccountingEntities1())
+            {
+                return (from rp in ctx.rolpagina
+                        join p in ctx.pagina on rp.pagina_id equals p.id
+                        where rp.rol_id == rol_id && rp.asignada == true && p.activo==1
+                        select new ListMenu
+                        {
+                            id = rp.id,
+                            pagina_id=rp.pagina_id,
+                            link_text=p.link_text,
+                            action_name=p.action_name,
+                            controller_name=p.controller_name,
+                            link_menu=p.link_menu,
+                            class_menu=p.class_menu,
+                            orden_menu= (byte)p.orden_menu,               
+                        }).ToList().OrderBy(o=>o.orden_menu);
+            }
+        }
+
+        #endregion
 
     }
 }

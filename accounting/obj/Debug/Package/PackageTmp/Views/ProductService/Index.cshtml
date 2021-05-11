@@ -1,0 +1,99 @@
+﻿@model accounting.ViewModels.ProductServiceVMIndex
+@using accounting.Helpers
+
+@{
+    ViewBag.Title = "Listado de Productos y Servicios";
+}
+
+    <h2>Listado de Productos y Servicios</h2>
+
+@using (Html.BeginForm("Index", "ProductService", FormMethod.Post, new { page = 1 }))
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.nombre, new { @class = "form-control", @placeholder = "Ingrese nombre", @style = "max-width:100%;" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Buscar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            @if (Model.list != null && Model.list.ToList().Count > 0)
+            {
+                <div class="row">
+                    <div class="col-xs-6" style="margin-top:10px;">
+                        <span class="glyphicon glyphicon-download"></span>
+                        @Html.ActionLink("Exportar listado a CSV", "Export", new { nombre = Model.nombre })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.ActionLink("NUEVO PROD/SERV", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Código")
+        </th>
+        <th>
+            @Html.Label("Nombre")
+        </th>
+        <th>
+            @Html.Label("Tipo")
+        </th>
+        <th>
+            @Html.Label("Valor Unitario")
+        </th>
+        <th>Acciones</th>
+    </tr>
+
+    @if (@Model.list.Count() == 0)
+    {
+        <tr>
+            <td colspan="10">No se encontraron registros.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model.list)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.valorUnitario)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+@if (Model.list.ToList().Count > 0)
+{
+    if (Model.pagingInfo.TotalPages > 1)
+    {
+        <ul class="paginate pag1 clearfix">
+            <li class="single">Pág. @Model.pagingInfo.CurrentPage de @Model.pagingInfo.TotalPages</li>
+            @Html.PageLinks(Model.pagingInfo, x => Url.Action("Index", "ProductService", new { page = x, nombre = Model.nombre }))
+        </ul>
+    }
+}

@@ -1,0 +1,39 @@
+﻿@model accounting.ViewModels.ProfesionalVM
+
+@{
+    ViewBag.Title = "Eliminación de un Profesional";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminación de un Profesional</h2>
+<h3>¿Está seguro que desea eliminar al Profesional?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Servicio:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.servicioDesc)
+        </dd>
+
+        <dt>
+            @Html.Label("Nombre y Apellido:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Regresar al Listado ", "Index") |
+            <input type="submit" value="Eliminar" class="btn btn-default" />
+        </div>
+    }
+</div>
