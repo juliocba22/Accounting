@@ -21,7 +21,9 @@
         <EntityTypeShape EntityType="AccountingModel.expense" Width="1.5" PointX="3" PointY="4.625" />
         <AssociationConnector Association="AccountingModel.FK_expense_expense_type_expense_id" />
         <EntityTypeShape EntityType="AccountingModel.client" Width="1.5" PointX="4.75" PointY="4.875" />
-        <EntityTypeShape EntityType="AccountingModel.work_order" Width="1.5" PointX="11" PointY="6.5" />
+        <EntityTypeShape EntityType="AccountingModel.rolpagina" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="AccountingModel.work_order" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="AccountingModel.pagina" Width="1.5" PointX="3.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

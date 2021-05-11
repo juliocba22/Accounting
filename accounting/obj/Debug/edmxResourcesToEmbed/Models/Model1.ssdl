@@ -12,6 +12,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="20" />
     <Property Name="razonSocial" Type="varchar" MaxLength="100" />
     <Property Name="nombreFantasia" Type="varchar" MaxLength="100" />
     <Property Name="localidad" Type="varchar" MaxLength="100" />
@@ -23,7 +24,6 @@
     <Property Name="update_date" Type="datetime" />
     <Property Name="update_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" Nullable="false" />
-    <Property Name="codigo" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="compra">
     <Key>
@@ -81,6 +81,20 @@
     </Key>
     <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pagina">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="link_text" Type="varchar" MaxLength="100" />
+    <Property Name="action_name" Type="varchar" MaxLength="100" />
+    <Property Name="controller_name" Type="varchar" MaxLength="100" />
+    <Property Name="route" Type="varchar" MaxLength="100" />
+    <Property Name="activo" Type="tinyint" />
+    <Property Name="orden_menu" Type="tinyint" />
+    <Property Name="class_menu" Type="varchar" MaxLength="30" />
+    <Property Name="link_menu" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="product_service">
     <Key>
@@ -144,6 +158,17 @@
     </Key>
     <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="rolpagina">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rol_id" Type="tinyint" Nullable="false" />
+    <Property Name="pagina_id" Type="tinyint" Nullable="false" />
+    <Property Name="asignada" Type="bit" Nullable="false" />
+    <Property Name="update_date" Type="date" />
+    <Property Name="update_user_id" Type="int" />
   </EntityType>
   <EntityType Name="social_work">
     <Key>
@@ -254,10 +279,12 @@
     <EntitySet Name="compra" EntityType="Self.compra" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expense_type" EntityType="Self.expense_type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pagina" EntityType="Self.pagina" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product_service" EntityType="Self.product_service" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="profesional" EntityType="Self.profesional" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rolpagina" EntityType="Self.rolpagina" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="social_work" EntityType="Self.social_work" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tipo_comprobante" EntityType="Self.tipo_comprobante" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />

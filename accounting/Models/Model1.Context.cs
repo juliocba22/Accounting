@@ -38,6 +38,8 @@ namespace accounting.Models
         public virtual DbSet<compra> compra { get; set; }
         public virtual DbSet<expense> expense { get; set; }
         public virtual DbSet<client> client { get; set; }
+        public virtual DbSet<rolpagina> rolpagina { get; set; }
         public virtual DbSet<work_order> work_order { get; set; }
+        public virtual DbSet<pagina> pagina { get; set; }
     }
 }

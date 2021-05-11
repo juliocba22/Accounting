@@ -1,7 +1,9 @@
-﻿using accounting.Models;
+﻿using accounting.Infra;
+using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -43,63 +45,76 @@ namespace accounting.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLoginVM model, string returnUrl)
         {
-            try 
-            {  
+            try {
+
+             
                 if (!ModelState.IsValid)
                 return View(model);
 
-                if (_repo.UserValidate(model.user_name) != "")
+            if (_repo.UserValidate(model.user_name) != "")
+            {
+
+
+                users user = _repo.UserGet(model.user_name, model.password);
+                if (user != null)
                 {
-                    users user = _repo.UserGet(model.user_name, model.password);
-                    if (user != null)
+                    if (user.active == true)
                     {
-                        if (user.active == true)
+                        switch (user.state_id)
                         {
-                            switch (user.state_id)
-                            {
-                                case 0:
-                                    // Usuario OK
-                                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
-                                        1,
-                                        user.name,
-                                        DateTime.Now,
-                                        DateTime.Now.AddYears(1),
-                                        model.rememberme,
-                                        user.rol.description);
+                            case 0:
+                                // Usuario OK
+                                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                                    1,
+                                    user.name,
+                                    DateTime.Now,
+                                    DateTime.Now.AddMinutes(720), // Expira en 60 minutos.
+                                    model.rememberme,
+                                    user.rol.description);
 
-                                    string hashCookies = FormsAuthentication.Encrypt(ticket);
-                                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashCookies);
-                                    Response.Cookies.Add(cookie);
+                                string hashCookies = FormsAuthentication.Encrypt(ticket);
+                                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashCookies);
+                                Response.Cookies.Add(cookie);
+                                Session["UserID"] = user.id;
 
-                                    Session["UserID"] = user.id;
-
-                                    return RedirectToLocal(returnUrl);
-                                case 1:
-                                    // Usuario Bloquedo.
-                                    return View("Bloqueado");
-                                case 2:
-                                    // Usuario que debe cambiar la contraseña.
-                                    Session["UserID"] = user.id;
-                                    return RedirectToAction("ChangePassword");
-                                default:
-                                    // Si no encuentra un estado.
-                                    return View("Error");
-                            }
+                                //cargamos menu desde db
+                                IEnumerable<ListMenu> menu = _repo.GetMenu(user.rol_id);
+                                Session["Menu"] = menu;
+                              
+                                return RedirectToLocal(returnUrl);
+                            case 1:
+                                // Usuario Bloquedo.
+                                return View("Bloqueado");
+                            case 2:
+                                // Usuario que debe cambiar la contraseña.
+                                Session["UserID"] = user.id;
+                                return RedirectToAction("ChangePassword");
+                            default:
+                                // Si no encuentra un estado.
+                                return View("Error");
                         }
-                        else
-                            ViewBag.ValidationUser = "*Usuario Inactivo";
                     }
                     else
-                        ViewBag.ValidationUser = "*Contraseña incorrecta";
+                    {
+
+                        ViewBag.ValidationUser = "*Usuario Inactivo";
+                    }
+
                 }
-                else            
-                    ViewBag.ValidationUser = "*Usuario incorrecto"; 
+                else
+                {
+                    ViewBag.ValidationUser = "*Contraseña incorrecta";
+                }
             }
-            catch
+            else
             {
+                ViewBag.ValidationUser = "*Usuario incorrecto";
+            }
+            }catch(Exception ex)
+            {
+
                 return View(model);
             }
-            
             return View(model);
         }
 
@@ -111,11 +126,8 @@ namespace accounting.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
-            cookie.Expires = DateTime.Now.AddYears(-1);
-            Response.Cookies.Add(cookie);
-
             FormsAuthentication.SignOut();
+            Session["UserID"] = null;
             return RedirectToAction("Login", "User");
         }
 

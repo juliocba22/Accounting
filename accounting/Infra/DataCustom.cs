@@ -312,4 +312,39 @@ namespace accounting.Infra
         }
     }
     #endregion
+
+    #region ListPermisos
+    public class ListPermisos
+    {
+        public Byte id { get; set; } 
+        public string pagina { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime FechaAsignacion { get; set; }
+        public string AsignadoPor { get; set; }
+
+     }
+    #endregion
+
+    #region ListPaginas
+    public class ListPaginas
+    { 
+      public byte id { get; set; }
+      public string pagina { get; set; }
+    }
+
+    public class ListMenu
+    {
+        public byte id { get; set; }
+        public byte pagina_id { get; set; }
+        public string link_text { get; set; }
+        public string action_name { get; set; }
+        public string controller_name { get; set; }
+        public string link_menu { get; set; }
+        public string class_menu { get; set; }
+        public byte orden_menu { get; set; }
+    }
+    #endregion
+
+
 }
