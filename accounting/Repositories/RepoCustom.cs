@@ -333,6 +333,7 @@ namespace accounting.Repositories
                 return (from e in ctx.expense
                         join t in ctx.expense_type on e.expense_id equals t.id
                         join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
+                        join u in ctx.users on e.update_user_id equals u.id
                         where e.id == id
                           && e.activo == 1
                         select new ExpenseCreateVM
@@ -353,7 +354,8 @@ namespace accounting.Repositories
                             description = e.description,
                             expense_name = t.description,
                             date_expense = e.date_expense,
-                            amount_money = e.amount_money
+                            amount_money = e.amount_money,
+                            user = u.user_name
                         }).First();
             }
         }
@@ -399,6 +401,7 @@ namespace accounting.Repositories
             {
                 return (from e in ctx.expense
                         join t in ctx.expense_type on e.expense_id equals t.id
+                        join u in ctx.users on e.update_user_id equals u.id
                         where (string.IsNullOrEmpty(expense_type) || t.description.Contains(expense_type))
                           && e.activo == 1
                         select new ListExpense
@@ -409,11 +412,11 @@ namespace accounting.Repositories
                             expense_id = e.expense_id,
                             expense_description = t.description,
                             date_expense = (DateTime)e.date_expense,
-                            // amount= (decimal)e.amount,
                             image = e.image,
                             path_file = e.path_url,
                             name_file = e.name_file,
                             amount_money = e.amount_money,
+                            user = u.user_name
                         }).ToList();
             }
         }

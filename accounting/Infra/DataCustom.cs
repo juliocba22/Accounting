@@ -51,6 +51,7 @@ namespace accounting.Infra
         public byte[] image { get; set; }
         public string path_file { get; set; }
         public string name_file { get; set; }
+        public string user { get; set; }
     }
 
     public class ReportExpense

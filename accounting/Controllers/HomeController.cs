@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 namespace accounting.Controllers
 {
+    [Authorize]
+    [HandleError(View = "Error")]
     public class HomeController : Controller
     {
         public ActionResult Index()
