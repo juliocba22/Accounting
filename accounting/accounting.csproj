@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ProductServiceController.cs" />
     <Compile Include="Controllers\ProfesionalController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="ViewModels\ClientVM.cs" />
     <Compile Include="ViewModels\CompraVM.cs" />
     <Compile Include="ViewModels\ExpenseVM.cs" />
+    <Compile Include="ViewModels\PermisoVM.cs" />
     <Compile Include="ViewModels\ProductServiceVM.cs" />
     <Compile Include="ViewModels\ProfesionalVM.cs" />
     <Compile Include="ViewModels\ProveedorVM.cs" />
@@ -1608,6 +1610,9 @@
     <Content Include="Views\Compra\Details.cshtml" />
     <Content Include="Views\Compra\Edit.cshtml" />
     <Content Include="Views\Compra\Index.cshtml" />
+    <Content Include="Views\Permisos\Index.cshtml" />
+    <Content Include="Views\Permisos\Create.cshtml" />
+    <Content Include="Views\Permisos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
