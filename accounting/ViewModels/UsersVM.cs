@@ -30,27 +30,27 @@ namespace accounting.ViewModels
         #region --[CREATE]--
         public long id { get; set; }
 
-        [Display(Name = "nombre")]
+        [Display(Name = "* Nombre y Apellido")]
         [Required(ErrorMessage = "* required")]
         public string name { get; set; }
 
-        [Display(Name = "rol")]
+        [Display(Name = "* Rol")]
         [Required(ErrorMessage = "* required")]
         public byte rol_id { get; set; }
 
-        [Display(Name = "rol")]
+        [Display(Name = "* Rol")]
         [Required(ErrorMessage = "* required")]
         public byte rol_name { get; set; }
 
-        [Display(Name = "nombre usuario")]
+        [Display(Name = "* Nombre Usuario")]
         [Required(ErrorMessage = "* required")]
         public string user_name { get; set; }
 
-        [Display(Name = "contraseña")]
+        [Display(Name = "* Contraseña")]
         [Required(ErrorMessage = "* required")]
         public string password { get; set; }
 
-        [Display(Name = "activo")]
+        [Display(Name = "* Activo")]
         [Required(ErrorMessage = "* required")]
         public bool active { get; set; }
 

@@ -11,6 +11,7 @@ using accounting.Infra;
 using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
+using static accounting.Helpers.Enumerables;
 
 namespace accounting.Controllers
 {
@@ -72,7 +73,8 @@ namespace accounting.Controllers
                 telefono = client.telefono,
                 email = client.email,
                 emailFacturacon = client.emailFacturacon,
-                codigo = client.codigo
+                codigo = client.codigo,
+                nroCodigo = client.nro_codigo
             };
 
             return View(c);
@@ -83,6 +85,7 @@ namespace accounting.Controllers
         // GET: clients/Create
         public ActionResult Create()
         {
+            GetComboCCD();
             return View();
         }
        
@@ -107,7 +110,8 @@ namespace accounting.Controllers
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
                         activo = 1,
-                        codigo = client.codigo
+                        codigo = client.codigo,
+                        nro_codigo = client.nroCodigo
                     };
 
                     db.client.Add(c);
@@ -119,6 +123,7 @@ namespace accounting.Controllers
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
+            GetComboCCD();
             return View();
         }
         #endregion
@@ -131,8 +136,9 @@ namespace accounting.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+           
             client client = db.client.Find(id);
-            
+           
             ClientVM c = new ClientVM ()
             {
                 id = client.id,
@@ -144,8 +150,10 @@ namespace accounting.Controllers
                 telefono = client.telefono,
                 email = client.email,
                 emailFacturacon = client.emailFacturacon,
-                codigo = client.codigo
+                codigo = client.codigo,
+                nroCodigo= client.nro_codigo
             };
+            GetComboCCD();
             return View(c);
         }
 
@@ -171,7 +179,8 @@ namespace accounting.Controllers
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
                         activo = 1,
-                        codigo = client.codigo
+                        codigo = client.codigo, 
+                        nro_codigo = client.nroCodigo
                     };
 
                     db.Entry(c).State = EntityState.Modified;
@@ -183,6 +192,7 @@ namespace accounting.Controllers
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
+            GetComboCCD();
             return View();
         }
         #endregion
@@ -229,12 +239,17 @@ namespace accounting.Controllers
         #endregion
 
         #region Metodos Privados
+        private void GetComboCCD()
+        {
+            enumCC e = new enumCC();
+            ViewBag.CCD = e.GetCCD();
+        }
         public FileContentResult Export([Bind(Include = "razonSocial")] string razonSocial)
         {
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportClient> listado = _repo.ClientReport(razonSocial);
 
-            csv.AppendLine("codigo;razonSocial;localidad;provincia;telefono;email;emailFacturacion;CUIT/CUIL/DNI");
+            csv.AppendLine("codigo;razonSocial;localidad;provincia;nombre del contacto;telefono;email;emailFacturacion;CUIT/CUIL/DNI;Nro CUIT/CUIL/DNI");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

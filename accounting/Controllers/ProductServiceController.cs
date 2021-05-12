@@ -64,11 +64,12 @@ namespace accounting.Controllers
                 id = product_service.id,
                 nombre = product_service.nombre,
                 tipo = product_service.tipo,
-                valorUnitario = product_service.valorUnitario
+                valorUnitario = product_service.valorUnitario,
+                costoProfesional = product_service.costo_profesional
             };
 
             ViewBag.TipoDetalle = product_service.tipo == 0 ? "Producto" : "Servicio";
-
+            ViewBag.UMDetalle = product_service.unidad_medida == 0 ? "Valor unitario por sesión" : product_service.unidad_medida == 1 ? "Valor unitario por hora" : product_service.unidad_medida == 2 ? "Valor unitario por visita" : "Valor unitario por Km";
 
             return View(psVm);
         }
@@ -79,6 +80,7 @@ namespace accounting.Controllers
         public ActionResult Create()
         {
             GetComboTipo();
+            GetComboUnidadMedida();
             return View();
         }
 
@@ -97,7 +99,9 @@ namespace accounting.Controllers
                         valorUnitario = psVM.valorUnitario,
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        activo = 1
+                        activo = 1,
+                        unidad_medida = psVM.unidadMedida,
+                        costo_profesional = psVM.costoProfesional
                     };
 
                     db.product_service.Add(ps);
@@ -127,13 +131,16 @@ namespace accounting.Controllers
             }
             product_service product_service = db.product_service.Find(id);
             GetComboTipo();
+            GetComboUnidadMedida();
 
             ProductServiceVM psVm = new ProductServiceVM()
             {
                 id = product_service.id,
                 nombre = product_service.nombre,
                 tipo = product_service.tipo,
-                valorUnitario = product_service.valorUnitario
+                valorUnitario = product_service.valorUnitario,
+                unidadMedida = product_service.unidad_medida,
+                costoProfesional = product_service.costo_profesional     
             };
 
             return View(psVm);
@@ -155,18 +162,22 @@ namespace accounting.Controllers
                         valorUnitario = psVm.valorUnitario,
                         activo = 1,
                         update_date = DateTime.Now,
-                        update_user_id = int.Parse(Session["UserID"].ToString())
+                        update_user_id = int.Parse(Session["UserID"].ToString()),
+                        unidad_medida = psVm.unidadMedida,
+                        costo_profesional = psVm.costoProfesional
                     };
                     db.Entry(ps).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                GetComboTipo();
             }
             catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
+
+            GetComboTipo();
+            GetComboUnidadMedida();
             return View();
         }
         #endregion
@@ -219,14 +230,20 @@ namespace accounting.Controllers
         {
             Enumerables e = new Enumerables();
 
-            ViewBag.Tipo = e.GetComboTipo();
+            ViewBag.Type = e.GetComboTipo();
+        }
+        private void GetComboUnidadMedida()
+        {
+            Enumerables e = new Enumerables();
+
+            ViewBag.UM = e.GetUM();
         }
         public FileContentResult Export([Bind(Include = "nombre")] string nombre)
         {
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportProductService> listado = _repo.ProductServiceReport(nombre);
 
-            csv.AppendLine("Código;Nombre;Tipo;Valor Unitario");
+            csv.AppendLine("Código;Nombre;Tipo;Unidad Medida;Valor Unitario; Costo Porfesional");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

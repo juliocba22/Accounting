@@ -8,7 +8,7 @@ namespace accounting.ViewModels
 {
     public class WorkOrderVM
     {
-        [Display(Name = "Nro de Orden")]
+        [Display(Name = "Nro de Prestación")]
         public long id { get; set; }
 
         [Display(Name = "* Fecha")]
@@ -23,6 +23,15 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requerido")]
         public int ProductServiceId { get; set; }
 
+        [Display(Name = "Unidad de Medida")]
+        public string UnidadMedida { get; set; }
+        
+        [Display(Name = "Valor Unitario")]
+        public string ValorUnitario { get; set; }
+
+        [Display(Name = "Costo Unitario Profesional")]
+        public string CostoUniProf { get; set; }
+
         [Display(Name = "* Cantidad")]
         [Required(ErrorMessage = "* requerido")]
         public double? Cantidad { get; set; }
@@ -31,10 +40,13 @@ namespace accounting.ViewModels
         public string Paciente { get; set; }
 
         [Display(Name = "Obra Social")]
-        public int? SocialWorkId { get; set; }
+        public string ObraSocial { get; set; }
 
         [Display(Name = "Profesional")]
         public int? ProfesionalId { get; set; }
+
+        [Display(Name = "Cliente")]
+        public int? ClientId { get; set; }
 
         [Display(Name = "* Estado")]
         [Required(ErrorMessage = "* requerido")]
@@ -51,9 +63,14 @@ namespace accounting.ViewModels
 
         public string StatusDesc { get; set; }
 
-        [Display(Name = "* Importe")]
+        public string Cliente { get; set; }
+
+        [Display(Name = "* Total a Facturar")]
         [Required(ErrorMessage = "* requerido")]
         public double? Importe { get; set; }
+
+        [Display(Name = "Costo Total Profesional")]
+        public double? CostoProfesional { get; set; }
 
     }
 

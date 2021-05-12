@@ -12,6 +12,7 @@ using accounting.Infra;
 using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
+using static accounting.Helpers.Enumerables;
 
 namespace accounting.Controllers
 {
@@ -34,7 +35,7 @@ namespace accounting.Controllers
             {
                 IEnumerable<ListProveedor> list = _repo.ProveedorList(model.razonSocial);
 
-                model.list = list.OrderBy(o => o.razonSocial).Skip((page - 1) * _pageSize).Take(_pageSize);
+                model.list = list.OrderByDescending(o => o.id).Skip((page - 1) * _pageSize).Take(_pageSize);
                 model.pagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -56,7 +57,7 @@ namespace accounting.Controllers
         // GET: clients/Create
         public ActionResult Create()
         {
-            ViewBagCreate(0);
+            GetComboCC();
             return View();
         }
 
@@ -70,9 +71,8 @@ namespace accounting.Controllers
                 {
                     proveedor p = new proveedor()
                     {
-                        dni = prov.dni,
-                        cuit = prov.cuit,
-                        codigo = int.Parse(prov.codigo),
+                        dni = prov.cuitNro,
+                        cuit = prov.cuit,                  
                         razon_social = prov.razonSocial,
                         nombre_fantasia = prov.nombreFantasia,
                         localidad = prov.localidad,
@@ -81,13 +81,16 @@ namespace accounting.Controllers
                         telefono = prov.telefono,
                         mail = prov.mail,
                         mail_facturacion = prov.mailFacturacion,
-                        categoria_impositiva_id = prov.categoria_impositiva_id,
                         direccion = prov.direccion,
                         piso_dpto = prov.pisoDpto,
                         codigo_postal = prov.codigoPostal,
                         register_date = DateTime.Now,
                         create_user_id = int.Parse(Session["UserID"].ToString()),
-                        activo = 1
+                        activo = 1,
+                        cbu = prov.cbu,
+                        banco = prov.banco,
+                        nro_cuenta = prov.nroCuenta,
+                        alias = prov.alias
                     };
 
                     db.proveedor.Add(p);
@@ -95,16 +98,15 @@ namespace accounting.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
 
-            ViewBagCreate(prov.categoria_impositiva_id);
+            GetComboCC();
             return View();
         }
         #endregion
-
 
         #region Edicion
         // GET: clients/Edit/5
@@ -119,9 +121,8 @@ namespace accounting.Controllers
             ProveedorVM p = new ProveedorVM()
             {
                 id = prov.id,
-                dni = prov.dni,
+                cuitNro = prov.dni,
                 cuit = prov.cuit,
-                codigo = prov.codigo.ToString(),
                 razonSocial = prov.razon_social,
                 nombreFantasia = prov.nombre_fantasia,
                 localidad = prov.localidad,
@@ -130,14 +131,17 @@ namespace accounting.Controllers
                 telefono = prov.telefono,
                 mail = prov.mail,
                 mailFacturacion = prov.mail_facturacion,
-                categoria_impositiva_id = prov.categoria_impositiva_id,
                 direccion = prov.direccion,
                 pisoDpto = prov.piso_dpto,
                 codigoPostal = prov.codigo_postal,
                 register_date = prov.register_date,
+                cbu = prov.cbu,
+                banco = prov.banco,
+                nroCuenta = prov.nro_cuenta,
+                alias = prov.alias,
             };
 
-            ViewBagCreate(p.categoria_impositiva_id);
+            GetComboCC();
             return View(p);
         }
 
@@ -152,9 +156,8 @@ namespace accounting.Controllers
                     proveedor p = new proveedor()
                     {
                         id = prov.id,
-                        dni = prov.dni,
+                        dni = prov.cuitNro,
                         cuit = prov.cuit,
-                        codigo = int.Parse(prov.codigo),
                         razon_social = prov.razonSocial,
                         nombre_fantasia = prov.nombreFantasia,
                         localidad = prov.localidad,
@@ -163,23 +166,26 @@ namespace accounting.Controllers
                         telefono = prov.telefono,
                         mail = prov.mail,
                         mail_facturacion = prov.mailFacturacion,
-                        categoria_impositiva_id = prov.categoria_impositiva_id,
                         direccion = prov.direccion,
                         piso_dpto = prov.pisoDpto,
                         codigo_postal = prov.codigoPostal,
                         update_date = DateTime.Now,
                         register_date = prov.register_date,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        activo = 1
+                        activo = 1,
+                        cbu = prov.cbu,
+                        banco = prov.banco,
+                        nro_cuenta = prov.nroCuenta,
+                        alias = prov.alias
                     };
 
                     db.Entry(p).State = EntityState.Modified;
                     db.SaveChanges();
-                    ViewBagCreate(prov.categoria_impositiva_id);
+                    GetComboCC();
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
@@ -201,9 +207,8 @@ namespace accounting.Controllers
             ProveedorVM c = new ProveedorVM()
             {
                 id = prov.id,
-                dni = prov.dni,
+                cuitNro = prov.dni,
                 cuit = prov.cuit,
-                codigo = prov.codigo.ToString(),
                 razonSocial = prov.razon_social,
                 nombreFantasia = prov.nombre_fantasia,
                 localidad = prov.localidad,
@@ -212,13 +217,14 @@ namespace accounting.Controllers
                 telefono = prov.telefono,
                 mail = prov.mail,
                 mailFacturacion = prov.mail_facturacion,
-                categoria_impositiva_id = prov.categoria_impositiva_id,
                 direccion = prov.direccion,
                 pisoDpto = prov.piso_dpto,
                 codigoPostal = prov.codigo_postal,
+                cbu = prov.cbu,
+                banco = prov.banco,
+                nroCuenta = prov.nro_cuenta,
+                alias = prov.alias
             };
-
-            ViewBagDetail(prov.categoria_impositiva_id);
 
             return View(c);
         }
@@ -237,7 +243,6 @@ namespace accounting.Controllers
             ProveedorVM c = new ProveedorVM()
             {
                 id = prov.id,
-                codigo = prov.codigo.ToString(),
                 razonSocial = prov.razon_social
             };
 
@@ -258,17 +263,12 @@ namespace accounting.Controllers
 
         #endregion
 
-
         #region --[Extra]--
-        void ViewBagCreate(int categoria_impositiva_id)
+      
+        private void GetComboCC()
         {
-            ViewBag.categoria_impositiva_id = new SelectList(db.categoria_impositiva, "id", "descripcion", categoria_impositiva_id);
-        }
-
-        void ViewBagDetail(int categoria_impositiva_id)
-        {
-            IEnumerable<ListCategoriaImpositiva> list = _repo.CategoriaImpositivaGetById(categoria_impositiva_id);
-            ViewBag.categoria_impositiva_name = list.Select(s => s.descripcion).FirstOrDefault();
+            enumCC e = new enumCC();
+            ViewBag.CCD = e.GetCCD();
         }
 
         public FileContentResult Export([Bind(Include = "razonSocial")] string razonSocial)
@@ -276,7 +276,7 @@ namespace accounting.Controllers
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportProveedor> listado = _repo.ProveedorReport(razonSocial);
 
-            csv.AppendLine("codigo;dni;cuil;razonSocial;localidad;provincia;telefono;email;emailFacturacion");
+            csv.AppendLine("Código;Nombre de fantasia;Razon Social;CUIT/CUIL/DNI;Nro de CUIT/CUIL/DNI;Contacto;email;emailFacturacion;Telefono;Provincia;Localidad;Dirección;Piso/Depto;CP;CBU;Banco;Nro de Cuenta;Alias");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

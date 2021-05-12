@@ -19,8 +19,6 @@ namespace accounting.Models
         public string cuit { get; set; }
         public string razon_social { get; set; }
         public string nombre_fantasia { get; set; }
-        public int codigo { get; set; }
-        public byte categoria_impositiva_id { get; set; }
         public string personeria { get; set; }
         public string provincia { get; set; }
         public string mail { get; set; }
@@ -35,7 +33,9 @@ namespace accounting.Models
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> create_user_id { get; set; }
         public byte activo { get; set; }
-    
-        public virtual categoria_impositiva categoria_impositiva { get; set; }
+        public string cbu { get; set; }
+        public string banco { get; set; }
+        public string nro_cuenta { get; set; }
+        public string alias { get; set; }
     }
 }

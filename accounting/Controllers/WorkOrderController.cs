@@ -79,9 +79,10 @@ namespace accounting.Controllers
             GetComboServicios();
             GetComboProfesional();
             GetComboStatus();
+            GetComboClientes();
             return View();
         }
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(WorkOrderVM woVM)
@@ -97,24 +98,26 @@ namespace accounting.Controllers
                        product_service_id = woVM.ProductServiceId,
                        cantidad = woVM.Cantidad,
                        nombre_paciente = woVM.Paciente,
-                       social_work_id = woVM.SocialWorkId,
                        profesional_id = woVM.ProfesionalId,
                        status_id = woVM.StatusId,
                        update_date = DateTime.Now,
                        update_user_id = int.Parse(Session["UserID"].ToString()),
-                       importe = woVM.Importe
+                       importe = woVM.Importe,
+                       client_id = woVM.ClientId,
+                       obra_social = woVM.ObraSocial,
+                       costo_profesional = woVM.CostoProfesional
                     };
 
                     db.work_order.Add(wo);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-
             }
             catch
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
+            GetComboClientes();
             GetComboServicios();
             GetComboProfesional();
             GetComboStatus();
@@ -135,6 +138,7 @@ namespace accounting.Controllers
             GetComboServicios();
             GetComboProfesional();
             GetComboStatus();
+            GetComboClientes();
 
             WorkOrderVM p = new WorkOrderVM()
             {
@@ -144,10 +148,12 @@ namespace accounting.Controllers
                 ProductServiceId = wo.product_service_id,
                 Cantidad = wo.cantidad,
                 Paciente = wo.nombre_paciente,
-                SocialWorkId = wo.social_work_id,
                 ProfesionalId = wo.profesional_id,
                 StatusId = wo.status_id,
-                Importe = wo.importe
+                Importe = wo.importe,
+                ClientId = wo.client_id,
+                CostoProfesional = wo.costo_profesional,
+                ObraSocial = wo.obra_social
             };
             return View(p);
         }
@@ -168,12 +174,14 @@ namespace accounting.Controllers
                         product_service_id = woVM.ProductServiceId,
                         cantidad = woVM.Cantidad,
                         nombre_paciente = woVM.Paciente,
-                        social_work_id = woVM.SocialWorkId,
                         profesional_id = woVM.ProfesionalId,
                         status_id = woVM.StatusId,
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        importe = woVM.Importe
+                        importe = woVM.Importe,
+                        client_id = woVM.ClientId,
+                        obra_social = woVM.ObraSocial,
+                        costo_profesional = woVM.CostoProfesional
                     };
 
                     db.Entry(wo).State = EntityState.Modified;
@@ -188,6 +196,7 @@ namespace accounting.Controllers
             GetComboServicios();
             GetComboProfesional();
             GetComboStatus();
+            GetComboClientes();
             return View();
         }
         #endregion
@@ -235,7 +244,6 @@ namespace accounting.Controllers
                        cantidad = woBD.Cantidad,
                        nombre_paciente = woBD.Paciente,
                        profesional_id = woBD.ProfesionalId,
-                       social_work_id = woBD.SocialWorkId,
                        status_id = 4,
                        motivo_eliminacion = woVM.MotivoEliminacion,
                        update_date = DateTime.Now,
@@ -267,7 +275,10 @@ namespace accounting.Controllers
 
             return json;
         }
-
+        private void GetComboClientes()
+        {
+            ViewBag.Cliente = db.client.Where(x => x.activo == 1).OrderBy(x => x.razonSocial);
+        }
         private IEnumerable<ComboProductService> GetComboTipoById(int? id)
         {
             dynamic tipo;
@@ -278,7 +289,9 @@ namespace accounting.Controllers
                             {
                                 id = ps.tipo,
                                 nombre = ps.nombre,
-                                valUnitario = ps.valorUnitario
+                                valUnitario = ps.valorUnitario,
+                                unidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : "Valor unitario por Km",
+                                CostoProf = ps.costo_profesional
                             }).ToList();
 
             return tipo;
@@ -306,7 +319,7 @@ namespace accounting.Controllers
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportWorkOrder> listado = _repo.WorkOrderReport(status);
 
-            csv.AppendLine("Nro de Orden;Fecha;Descripción;Producto/Servicio;Cantidad;Paciente;Profesional;Importe;Estado;Motivo Eliminacion");
+            csv.AppendLine("Nro de Prestacion;Fecha;Paciente;Obra Social;Cliente;Profesional;Producto/Servicio;Unida de Medida;Cantidad;Descripción;Valor Unitario;Costo Unitario Profesional;Total a Facturar;Costo Total Profesional;Estado");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

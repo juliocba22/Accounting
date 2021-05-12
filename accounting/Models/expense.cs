@@ -40,6 +40,7 @@ namespace accounting.Models
         public Nullable<double> iva { get; set; }
         public Nullable<double> importe_total { get; set; }
         public int tipo_comprobante_id { get; set; }
+        public Nullable<long> proveedor_id { get; set; }
     
         public virtual expense_type expense_type { get; set; }
     }

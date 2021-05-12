@@ -13,9 +13,6 @@ namespace accounting.ViewModels
         [Display(Name = "Código")]
         public int id { get; set; }
 
-        [Display(Name = "CUIT/CUIL/DNI")]
-        public string codigo { get; set; }
-
         [Display(Name = "* Razón Social")]
         [Required(ErrorMessage = "* requerido")]
         public string razonSocial { get; set; }
@@ -31,7 +28,7 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requerido")]
         public string provincia { get; set; }
 
-        [Display(Name = "Personería ")]
+        [Display(Name = "Nombre del Contacto")]
         public string personeria { get; set; }
 
         [Display(Name = "* Telefono")]
@@ -42,13 +39,19 @@ namespace accounting.ViewModels
         [Display(Name = "* Email")]
         [EmailAddress()]
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "* requerido")]
+        
         public string email { get; set; }
 
         [Display(Name = "Email de Facturación")]
         [EmailAddress()]
         [DataType(DataType.EmailAddress)]
         public string emailFacturacon { get; set; }
+
+        [Display(Name = "CUIT/CUIL/DNI")]
+        public string codigo { get; set; }
+
+        [Display(Name = "Nro CUIT/CUIL/DNI")]
+        public string nroCodigo { get; set; }
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> update_user_id { get; set; }
     }

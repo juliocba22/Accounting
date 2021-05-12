@@ -18,6 +18,7 @@ using accounting.Infra;
 using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
+using static accounting.Helpers.Enumerables;
 
 namespace accounting.Controllers
 {
@@ -30,7 +31,6 @@ namespace accounting.Controllers
     [HandleError(View = "Error")]
     public class ExpensesController : Controller
     {
-        //private accountingContext db = new accountingContext();
         private AccountingEntities1 db = new AccountingEntities1();
 
         private IRepoCustom _repo;
@@ -84,9 +84,11 @@ namespace accounting.Controllers
         #region --[CREATE]--
 
         public ActionResult Create()
-        {
+        { 
             ViewBagCreate(0);
             ViewBagCreateTipoComprobante(0);
+            GetComboCC();
+            GetComboProv();
             return View(new ExpenseCreateVM { register_date = DateTime.Now, date_expense = DateTime.Now });
         }
 
@@ -116,7 +118,7 @@ namespace accounting.Controllers
                         register_date = DateTime.Now,
                         create_user_id = int.Parse(Session["UserID"].ToString()),
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        amount_money = model.amount_money,
+                        amount_money = 0,
                         name_file = FileName,
                         activo = 1,
                         selling_point = model.selling_point,
@@ -130,22 +132,23 @@ namespace accounting.Controllers
                         imp_op_exentas = model.imp_op_exentas,
                         iva=model.iva,    
                         importe_total=model.importe_total,
+                        proveedor_id = model.proveedor_id
                     };
 
                     _repo.ExpenseAdd(exp);
 
-                    //log.Info($"Usuario:{Session["UserID"]} - {User.Identity.Name} carga el archivo {model.file.FileName} - Grupo {model.group_name} con {cant} número de teléfonos.");
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
-                //log.Error($"Create - {ex.Message}", ex);
             }
 
             ViewBagCreate(model.expense_id);
             ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
+            GetComboCC();
+            GetComboProv();
 
             return View(model);
         }
@@ -201,9 +204,8 @@ namespace accounting.Controllers
                 imp_op_exentas = exp.imp_op_exentas,
                 iva = exp.iva,
                 importe_total = exp.importe_total,
+                proveedor_id = exp.proveedor_id
             };
-
-           // ViewBagCreate(model.expense_id);
 
             if (exp == null)
             {
@@ -212,7 +214,8 @@ namespace accounting.Controllers
 
             ViewBagCreate(model.expense_id);
             ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
-
+            GetComboCC();
+            GetComboProv();
             return View(model);
         }
 
@@ -234,7 +237,7 @@ namespace accounting.Controllers
                         register_date = DateTime.Now,//no se deberia modificar
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        amount_money = model.amount_money,
+                        amount_money = 0,
                         activo = 1,
                         selling_point = model.selling_point,
                         tipo_comprobante_id = model.tipo_comprobante_id,
@@ -246,7 +249,8 @@ namespace accounting.Controllers
                         imp_neto_no_gravado = model.imp_neto_no_gravado,
                         imp_op_exentas = model.imp_op_exentas,
                         iva = model.iva,
-                        importe_total =model.importe_total
+                        importe_total =model.importe_total,
+                        proveedor_id = model.proveedor_id
                     };
 
                     _repo.ExpenseUpdate(exp);
@@ -261,6 +265,8 @@ namespace accounting.Controllers
 
             ViewBagCreate(model.expense_id);
             ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
+            GetComboCC();
+            GetComboProv();
             return View(model);
         }
         #endregion --[EDIT]--
@@ -311,6 +317,11 @@ namespace accounting.Controllers
         #endregion --[DELETE]--
 
         #region --[EXTRA]--
+        private void GetComboCC()
+        {
+            enumCC e = new enumCC();
+            ViewBag.CC = e.GetCCD(); 
+        }
         void ViewBagCreate(int expense_id)
         {
             ViewBag.expense_id = new SelectList(_repo.ExpenseTypeAll().Select(x => new { id = x.id, description = x.description }).ToList().OrderBy(o => o.description), "id", "description", expense_id);
@@ -320,6 +331,11 @@ namespace accounting.Controllers
         void ViewBagCreateTipoComprobante(int tipo_comprobante_id)
         {
             ViewBag.tipo_comprobante_id = new SelectList(db.tipo_comprobante, "id", "descripcion", tipo_comprobante_id);
+        }
+
+        void GetComboProv()
+        {
+            ViewBag.Prov = db.proveedor.Where(x => x.activo == 1).OrderBy(x => x.razon_social);
         }
 
         void ViewBagDetail(int expense_id)
@@ -397,7 +413,7 @@ namespace accounting.Controllers
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportExpense> listado = _repo.ExpenseReport(expense_type);
 
-            csv.AppendLine("Nombre;Tipo comprobante;Punto de venta;Nro. comprobante;cuit/cuil;Nro. cuit/cuil;Emisor; Imp. Neto Gravado;Imp. Neto No Gravado;Imp. Op. Exentas;IVA;Importe Total;Descripcion;Tipo gasto;Fecha gasto;Monto gasto");
+            csv.AppendLine("Nombre del Voluntario;Tipo Gasto;Fecha Gasto;Tipo comprobante;Proveedor;Punto de venta;Nro. comprobante;CUIT/CUIL;Nro. CUIT/CUIL;Emisor;Descripcion;Imp. Neto Gravado;Imp. Neto No Gravado;Imp. Op. Exentas;IVA;Importe Total");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 
@@ -406,8 +422,6 @@ namespace accounting.Controllers
         }
 
         #endregion --[EXTRA]--
-
-       
-        
+    
     }
 }

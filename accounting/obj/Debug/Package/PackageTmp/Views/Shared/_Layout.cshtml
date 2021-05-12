@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Sistema de Gestión</title>
+    <!-- Bootstrap Core CSS -->
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://www.cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <meta charset="iso-8859-2" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="~/morris.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script src="~/examples/lib/example.js"></script>
+    <link rel="stylesheet" href="~/morris.css">
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="~/Content/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="~/Content/vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- DataTables Responsive CSS -->
+    <link href="~/Content/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .ir-arriba {
+            display: none;
+            padding: 20px;
+            background: #024959;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Home",new { id=Session["usuario_id"]})">
+                    <div style="width: 100%; height:35px; ">
+                        Sistema de Gestión
+                    </div>
+                </a>
+                <!-- /.navbar-top-links -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="#"><i class="fa  fa-users"></i> Usuarios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Users")</li>
+                                    <li>@Html.ActionLink("Listado de Usuarios", "Index", "Users")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa  fa-money"></i> Gastos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Expenses")</li>
+                                    <li>@Html.ActionLink("Listado de Gastos", "Index", "Expenses")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-user"></i> Clientes<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Client")</li>
+                                    <li>@Html.ActionLink("Listado de Clientes", "Index", "Client")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa  fa-product-hunt"></i> Productos y Servicios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "ProductService")</li>
+                                    <li>@Html.ActionLink("Listado de Productos/Servicios", "Index", "ProductService")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-stethoscope"></i> Profesionales<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Profesional")</li>
+                                    <li>@Html.ActionLink("Listado de Profesionales", "Index", "Profesional")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bus"></i> Proveedores<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Proveedores")</li>
+                                    <li>@Html.ActionLink("Listado de Proveedores", "Index", "Proveedores")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa  fa-check"></i> Prestaciones<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nueva", "Create", "WorkOrder")</li>
+                                    <li>@Html.ActionLink("Listado de Prestaciones", "Index", "WorkOrder")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Facturas Profesionales<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nueva", "Create", "Compra")</li>
+                                    <li>@Html.ActionLink("Listado Facturas Profesionales", "Index", "Compra")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user"> 
+                        @using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+                        }
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <span class="ir-arriba icon-arrow-up2"></span>
+        </nav>
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Content/vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- DataTables JavaScript -->
+    <!-- DataTables JavaScript -->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+    <!-- Flot Charts JavaScript -->
+    <script src="~/Content/vendor/flot/excanvas.min.js"></script>
+    <script src="~/Content/vendor/flot/excanvas.min.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.pie.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.resize.js"></script>
+    <script src="~/Content/vendor/flot/jquery.flot.time.js"></script>
+    <script src="~/Content/vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="~/Content/vendor/raphael/raphael.min.js"></script>
+    <script src="~/Content/vendor/morrisjs/morris.min.js"></script>
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+    <script>
+            $.extend($.fn.dataTable.defaults, {
+                searching: true,
+            ordering: false
+        });
+            $(document).ready(function () {
+                $('#dataTables-example').DataTable({
+
+                    language: {
+                        processing: "Procesando...",
+                        search: "Buscar&nbsp;:",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando...",
+                        zeroRecords: "No se encontraron resultados",
+                        emptyTable: "Ningún dato disponible en esta tabla",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Último"
+                        },
+                        aria: {
+                            sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                            sortDescending: ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                    ,
+                    responsive: true
+                });
+
+                $(function () {
+
+                    var data =   @Html.Raw(ViewBag.graficoTortaNew);
+                    var plotObj = $.plot($("#flot-pie-chart"), data, {
+                        series: {
+                            pie: {
+                                show: true
+                            }
+                        },
+                        grid: {
+                            hoverable: true
+                        },
+                        tooltip: true,
+                        tooltipOpts: {
+                            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                            shifts: {
+                                x: 20,
+                                y: 0
+                            },
+                            defaultTheme: false
+                        }
+                    });
+
+                });
+                Morris.Bar({
+                    element: 'morris-bar-chart',
+                    data: [{ mes: 'ENERO ', Cantidad: 23, Total: 269250 }, { mes: 'FEBRERO ', Cantidad: 20, Total: 359542 }, { mes: 'MARZO ', Cantidad: 24, Total: 583560 }, { mes: 'ABRIL ', Cantidad: 19, Total: 461440 },],
+
+                    xkey: 'mes',
+                    ykeys: [ 'Total'],
+                    labels: [ 'Total'],
+                    hideHover: 'auto',
+                    resize: true
+                });
+
+});
+                $(document).ready(function () {
+
+                    $('.ir-arriba').click(function () {
+                        $('body, html').animate({
+                            scrollTop: '0px'
+                        }, 300);
+                    });
+
+                    $(window).scroll(function () {
+                        if ($(this).scrollTop() > 0) {
+                            $('.ir-arriba').slideDown(300);
+                        } else {
+                            $('.ir-arriba').slideUp(300);
+                        }
+                    });
+
+                });                                                                                                                                          
+    </script>
+</body>
+</html>
+

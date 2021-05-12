@@ -25,11 +25,9 @@ namespace accounting.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<categoria_impositiva> categoria_impositiva { get; set; }
         public virtual DbSet<expense_type> expense_type { get; set; }
         public virtual DbSet<product_service> product_service { get; set; }
         public virtual DbSet<profesional> profesional { get; set; }
-        public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<social_work> social_work { get; set; }
         public virtual DbSet<users> users { get; set; }
@@ -38,6 +36,9 @@ namespace accounting.Models
         public virtual DbSet<compra> compra { get; set; }
         public virtual DbSet<expense> expense { get; set; }
         public virtual DbSet<client> client { get; set; }
+        public virtual DbSet<pagina> pagina { get; set; }
+        public virtual DbSet<rolpagina> rolpagina { get; set; }
+        public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<work_order> work_order { get; set; }
     }
 }
