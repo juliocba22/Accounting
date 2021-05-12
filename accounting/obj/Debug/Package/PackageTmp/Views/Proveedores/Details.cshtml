@@ -11,122 +11,119 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.dni)
+            @Html.Label("Código:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.dni)
+            @Html.DisplayFor(model => model.id)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.cuit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cuit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.razonSocial)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.razonSocial)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nombreFantasia)
+            @Html.Label("Nombre Fantasia:")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.nombreFantasia)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.codigo)
+            @Html.Label("Razón Social:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.codigo)
+            @Html.DisplayFor(model => model.razonSocial)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.personeria)
+            @Html.Label("CUIT/CUIL/DNI:")
         </dt>
-
+        <dd>
+            @Html.DisplayFor(model => model.cuit)
+        </dd>
+        <dt>
+            @Html.Label("Nro CUIT/CUIL/DNI:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.cuitNro)
+        </dd>
+        <dt>
+            @Html.Label("Contacto:")
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.personeria)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.categoria_impositiva_name)
+            @Html.Label("Email:")
         </dt>
-
-        <dd>
-            @ViewBag.categoria_impositiva_name
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.provincia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.mail)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.mail)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.mailFacturacion)
+            @Html.Label("Email Facturación:")
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.mailFacturacion)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.direccion)
+            @Html.Label("Teléfono:")
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.pisoDpto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.pisoDpto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.codigoPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.codigoPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.telefono)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.localidad)
+            @Html.Label("Provincia:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.provincia)
+        </dd>
+        <dt>
+            @Html.Label("Localidad:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.localidad)
+        </dd>
+        <dt>
+            @Html.Label("Dirección:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+        <dt>
+            @Html.Label("Piso/Depto:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.pisoDpto)
+        </dd>
+        <dt>
+            @Html.Label("Código Postal:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.codigoPostal)
+        </dd>
+        <dt>
+            @Html.Label("CBU:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.localidad)
+            @Html.DisplayFor(model => model.cbu)
+        </dd>
+        <dt>
+            @Html.Label("Banco:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.banco)
+        </dd>
+        <dt>
+            @Html.Label("Nro de Cuenta:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nroCuenta)
+        </dd>
+        <dt>
+            @Html.Label("Alias:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.alias)
         </dd>
 
     </dl>

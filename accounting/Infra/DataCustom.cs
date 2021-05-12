@@ -73,9 +73,10 @@ namespace accounting.Infra
         public double? iva { get; set; }
         public double? importe_total { get; set; }
         public string tipo_comprobante { get; set; }
+        public string proveedor { get; set; }
         public override string ToString()
         {
-            return $"{name};{tipo_comprobante};{selling_point};{nro_comprobante};{cuit_cuil};{nro_cuit_cuil};{denominacion_emisor};{imp_neto_gravado};{imp_neto_no_gravado};{imp_op_exentas};{iva};{importe_total};{description};{expense_name};{date_expense};{amount_money}";
+            return $"{name};{expense_name};{date_expense};{tipo_comprobante};{proveedor};{selling_point};{nro_comprobante};{cuit_cuil};{nro_cuit_cuil};{denominacion_emisor};{description};{imp_neto_gravado};{imp_neto_no_gravado};{imp_op_exentas};{iva};{importe_total}";
         }
     }
 
@@ -123,10 +124,12 @@ namespace accounting.Infra
         public string email { get; set; }
         public string emailFacturacion { get; set; }
         public string codigo { get; set; }
+        public string nroCodigo { get; set; }
+        public string nombreContacto { get; set; }
 
         public override string ToString()
         {
-            return $"{id};{razonSocial};{localidad};{provincia};{telefono};{email};{emailFacturacion};{codigo}";
+            return $"{id};{razonSocial};{localidad};{provincia};{nombreContacto};{telefono};{email};{emailFacturacion};{codigo};{nroCodigo}";
         }
     }
 
@@ -146,9 +149,12 @@ namespace accounting.Infra
         public string tipo { get; set; }
         public string nombre { get; set; }
         public double valorUnitario { get; set; }
+        public double? costoProfesional { get; set; }
+
+        public string unidadMedida { get; set; }
         public override string ToString()
         {
-            return $"{id};{nombre};{tipo};{valorUnitario}";
+            return $"{id};{nombre};{tipo};{unidadMedida};{valorUnitario};{costoProfesional}";
         }
     }
     #endregion
@@ -174,10 +180,16 @@ namespace accounting.Infra
         public string provincia { get; set; }
         public string telefono { get; set; }
         public string email { get; set; }
+        public string cuitNro { get; set; }
+        public string tipoFacturacion { get; set; }
+        public string cbu { get; set; }
+        public string banco { get; set; }
+        public string nroCuenta { get; set; }
+        public string alias { get; set; }
 
         public override string ToString()
         {
-            return $"{nombre};{servicio};{matricula};{cuit};{domicilio};{localidad};{provincia};{telefono};{email}";
+            return $"{nombre};{servicio};{matricula};{cuit};{cuitNro};{domicilio};{localidad};{provincia};{telefono};{email};{tipoFacturacion};{cbu};{banco};{nroCuenta};{alias}";
         }
 
     }
@@ -187,7 +199,6 @@ namespace accounting.Infra
     public class ListProveedor
     {
         public long id { get; set; }
-        public string codigo { get; set; }
         public string razonSocial { get; set; }
         public string localidad { get; set; }
         public string telefono { get; set; }
@@ -197,19 +208,28 @@ namespace accounting.Infra
 
     public class ReportProveedor
     {
-        public string codigo { get; set; }
-        public string dni { get; set; }
+        public long codigo { get; set; }
+        public string cuitNro { get; set; }
         public string cuit { get; set; }
         public string razonSocial { get; set; }
+        public string nombreFantasia { get; set; }
         public string localidad { get; set; }
+        public string contacto { get; set; }
         public string provincia { get; set; }
         public string telefono { get; set; }
+        public string direccion { get; set; }
+        public string cp { get; set; }
+        public string piso { get; set; }
         public string email { get; set; }
         public string emailFacturacion { get; set; }
+        public string cbu { get; set; }
+        public string banco { get; set; }
+        public string nroCuenta { get; set; }
+        public string alias { get; set; }
 
         public override string ToString()
         {
-            return $"{codigo};{dni};{cuit};{razonSocial};{localidad};{provincia};{telefono};{email};{emailFacturacion}";
+            return $"{codigo};{nombreFantasia};{razonSocial};{cuit};{cuitNro};{contacto};{email};{emailFacturacion};{telefono};{provincia};{localidad};{direccion};{piso};{cp};{cbu};{banco};{nroCuenta};{alias}";
         }
     }
 
@@ -229,6 +249,8 @@ namespace accounting.Infra
         public int id { get; set; }
         public string nombre { get; set; }
         public double valUnitario { get; set; }
+        public string unidadMedida { get; set; }
+        public double? CostoProf { get; set; }
     }
 
     public class ListWorkOrder
@@ -255,11 +277,16 @@ namespace accounting.Infra
         public string StatusDesc { get; set; }
         public double? Cantidad { get; set; }
         public string Paciente { get; set; }
-        public string MotivoEliminacion { get; set; }
+        public string Cliente { get; set; }
+        public string UnidadMedida { get; set; }
+        public string ObraSocial { get; set; }
         public double? Importe { get; set; }
+        public double ValorUnitario { get; set; }
+        public double? CostoUniProf { get; set; }
+        public double? CostoTotalProf { get; set; }
         public override string ToString()
         {
-            return $"{id};{Fecha};{Descripcion};{ProductServiceDesc};{Cantidad};{Paciente};{ProfesionalDesc};{Importe};{StatusDesc};{MotivoEliminacion}";
+            return $"{id};{Fecha};{Paciente};{ObraSocial};{Cliente};{ProfesionalDesc};{ProductServiceDesc};{UnidadMedida};{Cantidad};{Descripcion};{ValorUnitario};{CostoUniProf};{Importe};{CostoTotalProf};{StatusDesc};";
         }
     }
     #endregion

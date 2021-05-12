@@ -20,12 +20,14 @@ namespace accounting.Models
         public int product_service_id { get; set; }
         public Nullable<double> cantidad { get; set; }
         public string nombre_paciente { get; set; }
-        public Nullable<int> social_work_id { get; set; }
         public Nullable<int> profesional_id { get; set; }
         public string motivo_eliminacion { get; set; }
         public int status_id { get; set; }
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> update_user_id { get; set; }
         public Nullable<double> importe { get; set; }
+        public string obra_social { get; set; }
+        public Nullable<double> costo_profesional { get; set; }
+        public Nullable<int> client_id { get; set; }
     }
 }

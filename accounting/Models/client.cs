@@ -27,5 +27,6 @@ namespace accounting.Models
         public Nullable<int> update_user_id { get; set; }
         public byte activo { get; set; }
         public string codigo { get; set; }
+        public string nro_codigo { get; set; }
     }
 }

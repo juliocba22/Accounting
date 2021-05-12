@@ -19,9 +19,19 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requerido")]
         public string nombre { get; set; }
 
+        [Display(Name = "* Unidad de medida")]
+        [Required(ErrorMessage = "* requerido")]
+        public int? unidadMedida { get; set; }
+
         [Display(Name = "* Valor Unitario")]
         [Required(ErrorMessage = "* requerido")]
         public double valorUnitario { get; set; }
+
+        [Display(Name = "* Costo Profesional")]
+        [Required(ErrorMessage = "* requerido")]
+        public double? costoProfesional { get; set; }
+
+        public string unidadMedidaDesc { get; set; }
     }
 
     public class ProductServiceVMIndex

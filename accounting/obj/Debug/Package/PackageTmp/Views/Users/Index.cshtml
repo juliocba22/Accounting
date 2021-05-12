@@ -32,17 +32,14 @@
 <table class="table">
     <tr>
         <th>
-            @Html.Label("Nombre")
+            @Html.Label("Nombre y Apellido")
         </th>
         <th>
-            @Html.Label("nombre usuario")
+            @Html.Label("Nombre Usuario")
         </th>
         <th>
             @Html.Label("Rol")
-        </th>
-        <th>
-            @Html.Label("Contraseña")
-        </th>
+        </th>  
         <th>
             @Html.Label("Activo")
         </th>       
@@ -70,15 +67,12 @@
         @Html.DisplayFor(modelItem => item.rol_description)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.password)
-    </td>
-    <td>
         @Html.DisplayFor(modelItem => item.active)
     </td>
     <td>
-        @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-        @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+        <a href="@Url.Action("Edit", new { id = item.id })" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>
+        | <a href="@Url.Action("Details", new { id = item.id })" title="Detalle"><span class="glyphicon glyphicon-list-alt"></span></a>
+        | <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar"><span class="glyphicon glyphicon-remove-circle"></span></a>
     </td>
 </tr>
         }

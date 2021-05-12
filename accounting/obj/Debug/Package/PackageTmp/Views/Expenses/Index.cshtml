@@ -42,24 +42,21 @@
     <table class="table">
         <tr>
             <th>
-                @Html.Label("nombre")
+                @Html.Label("Nombre del Voluntario")
             </th>
             <th>
-                @Html.Label("descripcion")
+                @Html.Label("Tipo gasto")
             </th>
             <th>
-                @Html.Label("tipo gasto")
+                @Html.Label("Fecha gasto")
             </th>
             <th>
-                @Html.Label("fecha gasto")
-            </th>
-            <th>
-                @Html.Label("monto gasto")
+                @Html.Label("Cargado por")
             </th>
             <th>
                 @Html.Label("Archivo")
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
 
         @if (@Model.list.Count() == 0)
@@ -72,43 +69,38 @@
         {
             foreach (var item in Model.list)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.expense_description)
-                    </td>
-                    <td>
-                        @*@Html.DisplayFor(modelItem => item.date_expense)*@
-                        @item.date_expense.ToString("dd/MM/yyyy")
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.amount_money)
-                    </td>
-                    <td>
-                        @*@Html.DisplayFor(modelItem => item.image)*@
-                        @if (!string.IsNullOrEmpty(item.name_file))
-                        {
-                            @*@Html.ActionLink("Download", "Download", new { name_file = item.name_file })*@
-                            <a target="_blank" href="http://institutosanignacio.com.ar/Fundacion/path/@item.name_file">DOWNLOAD</a>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
 
-                        }
-                        else
-                        {
-                            <img src="~/img/file_notaviable.png" alt="sin archivo" width="30" height="30" />
-                        }
+        <td>
+            @item.date_expense.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.name_file))
+            {
+                <a target="_blank" href="http://institutosanignacio.com.ar/Fundacion/path/@item.name_file">DOWNLOAD</a>
 
-                    </td>
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
-                    </td>
-                </tr>
+            }
+            else
+            {
+                <img src="~/img/file_notaviable.png" alt="sin archivo" width="30" height="30" />
+            }
+
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", new { id = item.id })" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>
+          | <a href="@Url.Action("Details", new { id = item.id })" title="Detalle"><span class="glyphicon glyphicon-list-alt"></span></a>
+          | <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar"><span class="glyphicon glyphicon-remove-circle"></span></a>   
+        </td>
+    </tr>
             }
         }
 
@@ -125,4 +117,3 @@
         }
     }
 
-    @*}*@

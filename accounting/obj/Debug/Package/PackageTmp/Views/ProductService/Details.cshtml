@@ -20,7 +20,7 @@
             @Html.Label("Tipo:")
         </dt>
         <dd>
-           @ViewBag.TipoDetalle
+            @ViewBag.TipoDetalle
         </dd>
 
         <dt>
@@ -30,12 +30,24 @@
         <dd>
             @Html.DisplayFor(model => model.nombre)
         </dd>
+        <dt>
+            @Html.Label("Unidad Medida:")
+        </dt>
+        <dd>
+            @ViewBag.UMDetalle
+        </dd>
 
         <dt>
             @Html.Label("Valor Unitario: ")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.valorUnitario)
+        </dd>
+        <dt>
+            @Html.Label("Costo Profesional: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.costoProfesional)
         </dd>
     </dl>
 </div>

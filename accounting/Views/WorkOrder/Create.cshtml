@@ -1,11 +1,11 @@
 ﻿@model accounting.ViewModels.WorkOrderVM
 
 @{
-    ViewBag.Title = "Nueva Orden de Trabajo";
+    ViewBag.Title = "Nueva Prestación";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Nueva Orden de Trabajo</h2>
+    <h2>Nueva Prestación</h2>
 
 
 @using (Html.BeginForm())
@@ -37,6 +37,24 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(model => model.UnidadMedida, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UnidadMedida, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ValorUnitario, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CostoUniProf, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CostoUniProf, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
         @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
@@ -50,6 +68,18 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(model => model.ClientId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ClientId, new SelectList(ViewBag.Cliente, "id", "razonSocial"), "Seleccione..", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ObraSocial, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ObraSocial, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
         @Html.LabelFor(model => model.ProfesionalId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.ProfesionalId, new SelectList(ViewBag.Profesional, "id", "nombre"), "Seleccione..", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
@@ -58,8 +88,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Importe, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Importe, new { htmlAttributes = new { @class = "form-control"} })
+            @Html.EditorFor(model => model.Importe, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Importe, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CostoProfesional, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CostoProfesional, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
     <div class="form-group">
@@ -109,27 +145,49 @@
                     function (data) {
                         $.each(data, function (i, item) {
                             if (item.id == "1") {
-                                $('#SocialWorkId').prop('disabled', false);
+                                $('#CostoProfesional').prop('disabled', false);
+                                $('#ClientId').prop('disabled', false);
+                                $('#ObraSocial').prop('disabled', false);
                                 $('#Paciente').prop('disabled', false);
                                 $('#ProfesionalId').prop('disabled', false);
+                                $("#UnidadMedida").val(item.unidadMedida);
+                                $("#CostoUniProf").val(item.CostoProf);
+                                $("#ValorUnitario").val(item.valUnitario);
                             }
                             else {
-                                $('#SocialWorkId').prop('disabled', 'disabled');
+                                $('#CostoProfesional').prop('disabled', 'disabled');
+                                $('#ClientId').prop('disabled', 'disabled');
+                                $('#ObraSocial').prop('disabled', 'disabled');
                                 $('#Paciente').prop('disabled', 'disabled');
                                 $('#ProfesionalId').prop('disabled', 'disabled');
+                                $("#UnidadMedida").val(null);
+                                $("#CostoUniProf").val(null);
+                                $("#ValorUnitario").val(null);
+                                $("#CostoProfesional").val(0);
+                                $('#CostoProfesional').val(null);
+                                $('#ClientId').val(null);
+                                $('#ObraSocial').val(null);
+                                $('#Paciente').val(null);
+                                $('#ProfesionalId').val(null);
                             }
-                            multiplicar(item.valUnitario);
+                            multiplicar(item.valUnitario, item.CostoProf);
                         });
                            }
                 );
         };
 
-    function multiplicar(valUnitario) {
-            var cant = $("#Cantidad").val();
+    function multiplicar(valUnitario, CostoProf) {
+        var cant = $("#Cantidad").val();
         var r = cant * valUnitario;
         r = Number(r.toFixed(2));
         r = r.toString().replace('.', ',');          
-       $("#Importe").val(r);
-            };            
+        $("#Importe").val(r);
+
+        var c = cant * CostoProf;
+        c = Number(c.toFixed(2));
+        c = c.toString().replace('.', ',');
+        $("#CostoProfesional").val(c);
+
+        };            
        
 </script>

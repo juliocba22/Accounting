@@ -27,5 +27,11 @@ namespace accounting.Models
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> update_user_id { get; set; }
         public Nullable<byte> activo { get; set; }
+        public Nullable<int> tipo_facturacion { get; set; }
+        public string nro_cuit { get; set; }
+        public string cbu { get; set; }
+        public string banco { get; set; }
+        public string nro_cuenta { get; set; }
+        public string alias { get; set; }
     }
 }

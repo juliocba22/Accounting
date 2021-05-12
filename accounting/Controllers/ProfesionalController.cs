@@ -10,6 +10,7 @@ using accounting.Infra;
 using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
+using static accounting.Helpers.Enumerables;
 
 namespace accounting.Controllers
 {
@@ -33,7 +34,7 @@ namespace accounting.Controllers
             {
                 IEnumerable<ListProfesional> list = _repo.ProfesionalList(model.nombre);
 
-                model.list = list.OrderBy(o => o.nombre).Skip((page - 1) * _pageSize).Take(_pageSize);
+                model.list = list.OrderByDescending(o => o.id).Skip((page - 1) * _pageSize).Take(_pageSize);
                 model.pagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -71,7 +72,9 @@ namespace accounting.Controllers
         // GET: profesionals/Create
         public ActionResult Create()
         {
+            GetComboCC();
             GetComboServicios();
+            GetComboTipoFacturacion();
             return View();
         }
 
@@ -89,6 +92,7 @@ namespace accounting.Controllers
                         nombre = prof.nombre,
                         domicilio = prof.domicilio,
                         cuit = prof.cuit,
+                        nro_cuit = prof.cuitNro,
                         matricula = prof.matricula,
                         localidad = prof.localidad,
                         provincia = prof.provincia,
@@ -96,7 +100,12 @@ namespace accounting.Controllers
                         email = prof.email,
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        activo = 1
+                        activo = 1,
+                        tipo_facturacion = prof.tipoFacturacion,
+                        cbu = prof.cbu,
+                        banco = prof.banco,
+                        nro_cuenta = prof.nroCuenta,
+                        alias = prof.alias
                     };
 
                     db.profesional.Add(p);
@@ -109,6 +118,8 @@ namespace accounting.Controllers
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
+            GetComboCC();
+            GetComboTipoFacturacion();
             GetComboServicios();
             return View();
         }
@@ -123,7 +134,9 @@ namespace accounting.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             profesional prof = db.profesional.Find(id);
+            GetComboCC();
             GetComboServicios();
+            GetComboTipoFacturacion();
 
             ProfesionalVM p = new ProfesionalVM()
             {
@@ -136,7 +149,13 @@ namespace accounting.Controllers
                 localidad = prof.localidad,
                 provincia = prof.provincia,
                 telefono = prof.telefono,
-                email = prof.email
+                email = prof.email,
+                tipoFacturacion = prof.tipo_facturacion,
+                cuitNro = prof.nro_cuit,
+                cbu = prof.cbu,
+                banco = prof.banco,
+                nroCuenta = prof.nro_cuenta,
+                alias = prof.alias
             };
             return View(p);
         }
@@ -163,7 +182,13 @@ namespace accounting.Controllers
                         email = prof.email,
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
-                        activo = 1
+                        activo = 1,
+                        tipo_facturacion = prof.tipoFacturacion,
+                        nro_cuit = prof.cuitNro,
+                        banco = prof.banco,
+                        cbu = prof.cbu,
+                        nro_cuenta = prof.nroCuenta,
+                        alias = prof.alias
                     };
 
                     db.Entry(p).State = EntityState.Modified;
@@ -175,7 +200,9 @@ namespace accounting.Controllers
             {
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
+            GetComboCC();
             GetComboServicios();
+            GetComboTipoFacturacion();
             return View();
         }
         #endregion
@@ -230,12 +257,23 @@ namespace accounting.Controllers
         {
             ViewBag.Servicio = db.product_service.Where(x=> x.tipo == 1 && x.activo == 1).OrderBy(x => x.nombre); //solo Servicio.
         }
+        private void GetComboTipoFacturacion()
+        {
+            Enumerables e = new Enumerables();
+
+            ViewBag.TF = e.GetTF();
+        }
+        private void GetComboCC()
+        {
+            enumCC e = new enumCC();
+            ViewBag.CCD = e.GetCCD();
+        }
         public FileContentResult Export([Bind(Include = "nombre")] string nombre)
         {
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportProfesional> listado = _repo.ProfesionalReport(nombre);
 
-            csv.AppendLine("Nombre y Apellido;Servicio;Matrícula;CUIT;Domicilio;Localidad;Provincia;Teléfono;Email");
+            csv.AppendLine("Nombre y Apellido;Servicio;Matrícula;CUIT/CUIL/DNI;Nro CUIT/CUIL/DNI;Domicilio;Localidad;Provincia;Teléfono;Email;Tipo Facturacion;CBU;Banco;Nro de Cuenta;Alias");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

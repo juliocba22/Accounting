@@ -2,10 +2,10 @@
 @using accounting.Helpers
 
 @{
-    ViewBag.Title = "Listado de Ordenes de Trabajo";
+    ViewBag.Title = "Listado de Prestaciones";
 }
 
-    <h2>Listado de Ordenes de Trabajo</h2>
+    <h2>Listado de Prestaciones</h2>
 
 @using (Html.BeginForm("Index", "WorkOrder", FormMethod.Post, new { page = 1 }))
 {
@@ -36,12 +36,12 @@
 }
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="form-group">
-    @Html.ActionLink("NUEVA ORDEN", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+    @Html.ActionLink("NUEVA PRESTACIÓN", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
 </div>
 <table class="table">
     <tr>
         <th>
-            @Html.Label("Nro de Orden")
+            @Html.Label("Nro de Prestación")
         </th>
         <th>
             @Html.Label("Fecha")
@@ -79,9 +79,9 @@
                     @Html.DisplayFor(modelItem => item.StatusDesc)
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Detalle", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+                    <a href="@Url.Action("Edit", new { id = item.id })" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>
+                    | <a href="@Url.Action("Details", new { id = item.id })" title="Detalle"><span class="glyphicon glyphicon-list-alt"></span></a>
+                    | <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar"><span class="glyphicon glyphicon-remove-circle"></span></a>
                 </td>
             </tr>
         }

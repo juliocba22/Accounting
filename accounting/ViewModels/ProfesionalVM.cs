@@ -22,8 +22,11 @@ namespace accounting.ViewModels
         [Display(Name = "Nro de Matrícula")]
         public string matricula { get; set; }
 
-        [Display(Name = "CUIT")]
+        [Display(Name = "CUIT/CUIL/DNI")]
         public string cuit { get; set; }
+
+        [Display(Name = "Nro CUIT/CUIL/DNI")]
+        public string cuitNro { get; set; }
 
         [Display(Name = "Domicilio")]
         public string domicilio { get; set; }
@@ -45,8 +48,26 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requerido")]
 
         public string email { get; set; }
-
         public string servicioDesc { get; set; }
+
+        [Display(Name = "* Tipo Facturación")]
+        public int? tipoFacturacion { get; set; }
+
+        [Display(Name = "* Tipo Facturación")]
+        public string tipoFacturacionDesc { get; set; }
+
+        [Display(Name = "CBU")]
+        public string cbu { get; set; }
+
+        [Display(Name = "Banco")]
+        public string banco { get; set; }
+
+        [Display(Name = "Nro Cuenta")]
+        public string nroCuenta { get; set; }
+
+        [Display(Name = "Alias")]
+        public string alias { get; set; }
+
     }
 
     public class ProfesionalVMIndex

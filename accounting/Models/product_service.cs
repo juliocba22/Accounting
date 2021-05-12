@@ -21,5 +21,7 @@ namespace accounting.Models
         public System.DateTime update_date { get; set; }
         public int update_user_id { get; set; }
         public byte activo { get; set; }
+        public Nullable<int> unidad_medida { get; set; }
+        public Nullable<double> costo_profesional { get; set; }
     }
 }

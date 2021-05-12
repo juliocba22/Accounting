@@ -72,16 +72,62 @@
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-                                @foreach (var item in (IEnumerable<accounting.Infra.ListMenu>) Session["Menu"])
-                                {
-                                    <li>
-                                        <a href="#"><i class="@item.class_menu"></i> @item.link_text  <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-second-level">
-                                            <li>@Html.ActionLink("Nuevo", "Create", @item.controller_name)</li>
-                                            <li>@Html.ActionLink(@item.link_menu, "Index", @item.controller_name)</li>
-                                        </ul>
-                                    </li>
-                                }
+                            <li>
+                                <a href="#"><i class="fa  fa-users"></i> Usuarios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Users")</li>
+                                    <li>@Html.ActionLink("Listado de Usuarios", "Index", "Users")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa  fa-money"></i> Gastos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Expenses")</li>
+                                    <li>@Html.ActionLink("Listado de Gastos", "Index", "Expenses")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-user"></i> Clientes<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Client")</li>
+                                    <li>@Html.ActionLink("Listado de Clientes", "Index", "Client")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa  fa-product-hunt"></i> Productos y Servicios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "ProductService")</li>
+                                    <li>@Html.ActionLink("Listado de Productos/Servicios", "Index", "ProductService")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-stethoscope"></i> Profesionales<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Profesional")</li>
+                                    <li>@Html.ActionLink("Listado de Profesionales", "Index", "Profesional")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bus"></i> Proveedores<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nuevo", "Create", "Proveedores")</li>
+                                    <li>@Html.ActionLink("Listado de Proveedores", "Index", "Proveedores")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa  fa-check"></i> Prestaciones<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nueva", "Create", "WorkOrder")</li>
+                                    <li>@Html.ActionLink("Listado de Prestaciones", "Index", "WorkOrder")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Facturas Profesionales<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Nueva", "Create", "Compra")</li>
+                                    <li>@Html.ActionLink("Listado Facturas Profesionales", "Index", "Compra")</li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->
@@ -95,7 +141,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
+                    <ul class="dropdown-menu dropdown-user"> 
                         @using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
                             @Html.AntiForgeryToken()
@@ -234,7 +280,7 @@
                         }
                     });
 
-                });
+                });                                                                                                                                          
     </script>
 </body>
 </html>

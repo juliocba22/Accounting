@@ -34,11 +34,17 @@
             @Html.DisplayFor(model => model.matricula)
         </dd>
         <dt>
-            @Html.Label("CUIT:")
+            @Html.Label("CUIT/CUIL/DNI:")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.cuit)
+        </dd>
+        <dt>
+            @Html.Label("Nro CUIT/CUIL/DNI:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.cuitNro)
         </dd>
         <dt>
             @Html.Label("Domicilio:")
@@ -77,7 +83,42 @@
 
         <dd>
             @Html.DisplayFor(model => model.email)
-        </dd>       
+        </dd>
+        <dt>
+            @Html.Label("Tipo Facturación:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoFacturacionDesc)
+        </dd>
+        <dt>
+            @Html.Label("CBU:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cbu)
+        </dd>
+        <dt>
+            @Html.Label("Banco:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.banco)
+        </dd>
+        <dt>
+            @Html.Label("Nro de Cuenta:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nroCuenta)
+        </dd>
+        <dt>
+            @Html.Label("Alias:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.alias)
+        </dd>
     </dl>
 </div>
 <p>

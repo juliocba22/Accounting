@@ -51,9 +51,6 @@
                 @Html.Label("Fecha gasto")
             </th>
             <th>
-                @Html.Label("Monto gasto")
-            </th>
-            <th>
                 @Html.Label("Cargado por")
             </th>
             <th>
@@ -82,9 +79,6 @@
 
         <td>
             @item.date_expense.ToString("dd/MM/yyyy")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.amount_money)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.user)

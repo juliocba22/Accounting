@@ -1,29 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="AccountingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="categoria_impositiva">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="descripcion" Type="varchar" MaxLength="250" Nullable="false" />
-  </EntityType>
   <EntityType Name="client">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="codigo" Type="varchar" MaxLength="20" />
     <Property Name="razonSocial" Type="varchar" MaxLength="100" />
     <Property Name="nombreFantasia" Type="varchar" MaxLength="100" />
     <Property Name="localidad" Type="varchar" MaxLength="100" />
     <Property Name="provincia" Type="varchar" MaxLength="100" />
-    <Property Name="personeria" Type="varchar" MaxLength="50" />
+    <Property Name="personeria" Type="varchar(max)" />
     <Property Name="telefono" Type="varchar" MaxLength="30" />
     <Property Name="email" Type="varchar" MaxLength="100" />
     <Property Name="emailFacturacon" Type="varchar" MaxLength="100" />
     <Property Name="update_date" Type="datetime" />
     <Property Name="update_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="20" />
+    <Property Name="nro_codigo" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="compra">
     <Key>
@@ -74,6 +68,7 @@
     <Property Name="iva" Type="float" />
     <Property Name="importe_total" Type="float" />
     <Property Name="tipo_comprobante_id" Type="int" Nullable="false" />
+    <Property Name="proveedor_id" Type="bigint" />
   </EntityType>
   <EntityType Name="expense_type">
     <Key>
@@ -107,6 +102,8 @@
     <Property Name="update_date" Type="datetime" Nullable="false" />
     <Property Name="update_user_id" Type="int" Nullable="false" />
     <Property Name="activo" Type="tinyint" Nullable="false" />
+    <Property Name="unidad_medida" Type="int" />
+    <Property Name="costo_profesional" Type="float" />
   </EntityType>
   <EntityType Name="profesional">
     <Key>
@@ -125,6 +122,12 @@
     <Property Name="update_date" Type="datetime" />
     <Property Name="update_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" />
+    <Property Name="tipo_facturacion" Type="int" />
+    <Property Name="nro_cuit" Type="varchar" MaxLength="20" />
+    <Property Name="cbu" Type="varchar" MaxLength="50" />
+    <Property Name="banco" Type="varchar" MaxLength="50" />
+    <Property Name="nro_cuenta" Type="varchar" MaxLength="50" />
+    <Property Name="alias" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="proveedor">
     <Key>
@@ -135,8 +138,6 @@
     <Property Name="cuit" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="razon_social" Type="varchar" MaxLength="250" />
     <Property Name="nombre_fantasia" Type="varchar" MaxLength="250" />
-    <Property Name="codigo" Type="int" Nullable="false" />
-    <Property Name="categoria_impositiva_id" Type="tinyint" Nullable="false" />
     <Property Name="personeria" Type="varchar" MaxLength="100" />
     <Property Name="provincia" Type="varchar" MaxLength="100" />
     <Property Name="mail" Type="varchar" MaxLength="150" />
@@ -151,6 +152,10 @@
     <Property Name="update_date" Type="datetime" />
     <Property Name="create_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" Nullable="false" />
+    <Property Name="cbu" Type="varchar" MaxLength="50" />
+    <Property Name="banco" Type="varchar" MaxLength="50" />
+    <Property Name="nro_cuenta" Type="varchar" MaxLength="50" />
+    <Property Name="alias" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="rol">
     <Key>
@@ -222,13 +227,15 @@
     <Property Name="product_service_id" Type="int" Nullable="false" />
     <Property Name="cantidad" Type="float" />
     <Property Name="nombre_paciente" Type="varchar" MaxLength="100" />
-    <Property Name="social_work_id" Type="int" />
     <Property Name="profesional_id" Type="int" />
     <Property Name="motivo_eliminacion" Type="varchar(max)" />
     <Property Name="status_id" Type="int" Nullable="false" />
     <Property Name="update_date" Type="datetime" />
     <Property Name="update_user_id" Type="int" />
     <Property Name="importe" Type="float" />
+    <Property Name="obra_social" Type="varchar" MaxLength="50" />
+    <Property Name="costo_profesional" Type="float" />
+    <Property Name="client_id" Type="int" />
   </EntityType>
   <EntityType Name="work_order_status">
     <Key>
@@ -249,18 +256,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_proveedor_categoria_impositiva_categoria_impositiva_id">
-    <End Role="categoria_impositiva" Type="Self.categoria_impositiva" Multiplicity="1" />
-    <End Role="proveedor" Type="Self.proveedor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="categoria_impositiva">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="proveedor">
-        <PropertyRef Name="categoria_impositiva_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_users_rol_rol_id">
     <End Role="rol" Type="Self.rol" Multiplicity="1" />
     <End Role="users" Type="Self.users" Multiplicity="*" />
@@ -274,7 +269,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="AccountingModelStoreContainer">
-    <EntitySet Name="categoria_impositiva" EntityType="Self.categoria_impositiva" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="compra" EntityType="Self.compra" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
@@ -293,10 +287,6 @@
     <AssociationSet Name="FK_expense_expense_type_expense_id" Association="Self.FK_expense_expense_type_expense_id">
       <End Role="expense_type" EntitySet="expense_type" />
       <End Role="expense" EntitySet="expense" />
-    </AssociationSet>
-    <AssociationSet Name="FK_proveedor_categoria_impositiva_categoria_impositiva_id" Association="Self.FK_proveedor_categoria_impositiva_categoria_impositiva_id">
-      <End Role="categoria_impositiva" EntitySet="categoria_impositiva" />
-      <End Role="proveedor" EntitySet="proveedor" />
     </AssociationSet>
     <AssociationSet Name="FK_users_rol_rol_id" Association="Self.FK_users_rol_rol_id">
       <End Role="rol" EntitySet="rol" />

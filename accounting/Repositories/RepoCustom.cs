@@ -334,6 +334,8 @@ namespace accounting.Repositories
                         join t in ctx.expense_type on e.expense_id equals t.id
                         join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
                         join u in ctx.users on e.update_user_id equals u.id
+                        join p in ctx.proveedor on e.proveedor_id equals p.id into temp
+                        from temp1 in temp.DefaultIfEmpty()
                         where e.id == id
                           && e.activo == 1
                         select new ExpenseCreateVM
@@ -355,7 +357,8 @@ namespace accounting.Repositories
                             expense_name = t.description,
                             date_expense = e.date_expense,
                             amount_money = e.amount_money,
-                            user = u.user_name
+                            user = u.user_name,
+                            proveedor = temp1.razon_social
                         }).First();
             }
         }
@@ -369,6 +372,8 @@ namespace accounting.Repositories
                 return (from e in ctx.expense
                         join t in ctx.expense_type on e.expense_id equals t.id
                         join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
+                        join p in ctx.proveedor on e.proveedor_id equals p.id into temp
+                        from temp1 in temp.DefaultIfEmpty()
                         where (string.IsNullOrEmpty(expense_type) || t.description.Contains(expense_type))
                           && e.activo == 1
                         select new ReportExpense
@@ -388,7 +393,7 @@ namespace accounting.Repositories
                             description = e.description,
                             expense_name = t.description,
                             date_expense = e.date_expense,
-                            amount_money = e.amount_money
+                            proveedor = temp1.razon_social
                         }).ToList();
             }
         }
@@ -602,10 +607,13 @@ namespace accounting.Repositories
                                 razonSocial = c.razonSocial,
                                 localidad = c.localidad,
                                 provincia = c.provincia,
+                                nombreContacto = c.personeria,
                                 telefono = c.telefono,
                                 email = c.email,
                                 emailFacturacion = c.emailFacturacon,
-                                codigo = c.codigo
+                                codigo = c.codigo,
+                                nroCodigo = c.nro_codigo
+                                
                             }).ToList();
                 }
             }
@@ -644,16 +652,18 @@ namespace accounting.Repositories
             {
                 using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
-                    return (from ps in ctx.product_service
-                            where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
-                            && ps.activo == 1
-                            select new ReportProductService
-                            {
-                                id = ps.id,
-                                nombre = ps.nombre,
-                                tipo = ps.tipo == 0 ? "Producto" : "Servicio",
-                                valorUnitario = ps.valorUnitario
-                            }).ToList();
+                return (from ps in ctx.product_service
+                        where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
+                        && ps.activo == 1
+                        select new ReportProductService
+                        {
+                            id = ps.id,
+                            nombre = ps.nombre,
+                            tipo = ps.tipo == 0 ? "Producto" : "Servicio",
+                            valorUnitario = ps.valorUnitario,
+                            costoProfesional = ps.costo_profesional,
+                            unidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : "Valor unitario por Km"
+                        }).ToList();
                 }
             }
             catch
@@ -679,12 +689,18 @@ namespace accounting.Repositories
                                 nombre = pr.nombre,
                                 domicilio = pr.domicilio,
                                 cuit = pr.cuit,
+                                cuitNro = pr.nro_cuit,
                                 matricula = pr.matricula,
                                 localidad = pr.localidad,
                                 provincia = pr.provincia,
                                 telefono = pr.telefono,
                                 email = pr.email,
-                                servicioDesc = ps.nombre
+                                servicioDesc = ps.nombre,
+                                tipoFacturacionDesc = pr.tipo_facturacion == 0 ? "Factura" : pr.tipo_facturacion == 1 ? "Recibo" : "Voluntariado",
+                                cbu = pr.cbu,
+                                banco = pr.banco,
+                                nroCuenta = pr.nro_cuenta,
+                                alias = pr.alias
                             }).First();
                 }
             }
@@ -734,7 +750,13 @@ namespace accounting.Repositories
                                 localidad = pr.localidad,
                                 provincia = pr.provincia,
                                 telefono = pr.telefono,
-                                email = pr.email                               
+                                email = pr.email,
+                                cuitNro = pr.nro_cuit,
+                                tipoFacturacion = pr.tipo_facturacion == 0 ? "Factura" : pr.tipo_facturacion == 1 ? "Recibo" : "Voluntariado",
+                                cbu = pr.cbu,
+                                banco = pr.banco,
+                                nroCuenta = pr.nro_cuenta,
+                                alias = pr.alias
                             }).ToList();
                 }
             }
@@ -757,7 +779,6 @@ namespace accounting.Repositories
                             select new ListProveedor
                             {
                                 id = p.id,
-                                codigo = p.codigo.ToString(),
                                 razonSocial = p.razon_social,
                                 localidad = p.localidad,
                                 telefono = p.telefono,
@@ -780,44 +801,30 @@ namespace accounting.Repositories
                             && p.activo == 1
                             select new ReportProveedor
                             {
-                                codigo = p.codigo.ToString(),
-                                dni = p.dni,
+                                codigo = p.id,
+                                cuitNro = p.dni,
                                 cuit = p.cuit,
+                                nombreFantasia = p.nombre_fantasia,
                                 razonSocial = p.razon_social,
                                 localidad = p.localidad,
                                 provincia = p.provincia,
                                 telefono = p.telefono,
                                 email = p.mail,
-                                emailFacturacion = p.mail_facturacion
+                                emailFacturacion = p.mail_facturacion,
+                                contacto = p.personeria,
+                                direccion = p.direccion,
+                                piso = p.piso_dpto,
+                                cp = p.codigo_postal,
+                                cbu = p.cbu,
+                                banco= p.banco,
+                                nroCuenta = p.nro_cuenta,
+                                alias = p.alias
                             }).ToList();
                 }
             }
             catch
             {
                 return null;
-            }
-        }
-
-        #endregion
-
-        #region --[CATEGORIA IMPOSITIVA]--
-        ///<summary>
-        ///Obtiene listado de tipo de categoria impositiva por id 
-        ///</summary>
-        ///<param name="categoria_impositiva_id"></param>
-        public IEnumerable<ListCategoriaImpositiva> CategoriaImpositivaGetById(int categoria_impositiva_id)
-        {
-
-            using (AccountingEntities1 ctx = new AccountingEntities1())
-            {
-                return (from c in ctx.categoria_impositiva
-                        where (c.id == categoria_impositiva_id)
-                        select new ListCategoriaImpositiva
-                        {
-                            id = c.id,
-                            descripcion = c.descripcion
-
-                        }).Distinct().ToList();
             }
         }
 
@@ -843,7 +850,6 @@ namespace accounting.Repositories
                                Descripcion = wo.descripcion,
                                Cantidad = wo.cantidad,
                                ProfesionalId = wo.profesional_id,
-                               SocialWorkId = wo.social_work_id,
                                Paciente = wo.nombre_paciente,
 
                             }).First();
@@ -862,9 +868,9 @@ namespace accounting.Repositories
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
                             join st in ctx.work_order_status on wo.status_id equals st.id
-                            join sw in ctx.social_work on wo.social_work_id equals sw.id into temp
+                            join pr in ctx.profesional on wo.profesional_id equals pr.id into temp
                             from temp1 in temp.DefaultIfEmpty()
-                            join pr in ctx.profesional on wo.profesional_id equals pr.id into temp2
+                            join c in ctx.client on wo.client_id equals c.id into temp2
                             from temp3 in temp2.DefaultIfEmpty()
                             where wo.id == id 
                             select new WorkOrderVM
@@ -875,10 +881,15 @@ namespace accounting.Repositories
                                 ProductServiceDesc = ps.nombre,
                                 Cantidad = wo.cantidad,
                                 Paciente = wo.nombre_paciente,
-                                SocialWorkDesc = temp1.name,
-                                ProfesionalDesc = temp3.nombre,
+                                ProfesionalDesc = temp1.nombre,
                                 Importe = wo.importe,
-                                StatusDesc = st.descripcion
+                                StatusDesc = st.descripcion,
+                                Cliente = temp3.razonSocial,
+                                CostoProfesional = wo.costo_profesional,
+                                ObraSocial = wo.obra_social,
+                                UnidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : ps.unidad_medida == 3 ? "Valor unitario por Km" : "",
+                                ValorUnitario = ps.valorUnitario.ToString(),
+                                CostoUniProf = ps.costo_profesional.ToString(),
                             }).First();
                 }
             }
@@ -922,6 +933,8 @@ namespace accounting.Repositories
                             join st in ctx.work_order_status on wo.status_id equals st.id
                             join pr in ctx.profesional on wo.profesional_id equals pr.id into temp2
                             from temp3 in temp2.DefaultIfEmpty()
+                            join c in ctx.client on wo.client_id equals c.id into temp
+                            from temp1 in temp.DefaultIfEmpty()
                             where (st.id == status || status == null)
                             select new ReportWorkOrder
                             {
@@ -934,7 +947,12 @@ namespace accounting.Repositories
                                 ProfesionalDesc = temp3.nombre,
                                 Importe = wo.importe,
                                 StatusDesc = st.descripcion,                               
-                                MotivoEliminacion = wo.motivo_eliminacion                             
+                                UnidadMedida= ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : ps.unidad_medida == 3 ? "Valor unitario por Km" : "",
+                                ValorUnitario = ps.valorUnitario,
+                                CostoUniProf = ps.costo_profesional,
+                                Cliente = temp1.razonSocial,
+                                ObraSocial = wo.obra_social,
+                                CostoTotalProf = wo.costo_profesional
                             }).ToList();
                 }
             }

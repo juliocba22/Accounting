@@ -10,19 +10,16 @@ namespace accounting.ViewModels
 {
     public class ProveedorVM
     {
+        [Display(Name = "Código")]
         public long id { get; set; }
 
-        [Display(Name = "* Dni")]
+        [Display(Name = "* Nro CUIT/CUIL/DNI")]
         [Required(ErrorMessage = "* requerido")]
-        public string dni { get; set; }
+        public string cuitNro { get; set; }
 
-        [Display(Name = "* Cuit")]
+        [Display(Name = "* CUIT/CUIL/DNI")]
         [Required(ErrorMessage = "* requerido")]
         public string cuit { get; set; }
-
-        [Display(Name = "* Código")]
-        [Required(ErrorMessage = "* requerido")]
-        public string codigo { get; set; }
 
         [Display(Name = "* Razón Social")]
         [Required(ErrorMessage = "* requerido")]
@@ -39,7 +36,7 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requerido")]
         public string provincia { get; set; }
 
-        [Display(Name = "Personería ")]
+        [Display(Name = "Contacto")]
         public string personeria { get; set; }
 
         [Display(Name = "* Telefono")]
@@ -68,17 +65,23 @@ namespace accounting.ViewModels
         [Display(Name = "Piso/Dpto")]
         public string pisoDpto { get; set; }
 
-        [Display(Name = "Categoria Impositiva")]
-        [Required(ErrorMessage = "* requerido")]
-        public byte categoria_impositiva_id { get; set; }
-
-        [Display(Name = "categoria impositiva")]
-        public string categoria_impositiva_name { get; set; }
-
         public Nullable<System.DateTime> update_date { get; set; }
         public Nullable<int> update_user_id { get; set; }
 
         public DateTime register_date { get; set; }
+
+        [Display(Name = "CBU")]
+        public string cbu { get; set; }
+
+        [Display(Name = "Banco")]
+        public string banco { get; set; }
+
+        [Display(Name = "Nro Cuenta")]
+        public string nroCuenta { get; set; }
+
+        [Display(Name = "Alias")]
+        public string alias { get; set; }
+
     }
 
     public class ProveedorVMIndex
