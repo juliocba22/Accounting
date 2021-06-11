@@ -77,8 +77,15 @@
                                     <li>
                                         <a href="#"><i class="@item.class_menu"></i> @item.link_text  <span class="fa arrow"></span></a>
                                         <ul class="nav nav-second-level">
-                                            <li>@Html.ActionLink("Nuevo", "Create", @item.controller_name)</li>
-                                            <li>@Html.ActionLink(@item.link_menu, "Index", @item.controller_name)</li>
+                                            @if (@item.controller_name == "Reportes")
+                                            {
+                                                <li>@Html.ActionLink(@item.link_menu, "Index", @item.controller_name)</li>
+                                            }
+                                            else
+                                            {
+                                                <li>@Html.ActionLink("Nuevo", "Create", @item.controller_name)</li>
+                                                <li>@Html.ActionLink(@item.link_menu, "Index", @item.controller_name)</li>
+                                            }
                                         </ul>
                                     </li>
                                 }

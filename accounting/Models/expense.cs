@@ -41,6 +41,9 @@ namespace accounting.Models
         public Nullable<double> importe_total { get; set; }
         public int tipo_comprobante_id { get; set; }
         public Nullable<long> proveedor_id { get; set; }
+        public string periodo { get; set; }
+        public Nullable<System.DateTime> pay_date { get; set; }
+        public string pay_state { get; set; }
     
         public virtual expense_type expense_type { get; set; }
     }

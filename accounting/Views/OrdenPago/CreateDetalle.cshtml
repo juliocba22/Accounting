@@ -1,0 +1,156 @@
+﻿@model accounting.ViewModels.OrdenesPagoDetVM
+
+@{
+    ViewBag.Title = "Agregar Detalle a la Orden de Pago";
+}
+
+    <h2>Agregar Detalle a la Orden de Pago</h2>
+
+<div class="form-horizontal">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Datos de la Cabecera")
+        </dt>
+        <dd>
+            
+        </dd>
+        <dt>
+            @Html.Label("Nro OP:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.idCab)
+        </dd>
+        <dt>
+            @Html.Label("Fecha:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            @Html.Label("Profesional:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Profesional)
+        </dd>
+        <dt>
+            @Html.Label("Importe total:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImporteTotal)
+        </dd>
+    </dl>
+
+</div>
+@using (Html.BeginForm("CreateDetalle", "OrdenPago", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.HiddenFor(model => model.idCab)
+    @Html.HiddenFor(model => model.ProfesionalId)
+    @Html.HiddenFor(model => model.ImporteTotal)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.FacturaProveedorId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.FacturaProveedorId, new SelectList(ViewBag.Factura, "id", "id"), "Seleccione Factura..", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FacturaProveedorId, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.FacturaProveedorId, new { @id = "HiddenFP" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PagaTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(model => model.PagaTotal, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Importe, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Importe, new { htmlAttributes = new { @class = "form-control", } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FormaPago, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.FormaPago, new SelectList(ViewBag.FP, "key", "value"), "Seleccione..", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FormaPago, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Banco, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Banco, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NroCheque, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NroCheque, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NroCtaCte, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NroCtaCte, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" name="submit" value="Guardar y Continuar"  class="btn btn-default" />    <input type="submit" name="submit" value="Guardar y Volver" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Regresar al Listado", "Details", new { id = Model.idCab, page=1})
+</div>
+<script type="text/javascript">
+    $().ready(function () {
+                    $("#FacturaProveedorId").change(function () {
+                    var valor = $("#FacturaProveedorId").val();
+                        if (valor > 0) {
+                            $("#HiddenFP").val(valor);
+                        CamposGet($("#FacturaProveedorId").val(), valor);
+                    }
+                });
+            });
+
+    $().ready(function () {
+        $("#PagaTotal").change(function () {
+            if ($("#PagaTotal").is(":checked")) {
+                $('#Importe').prop('disabled', 'disabled');
+            }
+            else {
+                $('#Importe').prop('disabled', false);
+            }
+
+        });
+    });
+
+        function CamposGet(value) {
+                $.getJSON(
+                    '@Url.Action("CamposGet", "OrdenPago")' + "/" + value,
+                    function (data) {
+                        $.each(data, function (i, item) {
+                            if (item.id == $("#HiddenFP").val()) {
+                                var r = item.saldo;
+                                r = Number(r.toFixed(2));
+                                r = r.toString().replace('.', ',');
+                                $("#Importe").val(r);
+                                $('#Importe').prop('disabled', 'disabled');
+                                $("#PagaTotal").prop('checked', true);
+                            }
+                        });
+                           }
+                );
+    };
+</script>

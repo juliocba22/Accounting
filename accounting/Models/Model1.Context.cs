@@ -40,5 +40,9 @@ namespace accounting.Models
         public virtual DbSet<rolpagina> rolpagina { get; set; }
         public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<work_order> work_order { get; set; }
+        public virtual DbSet<factura_proveedores> factura_proveedores { get; set; }
+        public virtual DbSet<orden_pago_cab> orden_pago_cab { get; set; }
+        public virtual DbSet<orden_pago_det> orden_pago_det { get; set; }
+        public virtual DbSet<cobros> cobros { get; set; }
     }
 }

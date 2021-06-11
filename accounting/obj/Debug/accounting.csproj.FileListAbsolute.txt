@@ -559,8 +559,11 @@ C:\Proyectos-Julio\accounting\bin\roslyn\vbc.rsp
 C:\Proyectos-Julio\accounting\bin\roslyn\VBCSCompiler.exe
 C:\Proyectos-Julio\accounting\bin\roslyn\VBCSCompiler.exe.config
 C:\Proyectos-Julio\accounting\bin\Antlr3.Runtime.dll
+C:\Proyectos-Julio\accounting\bin\BouncyCastle.Crypto.dll
+C:\Proyectos-Julio\accounting\bin\DynamicPDF.NETFramework40.dll
 C:\Proyectos-Julio\accounting\bin\EntityFramework.dll
 C:\Proyectos-Julio\accounting\bin\EntityFramework.SqlServer.dll
+C:\Proyectos-Julio\accounting\bin\itextsharp.dll
 C:\Proyectos-Julio\accounting\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Proyectos-Julio\accounting\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Proyectos-Julio\accounting\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -585,8 +588,10 @@ C:\Proyectos-Julio\accounting\bin\System.Web.WebPages.Deployment.dll
 C:\Proyectos-Julio\accounting\bin\System.Web.WebPages.dll
 C:\Proyectos-Julio\accounting\bin\System.Web.WebPages.Razor.dll
 C:\Proyectos-Julio\accounting\bin\WebGrease.dll
+C:\Proyectos-Julio\accounting\bin\DynamicPDF.NETFramework40.xml
 C:\Proyectos-Julio\accounting\bin\EntityFramework.xml
 C:\Proyectos-Julio\accounting\bin\EntityFramework.SqlServer.xml
+C:\Proyectos-Julio\accounting\bin\itextsharp.xml
 C:\Proyectos-Julio\accounting\bin\System.Web.Helpers.xml
 C:\Proyectos-Julio\accounting\bin\System.Web.Mvc.xml
 C:\Proyectos-Julio\accounting\bin\System.Web.Optimization.xml
@@ -628,8 +633,8 @@ C:\Proyectos-Julio\accounting\bin\es\Microsoft.Owin.Security.Facebook.resources.
 C:\Proyectos-Julio\accounting\bin\es\Microsoft.Owin.Security.Google.resources.dll
 C:\Proyectos-Julio\accounting\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Proyectos-Julio\accounting\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Proyectos-Julio\accounting\obj\Debug\accounting.csprojAssemblyReference.cache
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.csproj.CoreCompileInputs.cache
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.csproj.CopyComplete
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.dll
 C:\Proyectos-Julio\accounting\obj\Debug\accounting.pdb
-C:\Proyectos-Julio\accounting\obj\Debug\accounting.csprojAssemblyReference.cache

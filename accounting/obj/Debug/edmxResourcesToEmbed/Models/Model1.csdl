@@ -21,6 +21,7 @@
     <Property Name="activo" Type="Byte" Nullable="false" />
     <Property Name="unidad_medida" Type="Int32" />
     <Property Name="costo_profesional" Type="Double" />
+    <Property Name="client_id" Type="Int32" />
   </EntityType>
   <EntityType Name="profesional">
     <Key>
@@ -130,6 +131,10 @@
     <EntitySet Name="rolpagina" EntityType="AccountingModel.rolpagina" />
     <EntitySet Name="proveedor" EntityType="AccountingModel.proveedor" />
     <EntitySet Name="work_order" EntityType="AccountingModel.work_order" />
+    <EntitySet Name="factura_proveedores" EntityType="AccountingModel.factura_proveedores" />
+    <EntitySet Name="orden_pago_cab" EntityType="AccountingModel.orden_pago_cab" />
+    <EntitySet Name="orden_pago_det" EntityType="AccountingModel.orden_pago_det" />
+    <EntitySet Name="cobros" EntityType="AccountingModel.cobros" />
   </EntityContainer>
   <EntityType Name="tipo_comprobante">
     <Key>
@@ -192,6 +197,9 @@
     <Property Name="tipo_comprobante_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
     <Property Name="proveedor_id" Type="Int64" />
+    <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pay_date" Type="DateTime" Precision="3" />
+    <Property Name="pay_state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_expense_expense_type_expense_id">
     <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
@@ -295,6 +303,80 @@
     <Property Name="importe" Type="Double" />
     <Property Name="obra_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="costo_profesional" Type="Double" />
-    <Property Name="client_id" Type="Int32" />
+  </EntityType>
+  <EntityType Name="factura_proveedores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipo_factura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="update_user_id" Type="Int64" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+    <Property Name="create_user_id" Type="Int64" />
+    <Property Name="fecha_factura" Type="DateTime" Precision="3" />
+    <Property Name="tipo_comprobante_id" Type="Int32" Nullable="false" />
+    <Property Name="proveedor_id" Type="Int64" />
+    <Property Name="punto_venta" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="nro_comprobante" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="cuit_cuil" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="nro_cuit_cuil" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="imp_neto_gravado" Type="Double" />
+    <Property Name="imp_neto_no_gravado" Type="Double" />
+    <Property Name="imp_op_exentas" Type="Double" />
+    <Property Name="iva" Type="Double" />
+    <Property Name="importe_total" Type="Double" Nullable="false" />
+    <Property Name="name_file" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Byte" Nullable="false" />
+    <Property Name="fecha_pago" Type="DateTime" Precision="3" />
+    <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="Int32" />
+    <Property Name="profesional_id" Type="Int64" />
+  </EntityType>
+  <EntityType Name="orden_pago_cab">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="profesional_id" Type="Int64" Nullable="false" />
+    <Property Name="importe_total" Type="Double" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="activo" Type="Byte" />
+    <Property Name="create_user_id" Type="Int32" />
+    <Property Name="update_user_id" Type="Int32" />
+    <Property Name="update_date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="orden_pago_det">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orden_pago_cab_id" Type="Int64" Nullable="false" />
+    <Property Name="factura_proveedores_id" Type="Int64" Nullable="false" />
+    <Property Name="paga_total" Type="Boolean" Nullable="false" />
+    <Property Name="importe" Type="Double" Nullable="false" />
+    <Property Name="forma_pago" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nro_cheque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nro_cuenta_corriente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="banco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="cobros">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_factura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_factura" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="monto" Type="Double" Nullable="false" />
+    <Property Name="cobro_parcial" Type="Double" />
+    <Property Name="observaciones" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="subtotal_recibo" Type="Double" />
+    <Property Name="total" Type="Double" Nullable="false" />
+    <Property Name="update_date" Type="DateTime" Precision="0" />
+    <Property Name="update_user_id" Type="Int32" />
+    <Property Name="activo" Type="Byte" />
+    <Property Name="cliente_id" Type="Int32" Nullable="false" />
+    <Property Name="nro_recibo" Type="Int64" Nullable="false" />
   </EntityType>
 </Schema>

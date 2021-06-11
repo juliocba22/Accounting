@@ -28,6 +28,5 @@ namespace accounting.Models
         public Nullable<double> importe { get; set; }
         public string obra_social { get; set; }
         public Nullable<double> costo_profesional { get; set; }
-        public Nullable<int> client_id { get; set; }
     }
 }

@@ -65,7 +65,7 @@ namespace accounting.Repositories
 
 
         IEnumerable<ListUsers> UserList(string name);// (string searchValue, int recordsTotal, int skip, int pageSize);
-
+        
         #endregion --[USUARIO]--
 
         #region --[ROL]--
@@ -203,7 +203,6 @@ namespace accounting.Repositories
         /// </summary>
         /// <param name="id"></param>
         social_work SocialWorkFind(long id);
-
         /// <summary>
         /// Get social work ->id
         /// </summary>
@@ -225,11 +224,11 @@ namespace accounting.Repositories
         #region [--PRODUCTSERVICE--]
         IEnumerable<ListProductService> ProductServiceList(string nombre);
         IEnumerable<ReportProductService> ProductServiceReport(string nombre);
+        ProductServiceVM GetProductServiceDetails(int? id);
         #endregion
 
         #region --[PROFESIONAL]
         ProfesionalVM GetDetalleProfesional(int? id);
-        
         IEnumerable<ListProfesional> ProfesionalList(string nombre);
         IEnumerable<ReportProfesional> ProfesionalReport(string nombre);
         #endregion
@@ -266,5 +265,23 @@ namespace accounting.Repositories
         IEnumerable<ListMenu> GetMenu(byte rol_id);
 
         #endregion
+
+        #region --[FACTURAS PROVEEDORES]
+        FacturaProveedoresVM FacturaProveedorGet(long? id);
+        IEnumerable<ListFacturaProveedores> FacturaProveedoresList(int? estado, DateTime? fechaEmisionDesde, DateTime? fechaEmisionHasta);
+        IEnumerable<ReportFacturaProveedores> FacturaProveedoresReport(int? estado, DateTime? fechaD, DateTime? fechaH);
+        #endregion
+
+        #region --[ORDEN DE PAGO]--
+        IEnumerable<ListOrdenPagoCab> OrdenPagoCabList(long? profesional_Id, DateTime? fecha);
+        OrdenesPagoCabDetVM GetOrdenPagoCab(long? id);
+        OrdenPagoCabVM GetDeleteOP(long? id);
+        OrdenesPagoDetVM GetOrdenPagoCabDet(long idCab);
+        OrdenesPagoDetailsDetalle GetOrdenPagoDetails(long id);
+        OrdenesPagoDetVM GetOrdenPagoDetalleEdit(long id);
+        IEnumerable<ReportOrdenPago> OrdenPagoReport(long? profesional_id, DateTime? fecha);
+
+        #endregion
+
     }
 }

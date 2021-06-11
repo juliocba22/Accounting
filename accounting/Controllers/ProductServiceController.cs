@@ -11,6 +11,10 @@ using accounting.Infra;
 using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
+//using ceTe.DynamicPDF;
+//using ceTe.DynamicPDF.PageElements;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace accounting.Controllers
 {
@@ -57,21 +61,12 @@ namespace accounting.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            product_service product_service = db.product_service.Find(id);
-
-            ProductServiceVM psVm = new ProductServiceVM()
-            {
-                id = product_service.id,
-                nombre = product_service.nombre,
-                tipo = product_service.tipo,
-                valorUnitario = product_service.valorUnitario,
-                costoProfesional = product_service.costo_profesional
-            };
+            ProductServiceVM product_service = _repo.GetProductServiceDetails(id);
 
             ViewBag.TipoDetalle = product_service.tipo == 0 ? "Producto" : "Servicio";
-            ViewBag.UMDetalle = product_service.unidad_medida == 0 ? "Valor unitario por sesión" : product_service.unidad_medida == 1 ? "Valor unitario por hora" : product_service.unidad_medida == 2 ? "Valor unitario por visita" : "Valor unitario por Km";
+            ViewBag.UMDetalle = product_service.unidadMedida == 0 ? "Valor unitario por sesión" : product_service.unidadMedida == 1 ? "Valor unitario por hora" : product_service.unidadMedida == 2 ? "Valor unitario por visita" : "Valor unitario por Km";
 
-            return View(psVm);
+            return View(product_service);
         }
         #endregion
 
@@ -81,6 +76,7 @@ namespace accounting.Controllers
         {
             GetComboTipo();
             GetComboUnidadMedida();
+            GetComboClientes();
             return View();
         }
 
@@ -101,7 +97,8 @@ namespace accounting.Controllers
                         update_user_id = int.Parse(Session["UserID"].ToString()),
                         activo = 1,
                         unidad_medida = psVM.unidadMedida,
-                        costo_profesional = psVM.costoProfesional
+                        costo_profesional = psVM.costoProfesional,
+                        client_id = psVM.ClienteId
                     };
 
                     db.product_service.Add(ps);
@@ -110,10 +107,14 @@ namespace accounting.Controllers
                 }
 
                 GetComboTipo();
+                GetComboUnidadMedida();
+                GetComboClientes();
             }
             catch
             {
                 GetComboTipo();
+                GetComboUnidadMedida();
+                GetComboClientes();
                 ModelState.AddModelError("", "Se produjo un error, en caso de persistir, ponerse en contacto con el Administrador.");
             }
 
@@ -132,6 +133,7 @@ namespace accounting.Controllers
             product_service product_service = db.product_service.Find(id);
             GetComboTipo();
             GetComboUnidadMedida();
+            GetComboClientes();
 
             ProductServiceVM psVm = new ProductServiceVM()
             {
@@ -140,9 +142,9 @@ namespace accounting.Controllers
                 tipo = product_service.tipo,
                 valorUnitario = product_service.valorUnitario,
                 unidadMedida = product_service.unidad_medida,
-                costoProfesional = product_service.costo_profesional     
+                costoProfesional = product_service.costo_profesional,
+                ClienteId = product_service.client_id
             };
-
             return View(psVm);
         }
     
@@ -164,7 +166,8 @@ namespace accounting.Controllers
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
                         unidad_medida = psVm.unidadMedida,
-                        costo_profesional = psVm.costoProfesional
+                        costo_profesional = psVm.costoProfesional,
+                        client_id = psVm.ClienteId
                     };
                     db.Entry(ps).State = EntityState.Modified;
                     db.SaveChanges();
@@ -178,6 +181,7 @@ namespace accounting.Controllers
 
             GetComboTipo();
             GetComboUnidadMedida();
+            GetComboClientes();
             return View();
         }
         #endregion
@@ -238,12 +242,16 @@ namespace accounting.Controllers
 
             ViewBag.UM = e.GetUM();
         }
+        private void GetComboClientes()
+        {
+            ViewBag.Client = db.client.Where(x => x.activo == 1).OrderBy(x => x.razonSocial);
+        }
         public FileContentResult Export([Bind(Include = "nombre")] string nombre)
         {
             StringBuilder csv = new StringBuilder();
             IEnumerable<ReportProductService> listado = _repo.ProductServiceReport(nombre);
 
-            csv.AppendLine("Código;Nombre;Tipo;Unidad Medida;Valor Unitario; Costo Porfesional");
+            csv.AppendLine("Código;Nombre;Tipo;Unidad Medida;Valor Unitario; Costo Porfesional;Cliente");
             foreach (var item in listado)
                 csv.AppendLine(item.ToString());
 

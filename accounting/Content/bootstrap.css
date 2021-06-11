@@ -1451,6 +1451,13 @@ dt {
 dd {
   margin-left: 0;
 }
+.col-md-10-Radio {
+    float: left;
+    color: #333;
+    width: 100px;
+    padding-left: 6px;
+
+}
 @media (min-width: 768px) {
   .dl-horizontal dt {
     float: left;
@@ -1586,11 +1593,18 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+.col-md-10-Radio {
+    float: left;
+    color: #333;
+    width: 100px;
+    padding-left: 6px;
+}
 @media (min-width: 768px) {
   .container {
     width: 750px;
   }
 }
+
 @media (min-width: 992px) {
   .container {
     width: 970px;
@@ -3067,7 +3081,7 @@ select[multiple].input-lg {
 .form-horizontal .checkbox,
 .form-horizontal .radio-inline,
 .form-horizontal .checkbox-inline {
-  padding-top: 7px;
+  padding-top: 1px;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -3081,7 +3095,7 @@ select[multiple].input-lg {
 }
 @media (min-width: 768px) {
   .form-horizontal .control-label {
-    padding-top: 7px;
+    padding-top: 1px;
     margin-bottom: 0;
     text-align: right;
   }
