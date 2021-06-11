@@ -103,7 +103,6 @@ namespace accounting.Controllers
                        update_date = DateTime.Now,
                        update_user_id = int.Parse(Session["UserID"].ToString()),
                        importe = woVM.Importe,
-                       client_id = woVM.ClientId,
                        obra_social = woVM.ObraSocial,
                        costo_profesional = woVM.CostoProfesional
                     };
@@ -151,7 +150,6 @@ namespace accounting.Controllers
                 ProfesionalId = wo.profesional_id,
                 StatusId = wo.status_id,
                 Importe = wo.importe,
-                ClientId = wo.client_id,
                 CostoProfesional = wo.costo_profesional,
                 ObraSocial = wo.obra_social
             };
@@ -179,7 +177,6 @@ namespace accounting.Controllers
                         update_date = DateTime.Now,
                         update_user_id = int.Parse(Session["UserID"].ToString()),
                         importe = woVM.Importe,
-                        client_id = woVM.ClientId,
                         obra_social = woVM.ObraSocial,
                         costo_profesional = woVM.CostoProfesional
                     };
@@ -269,7 +266,7 @@ namespace accounting.Controllers
         [ActionName("CamposGet")]
         public string CamposGet(int? id)
         {
-            IEnumerable <ComboProductService> _combo = GetComboTipoById(id);
+            IEnumerable <ComboProductServiceValues> _combo = GetComboTipoById(id);
             var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
             string json = JsonConvert.SerializeObject(_combo, Formatting.Indented, serializerSettings);
 
@@ -279,27 +276,35 @@ namespace accounting.Controllers
         {
             ViewBag.Cliente = db.client.Where(x => x.activo == 1).OrderBy(x => x.razonSocial);
         }
-        private IEnumerable<ComboProductService> GetComboTipoById(int? id)
+        private IEnumerable<ComboProductServiceValues> GetComboTipoById(int? id)
         {
             dynamic tipo;
            
             tipo = (from ps in db.product_service
+                    join c in db.client on ps.client_id equals c.id
                             where ps.id == id
-                            select new ComboProductService
+                            select new ComboProductServiceValues
                             {
                                 id = ps.tipo,
                                 nombre = ps.nombre,
                                 valUnitario = ps.valorUnitario,
                                 unidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : "Valor unitario por Km",
-                                CostoProf = ps.costo_profesional
+                                CostoProf = ps.costo_profesional,
+                                Cliente = c.razonSocial
                             }).ToList();
 
             return tipo;
         }
-
         private void GetComboServicios()
         {
-            ViewBag.Servicio = db.product_service.Where(x => x.activo == 1).OrderBy(x => x.nombre);
+           ViewBag.Servicio = (from ps in db.product_service
+                               where ps.activo == 1
+                               orderby ps.id ascending
+                                select new
+                                {
+                                    id = ps.id,
+                                    nombre = ps.id + "-" + ps.nombre
+                                }).ToList();
         }
         private void GetComboProfesional()
         {

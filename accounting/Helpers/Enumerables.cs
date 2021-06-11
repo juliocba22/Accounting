@@ -13,7 +13,6 @@ namespace accounting.Helpers
                 {1,"Servicio"}
             };
         }
-
         public Dictionary<int, string> GetUM()
         {
             return new Dictionary<int, string>
@@ -24,7 +23,6 @@ namespace accounting.Helpers
                 {3,"Valor unitario por Km"}
             };
         }
-
         public Dictionary<int, string> GetTF()
         {
             return new Dictionary<int, string>
@@ -34,13 +32,10 @@ namespace accounting.Helpers
                {2,"Voluntariado"}
             };
         }
-
         public class enumCC
         {
             public string id {get;set;}
-
             public string desc { get; set; }
-
             public IEnumerable<enumCC> GetCCD()
             {
                 enumCC e = new enumCC();
@@ -61,6 +56,50 @@ namespace accounting.Helpers
 
                 return l;
             }
+        }
+        internal Dictionary<string, string> GetTipoFactura()
+        {
+            return new Dictionary<string, string>
+            {
+               {"Fija","Fija"},
+                {"Variable","Variable"}
+            };
+        }
+        internal Dictionary<int, string> GetEstadoFacturaProveedores()
+        {
+            return new Dictionary<int, string>
+            {
+               {0,"PAGADO"},
+                {1,"PAGO PARCIAL"},
+                {2,"IMPAGO"}
+            };
+        }
+        internal Dictionary<string, string> GetPeriodo()
+        {
+            return new Dictionary<string, string>
+            {
+                 {"Enero","Enero"},
+                 {"Febrero","Febrero"},
+                 {"Marzo","Marzo"},
+                 {"Abril","Abril"},
+                 {"Mayo","Mayo"},
+                 {"Junio","Junio"},
+                 {"Julio","Julio"},
+                 {"Agosto","Agosto"},
+                 {"Septiembre","Septiembre"},
+                 {"Octubre","Octubre"},
+                 {"Noviembre","Noviembre"},
+                 {"Diciembre","Diciembre"}
+            };
+        }
+
+        internal Dictionary<string, string> GetFormasPago()
+        {
+            return new Dictionary<string, string>
+            {
+                 {"Efectivo","Efectivo"},
+                 {"Cheque","Cheque"}
+            };
         }
     }
 }

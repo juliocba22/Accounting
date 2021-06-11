@@ -1,0 +1,72 @@
+﻿@model accounting.ViewModels.FacturaProveedoresVM
+
+@{
+    ViewBag.Title = "Eiminar Factura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminación de una Factura</h2>
+
+<h3>¿Está seguro que desea eliminar la factura?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Nro de Factura: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt>
+            @Html.DisplayName("Período: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.periodo)
+        </dd>
+        <dt>
+            @Html.DisplayName("Fecha de Pago: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.fecha_pago)
+        </dd>
+        <dt>
+            @Html.DisplayName("Fecha de Factura: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_factura)
+        </dd> 
+        <dt>
+            @Html.DisplayName("Nro de Comprobante: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nro_comprobante)
+        </dd>
+        <dt>
+            @Html.DisplayName("Descripción: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        <dt>
+            @Html.DisplayName("Importe Total: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.importe_total)
+        </dd>
+        <dt>
+            @Html.DisplayName("Estado: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.estadoDesc)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar al Listado", "Index")  | <input type="submit" value="Eliminar" class="btn btn-default" />
+</div>
+    }
+</div>

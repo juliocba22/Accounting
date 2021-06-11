@@ -5,10 +5,11 @@ using System.Data.Entity;
 using accounting.Models;
 using accounting.Infra;
 using accounting.ViewModels;
+using System.Data;
 
 namespace accounting.Repositories
 {
-    public class RepoCustom: IRepoCustom
+    public class RepoCustom : IRepoCustom
     {
 
         #region --[GLOBAL]--
@@ -25,7 +26,7 @@ namespace accounting.Repositories
 
         public RepoCustom()
         {
-           // Cnn = ConfigurationManager.ConnectionStrings["strCnn"].ConnectionString;
+            // Cnn = ConfigurationManager.ConnectionStrings["strCnn"].ConnectionString;
             DbContext context = new AccountingEntities1();
             _repoUser = new RepoGeneric<users>(context);
             _repoRol = new RepoGeneric<rol>(context);
@@ -78,7 +79,7 @@ namespace accounting.Repositories
         public users UserFind(long id)
         {
 
-           return _repoUser.Find(x=> (x.id == id));
+            return _repoUser.Find(x => (x.id == id));
         }
 
         /// <summary>
@@ -87,9 +88,9 @@ namespace accounting.Repositories
         /// <param name="user"></param>
         /// <param name="pass"></param>
         /// <returns></returns>
-        public users UserGet(string user,string pass)
+        public users UserGet(string user, string pass)
         {
-            return _repoUser.Find(x => (x.user_name == user &&  x.password == pass));
+            return _repoUser.Find(x => (x.user_name == user && x.password == pass));
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace accounting.Repositories
             {
                 var query = ctx.users.Where(c => c.user_name == user).FirstOrDefault();
 
-                if (query!=null)
+                if (query != null)
                     username = query.user_name;
             }
 
@@ -146,7 +147,7 @@ namespace accounting.Repositories
                         where (string.IsNullOrEmpty(name) || u.name.Contains(name))
                         select new ListUsers
                         {
-                            id= u.id,
+                            id = u.id,
                             name = u.name,
                             rol_id = u.rol_id,
                             rol_description = r.description,
@@ -178,7 +179,7 @@ namespace accounting.Repositories
                 //}
 
                 //list = query.Skip(skip).Take(pageSize).ToList();
-                
+
                 //return list;
             }
         }
@@ -553,7 +554,7 @@ namespace accounting.Repositories
             using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from s in ctx.social_work
-                        //join t in ctx.expense_type on e.expense_id equals t.id
+                            //join t in ctx.expense_type on e.expense_id equals t.id
                         where (string.IsNullOrEmpty(name) || s.name.Contains(name))
                         && s.activo == 1
                         select new ListSocialWork
@@ -613,7 +614,7 @@ namespace accounting.Repositories
                                 emailFacturacion = c.emailFacturacon,
                                 codigo = c.codigo,
                                 nroCodigo = c.nro_codigo
-                                
+
                             }).ToList();
                 }
             }
@@ -632,14 +633,16 @@ namespace accounting.Repositories
                 using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
                     return (from ps in ctx.product_service
+                            join c in ctx.client on ps.client_id equals c.id
                             where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
                             && ps.activo == 1
                             select new ListProductService
                             {
-                               id = ps.id,
-                               nombre = ps.nombre,
-                               tipo = ps.tipo == 0 ? "Producto" : "Servicio",
-                               valorUnitario = ps.valorUnitario
+                                id = ps.id,
+                                nombre = ps.nombre,
+                                tipo = ps.tipo == 0 ? "Producto" : "Servicio",
+                                valorUnitario = ps.valorUnitario,
+                                cliente = c.razonSocial
                             }).ToList();
                 }
             }
@@ -652,24 +655,50 @@ namespace accounting.Repositories
             {
                 using (AccountingEntities1 ctx = new AccountingEntities1())
                 {
-                return (from ps in ctx.product_service
-                        where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
-                        && ps.activo == 1
-                        select new ReportProductService
-                        {
-                            id = ps.id,
-                            nombre = ps.nombre,
-                            tipo = ps.tipo == 0 ? "Producto" : "Servicio",
-                            valorUnitario = ps.valorUnitario,
-                            costoProfesional = ps.costo_profesional,
-                            unidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : "Valor unitario por Km"
-                        }).ToList();
+                    return (from ps in ctx.product_service
+                            join c in ctx.client on ps.client_id equals c.id
+                            where (string.IsNullOrEmpty(nombre) || ps.nombre.Contains(nombre))
+                            && ps.activo == 1
+                            select new ReportProductService
+                            {
+                                id = ps.id,
+                                nombre = ps.nombre,
+                                tipo = ps.tipo == 0 ? "Producto" : "Servicio",
+                                valorUnitario = ps.valorUnitario,
+                                costoProfesional = ps.costo_profesional,
+                                unidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : "Valor unitario por Km",
+                                cliente = c.razonSocial
+                            }).ToList();
                 }
             }
             catch
             { return null; }
         }
-
+        public ProductServiceVM GetProductServiceDetails(int? id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from ps in ctx.product_service
+                            join c in ctx.client on ps.client_id equals c.id
+                            where ps.id == id
+                            && ps.activo == 1
+                            select new ProductServiceVM
+                            {
+                                id = ps.id,
+                                nombre = ps.nombre,
+                                tipo = ps.tipo,
+                                valorUnitario = ps.valorUnitario,
+                                unidadMedida = ps.unidad_medida,
+                                costoProfesional = ps.costo_profesional,
+                                Cliente = c.razonSocial
+                            }).First();
+                }
+            }
+            catch
+            { return null; }
+        }
         #endregion
 
         #region --[PROFESIONAL]
@@ -816,7 +845,7 @@ namespace accounting.Repositories
                                 piso = p.piso_dpto,
                                 cp = p.codigo_postal,
                                 cbu = p.cbu,
-                                banco= p.banco,
+                                banco = p.banco,
                                 nroCuenta = p.nro_cuenta,
                                 alias = p.alias
                             }).ToList();
@@ -843,19 +872,19 @@ namespace accounting.Repositories
                             where wo.id == id
                             select new WorkOrderVM
                             {
-                               id = wo.id, 
-                               Fecha = wo.fecha, 
-                               ProductServiceId = ps.id,
-                               StatusId = st.id,
-                               Descripcion = wo.descripcion,
-                               Cantidad = wo.cantidad,
-                               ProfesionalId = wo.profesional_id,
-                               Paciente = wo.nombre_paciente,
+                                id = wo.id,
+                                Fecha = wo.fecha,
+                                ProductServiceId = ps.id,
+                                StatusId = st.id,
+                                Descripcion = wo.descripcion,
+                                Cantidad = wo.cantidad,
+                                ProfesionalId = wo.profesional_id,
+                                Paciente = wo.nombre_paciente,
 
                             }).First();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             { return null; }
         }
 
@@ -868,23 +897,22 @@ namespace accounting.Repositories
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
                             join st in ctx.work_order_status on wo.status_id equals st.id
+                            join c in ctx.client on ps.client_id equals c.id
                             join pr in ctx.profesional on wo.profesional_id equals pr.id into temp
                             from temp1 in temp.DefaultIfEmpty()
-                            join c in ctx.client on wo.client_id equals c.id into temp2
-                            from temp3 in temp2.DefaultIfEmpty()
-                            where wo.id == id 
+                            where wo.id == id
                             select new WorkOrderVM
                             {
                                 id = wo.id,
                                 Fecha = wo.fecha,
                                 Descripcion = wo.descripcion,
-                                ProductServiceDesc = ps.nombre,
+                                ProductServiceDesc = ps.id.ToString() + "-" + ps.nombre,
                                 Cantidad = wo.cantidad,
                                 Paciente = wo.nombre_paciente,
                                 ProfesionalDesc = temp1.nombre,
                                 Importe = wo.importe,
                                 StatusDesc = st.descripcion,
-                                Cliente = temp3.razonSocial,
+                                Cliente = c.razonSocial,
                                 CostoProfesional = wo.costo_profesional,
                                 ObraSocial = wo.obra_social,
                                 UnidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : ps.unidad_medida == 3 ? "Valor unitario por Km" : "",
@@ -896,7 +924,6 @@ namespace accounting.Repositories
             catch
             { return null; }
         }
-
         public IEnumerable<ListWorkOrder> WorkOrderList(int? status)
         {
             try
@@ -911,7 +938,7 @@ namespace accounting.Repositories
                             {
                                 id = wo.id,
                                 Fecha = wo.fecha,
-                                ProductServiceDesc = ps.nombre,
+                                ProductServiceDesc = ps.id.ToString() + "-" + ps.nombre,
                                 StatusDesc = st.descripcion,
                                 Importe = wo.importe
                             }).ToList();
@@ -920,10 +947,8 @@ namespace accounting.Repositories
             catch (Exception ex)
             { return null; }
         }
-
         public IEnumerable<ReportWorkOrder> WorkOrderReport(int? status)
         {
-            
             try
             {
                 using (AccountingEntities1 ctx = new AccountingEntities1())
@@ -931,26 +956,25 @@ namespace accounting.Repositories
                     return (from wo in ctx.work_order
                             join ps in ctx.product_service on wo.product_service_id equals ps.id
                             join st in ctx.work_order_status on wo.status_id equals st.id
+                            join c in ctx.client on ps.client_id equals c.id
                             join pr in ctx.profesional on wo.profesional_id equals pr.id into temp2
                             from temp3 in temp2.DefaultIfEmpty()
-                            join c in ctx.client on wo.client_id equals c.id into temp
-                            from temp1 in temp.DefaultIfEmpty()
                             where (st.id == status || status == null)
                             select new ReportWorkOrder
                             {
                                 id = wo.id,
                                 Fecha = wo.fecha,
                                 Descripcion = wo.descripcion,
-                                ProductServiceDesc = ps.nombre,
+                                ProductServiceDesc = ps.id.ToString() + "-" + ps.nombre,
                                 Cantidad = wo.cantidad,
                                 Paciente = wo.nombre_paciente,
                                 ProfesionalDesc = temp3.nombre,
                                 Importe = wo.importe,
-                                StatusDesc = st.descripcion,                               
-                                UnidadMedida= ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : ps.unidad_medida == 3 ? "Valor unitario por Km" : "",
+                                StatusDesc = st.descripcion,
+                                UnidadMedida = ps.unidad_medida == 0 ? "Valor unitario por sesión" : ps.unidad_medida == 1 ? "Valor unitario por hora" : ps.unidad_medida == 2 ? "Valor unitario por visita" : ps.unidad_medida == 3 ? "Valor unitario por Km" : "",
                                 ValorUnitario = ps.valorUnitario,
                                 CostoUniProf = ps.costo_profesional,
-                                Cliente = temp1.razonSocial,
+                                Cliente = c.razonSocial,
                                 ObraSocial = wo.obra_social,
                                 CostoTotalProf = wo.costo_profesional
                             }).ToList();
@@ -958,9 +982,7 @@ namespace accounting.Repositories
             }
             catch (Exception ex)
             { return null; }
-
         }
-
         public WorkOrderDeleteVM GetDelete(long? id)
         {
             try
@@ -975,7 +997,7 @@ namespace accounting.Repositories
                             {
                                 id = wo.id,
                                 Fecha = wo.fecha,
-                                ProductService = ps.nombre,
+                                ProductService = ps.id.ToString() + "-" + ps.nombre,
                                 Status = st.descripcion
                             }).First();
                 }
@@ -1050,7 +1072,7 @@ namespace accounting.Repositories
                     return (from co in ctx.compra
                             join pr in ctx.proveedor on co.proveedor_id equals pr.id
                             join tp in ctx.tipo_comprobante on co.tipo_comprobante_id equals tp.id
-                            where (co.proveedor_id == proveedor || proveedor == null) 
+                            where (co.proveedor_id == proveedor || proveedor == null)
                             && (co.fecha_emision >= fechaEmisionDesde || fechaEmisionDesde == null)
                             && (co.fecha_emision <= fechaEmisionHasta || fechaEmisionHasta == null)
                             && co.activo == 1
@@ -1060,7 +1082,7 @@ namespace accounting.Repositories
                                 Proveedor = pr.razon_social,
                                 TipoComprobante = tp.descripcion,
                                 NroFactura = co.nro_factura,
-                                FechaEmision = co.fecha_emision,         
+                                FechaEmision = co.fecha_emision,
                                 Importe = co.importe,
                                 EstadoDesc = co.estado == 0 ? "Pendiente de Pago" : co.estado == 1 ? "Pago incompleto" : "Pagada"
                             }).ToList();
@@ -1116,9 +1138,9 @@ namespace accounting.Repositories
                         select new ListPermisos
                         {
                             id = rp.id,
-                            pagina=p.link_text,
-                            FechaAsignacion= (DateTime)rp.update_date,
-                            AsignadoPor=u.user_name     
+                            pagina = p.link_text,
+                            FechaAsignacion = (DateTime)rp.update_date,
+                            AsignadoPor = u.user_name
                         }).ToList();
             }
         }
@@ -1129,19 +1151,18 @@ namespace accounting.Repositories
             {
                 return (from p in ctx.pagina
                         let pages = (from rp in ctx.rolpagina
-                                       where rp.asignada == true && rp.rol_id == rol_id
-                                       select rp.pagina_id)
+                                     where rp.asignada == true && rp.rol_id == rol_id
+                                     select rp.pagina_id)
                         where !pages.Contains(p.id) && p.activo == 1
                         orderby p.id
                         select new ListPaginas
                         {
-                            id= p.id,
-                            pagina=p.link_text
+                            id = p.id,
+                            pagina = p.link_text
 
                         }).ToList();
             }
         }
-
 
         public IEnumerable<ListPaginas> PaginasGet(byte rol_id)
         {
@@ -1185,8 +1206,8 @@ namespace accounting.Repositories
                         where (r.id == rol_id)
                         select new ListRol
                         {
-                           id=r.id,
-                           description=r.description,
+                            id = r.id,
+                            description = r.description,
 
                         }).Distinct().ToList();
             }
@@ -1198,22 +1219,350 @@ namespace accounting.Repositories
             {
                 return (from rp in ctx.rolpagina
                         join p in ctx.pagina on rp.pagina_id equals p.id
-                        where rp.rol_id == rol_id && rp.asignada == true && p.activo==1
+                        where rp.rol_id == rol_id && rp.asignada == true && p.activo == 1
                         select new ListMenu
                         {
                             id = rp.id,
-                            pagina_id=rp.pagina_id,
-                            link_text=p.link_text,
-                            action_name=p.action_name,
-                            controller_name=p.controller_name,
-                            link_menu=p.link_menu,
-                            class_menu=p.class_menu,
-                            orden_menu= (byte)p.orden_menu,               
-                        }).ToList().OrderBy(o=>o.orden_menu);
+                            pagina_id = rp.pagina_id,
+                            link_text = p.link_text,
+                            action_name = p.action_name,
+                            controller_name = p.controller_name,
+                            link_menu = p.link_menu,
+                            class_menu = p.class_menu,
+                            orden_menu = (byte)p.orden_menu,
+                        }).ToList().OrderBy(o => o.orden_menu);
             }
         }
 
         #endregion
 
+        #region --[FACTURAS PROVEEDORES]
+        public FacturaProveedoresVM FacturaProveedorGet(long? id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.factura_proveedores
+                            join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
+                            join u in ctx.users on e.create_user_id equals u.id
+                            join pr in ctx.profesional on e.profesional_id equals pr.id 
+                            where e.id == id
+                              && e.activo == 1
+                            select new FacturaProveedoresVM
+                            {
+                                id = e.id,
+                                periodo = e.periodo,
+                                fecha_factura = e.fecha_factura,
+                                fecha_pago = e.fecha_pago,
+                                tipo_factura = e.tipo_factura,
+                                tipo_comprobante = tc.descripcion,
+                                punto_venta = e.punto_venta,
+                                nro_comprobante = e.nro_comprobante,
+                                cuit_cuil = e.cuit_cuil,
+                                nro_cuit_cuil = e.nro_cuit_cuil,
+                                imp_neto_gravado = e.imp_neto_gravado,
+                                imp_neto_no_gravado = e.imp_neto_no_gravado,
+                                imp_op_exentas = e.imp_op_exentas,
+                                iva = e.iva,
+                                importe_total = e.importe_total,
+                                description = e.description,
+                                user_create = u.user_name,
+                                profesional = pr.nombre,
+                                fileName = e.name_file,
+                                estadoDesc = e.estado == 0 ? "PAGADO" : e.estado == 1 ? "PAGO PARCIAL" : "IMPAGO"
+                            }).First();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public IEnumerable<ListFacturaProveedores> FacturaProveedoresList(int? estado, DateTime? fechaEmisionDesde, DateTime? fechaEmisionHasta)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                   
+                    return (from e in ctx.factura_proveedores
+                            join u in ctx.users on e.create_user_id equals u.id
+                            join pr in ctx.profesional on e.profesional_id equals pr.id
+                            where (e.estado == estado || estado == null)
+                            && (e.fecha_factura >= fechaEmisionDesde || fechaEmisionDesde == null)
+                            && (e.fecha_factura <= fechaEmisionHasta || fechaEmisionHasta == null)
+                              && e.activo == 1
+                            select new ListFacturaProveedores
+                            {
+                                id = e.id,
+                                FechaFactura = e.fecha_factura,
+                                Proveedor = pr.nombre,
+                                FileName = e.name_file,
+                                User = u.user_name,
+                                EstadoDesc = e.estado == 0 ? "PAGADO" : e.estado == 1 ? "PAGO PARCIAL" : "IMPAGO"
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public IEnumerable<ReportFacturaProveedores> FacturaProveedoresReport(int? estado, DateTime? fechaD, DateTime? fechaH)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.factura_proveedores
+                            join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
+                            join u in ctx.users on e.create_user_id equals u.id
+                            join pr in ctx.profesional on e.profesional_id equals pr.id
+                            where (e.estado == estado || estado == null)
+                            && (e.fecha_factura >= fechaD || fechaD == null)
+                            && (e.fecha_factura <= fechaH || fechaH == null)
+                            && e.activo == 1
+                            select new ReportFacturaProveedores
+                            {
+                                id = e.id,
+                                Periodo = e.periodo,
+                                FechaFactura = e.fecha_factura,
+                                FechaPago = e.fecha_pago,
+                                TipoFactura = e.tipo_factura,
+                                TipoComprobante = tc.descripcion,
+                                PuntoVenta = e.punto_venta,
+                                NroComprobante = e.nro_comprobante,
+                                CuitCuil = e.cuit_cuil,
+                                NroCuitCuil = e.nro_cuit_cuil,
+                                ImpNetoGravado = e.imp_neto_gravado,
+                                ImpNetoNoGravado = e.imp_neto_no_gravado,
+                                ImpOpExentas = e.imp_op_exentas,
+                                Iva = e.iva,
+                                ImporteTotal = e.importe_total,
+                                Description = e.description,
+                                UserCreate = u.user_name,
+                                Proveedor = pr.nombre,
+                                EstadoDesc = e.estado == 0 ? "PAGADO" : e.estado == 1 ? "PAGO PARCIAL" : "IMPAGO"
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region --[ORDEN DE PAGO]--
+        public IEnumerable<ListOrdenPagoCab> OrdenPagoCabList(long? profesional_Id, DateTime? fecha)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.orden_pago_cab 
+                            join pr in ctx.profesional on e.profesional_id equals pr.id
+                            where (e.profesional_id == profesional_Id || profesional_Id == null)
+                            && (e.fecha == fecha || fecha == null)
+                            && e.activo == 1
+                            select new ListOrdenPagoCab
+                            {
+                               id = e.id,
+                               FechaOrden = e.fecha,
+                               Importe = e.importe_total,
+                               Profesional = pr.nombre
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public OrdenesPagoCabDetVM GetOrdenPagoCab(long? id)
+        {
+            try
+            {
+                OrdenesPagoCabDetVM op = new OrdenesPagoCabDetVM();
+                IEnumerable<ListOrdenPagoDet> opdet; ;
+
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    op = (from e in ctx.orden_pago_cab
+                            join pr in ctx.profesional on e.profesional_id equals pr.id
+                            where e.id == id 
+                            && e.activo == 1
+                            select new OrdenesPagoCabDetVM
+                            {
+                                id = e.id,
+                                Fecha = e.fecha,
+                                Importe = e.importe_total,
+                                Profesional = pr.nombre
+                            }).First();
+
+                    opdet = (from d in ctx.orden_pago_det
+                             where d.orden_pago_cab_id == op.id
+                             select new ListOrdenPagoDet
+                             {
+                                 id = d.id,
+                                 PagaTotal = d.paga_total == true ? "si" : "no",
+                                 Importe = d.importe,
+                                 FormaPago = d.forma_pago,
+                                 factura_proveedor_id = d.factura_proveedores_id,
+                                 Banco = d.banco,
+                                 NroCheque = d.nro_cheque,
+                                 NroCtaCte = d.nro_cuenta_corriente,
+                                 Observaciones = d.observaciones
+                             }).ToList();  
+                }
+                op.list = opdet;
+                return op;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public OrdenPagoCabVM GetDeleteOP(long? id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.orden_pago_cab
+                          join pr in ctx.profesional on e.profesional_id equals pr.id
+                          where e.id == id 
+                          && e.activo == 1
+                          select new OrdenPagoCabVM
+                          {
+                              id = e.id,
+                              Fecha = e.fecha,
+                              Importe = e.importe_total,
+                              Profesional = pr.nombre,
+                              Profesional_Id = e.profesional_id
+                          }).First();
+
+                   
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public OrdenesPagoDetVM GetOrdenPagoCabDet(long idCab)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.orden_pago_cab
+                          join pr in ctx.profesional on e.profesional_id equals pr.id
+                          where e.id == idCab
+                          && e.activo == 1
+                          select new OrdenesPagoDetVM
+                          {
+                              idCab = e.id,
+                              Fecha = e.fecha,
+                              ImporteTotal = e.importe_total,
+                              Profesional = pr.nombre,
+                              ProfesionalId = e.profesional_id
+                          }).First();                 
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public OrdenesPagoDetailsDetalle GetOrdenPagoDetails(long id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.orden_pago_det
+                            where e.id == id
+                            select new OrdenesPagoDetailsDetalle
+                            {
+                                idCab = e.orden_pago_cab_id,
+                                idDet = e.id,
+                                FacturaProveedorId = e.factura_proveedores_id,
+                                Importe = e.importe,
+                                FormaPago = e.forma_pago,
+                                Banco = e.banco,
+                                NroCheque = e.nro_cheque,
+                                NroCtaCte = e.nro_cuenta_corriente,
+                                Observaciones = e.observaciones
+                            }).First();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public OrdenesPagoDetVM GetOrdenPagoDetalleEdit(long id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.orden_pago_cab
+                            join pr in ctx.profesional on e.profesional_id equals pr.id
+                            join d in ctx.orden_pago_det on e.id equals d.orden_pago_cab_id
+                            where d.id == id
+                            && e.activo == 1
+                            select new OrdenesPagoDetVM
+                            {
+                                idCab = e.id,
+                                Fecha = e.fecha,
+                                ImporteTotal = e.importe_total,
+                                Profesional = pr.nombre,
+                                ProfesionalId = e.profesional_id,
+                                idDet = d.id,
+                                FacturaProveedorId = d.factura_proveedores_id,
+                                PagaTotal = d.paga_total,
+                                Importe = d.importe,
+                                FormaPago = d.forma_pago,
+                                NroCheque = d.nro_cheque,
+                                NroCtaCte = d.nro_cuenta_corriente,
+                                Banco = d.banco,
+                                Observaciones = d.observaciones
+                            }).First();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public IEnumerable<ReportOrdenPago> OrdenPagoReport(long? profesional_id, DateTime? fecha)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.orden_pago_cab
+                            join pr in ctx.profesional on e.profesional_id equals pr.id
+                            where (e.profesional_id == profesional_id || profesional_id == null)
+                            && (e.fecha == fecha || fecha == null)
+                            && e.activo == 1
+                            select new ReportOrdenPago
+                            {
+                                id = e.id,
+                                Fecha = e.fecha,
+                                Importe = e.importe_total,
+                                Profesional = pr.nombre
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }

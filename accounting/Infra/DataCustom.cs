@@ -142,6 +142,8 @@ namespace accounting.Infra
         public string tipo { get; set; }
         public string nombre { get; set; }
         public double valorUnitario { get; set; }
+
+        public string cliente { get; set; }
     }
     public class ReportProductService
     {
@@ -152,9 +154,11 @@ namespace accounting.Infra
         public double? costoProfesional { get; set; }
 
         public string unidadMedida { get; set; }
+
+        public string cliente { get; set; }
         public override string ToString()
         {
-            return $"{id};{nombre};{tipo};{unidadMedida};{valorUnitario};{costoProfesional}";
+            return $"{id};{nombre};{tipo};{unidadMedida};{valorUnitario};{costoProfesional};{cliente}";
         }
     }
     #endregion
@@ -248,9 +252,16 @@ namespace accounting.Infra
     {
         public int id { get; set; }
         public string nombre { get; set; }
+    }
+
+    public class ComboProductServiceValues
+    {
+        public int id { get; set; }
+        public string nombre { get; set; }
         public double valUnitario { get; set; }
         public string unidadMedida { get; set; }
         public double? CostoProf { get; set; }
+        public string Cliente { get; set; }
     }
 
     public class ListWorkOrder
@@ -373,5 +384,86 @@ namespace accounting.Infra
     }
     #endregion
 
+    #region Factura Proveedores
+    public class ListFacturaProveedores
+    {
+        public long id { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? FechaFactura { get; set; }
+        public string Proveedor { get; set; }
+        public string User { get; set; }
+        public string FileName { get; set; }
+        public string EstadoDesc { get; set; }
+    }
+    public class ReportFacturaProveedores
+    {
+        public long id { get; set; }
+        public string Periodo { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? FechaPago { get; set; }
+        public string TipoFactura { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? FechaFactura { get; set; }
+        public string TipoComprobante { get; set; }
+        public string Proveedor { get; set; }
+        public string PuntoVenta { get; set; }
+        public string NroComprobante { get; set; }
+        public string CuitCuil { get; set; }
+        public string NroCuitCuil { get; set; }
+        public string Description { get; set; }
+        public double? ImpNetoGravado { get; set; }
+        public double? ImpNetoNoGravado { get; set; }
+        public double? ImpOpExentas { get; set; }
+        public double? Iva { get; set; }
+        public double ImporteTotal { get; set; }
+        public string EstadoDesc { get; set; }
+        public string UserCreate { get; set; }
 
+        public override string ToString()
+        {
+            return $"{id};{Periodo};{FechaPago};{TipoFactura};{FechaFactura};{TipoComprobante};{Proveedor};{PuntoVenta};{NroComprobante};{CuitCuil};{NroCuitCuil};{Description};{ImpNetoGravado};{ImpNetoNoGravado};{ImpOpExentas};{Iva};{ImporteTotal};{EstadoDesc};{UserCreate};";
+        }
+    }
+    #endregion
+
+    #region Orden de Pago
+    public class ListOrdenPagoCab
+    {
+        public long id { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? FechaOrden { get; set; }
+        public string Profesional { get; set; }
+        public double Importe { get; set; }
+    }
+    public class ListOrdenPagoDet
+    {
+        public long id { get; set; }
+        public double Importe { get; set; }
+        public string PagaTotal { get; set; }
+        public string FormaPago { get; set; }
+        public long factura_proveedor_id { get; set; }
+        public string NroCheque{ get; set; }
+        public string NroCtaCte { get; set; }
+        public string Banco { get; set; }
+        public string Observaciones { get; set; }
+    }
+    public class OrdenPagoDetImporte
+    {
+        public long id { get; set; }
+        public double saldo { get; set; }
+    }
+    public class ReportOrdenPago
+    {
+        public long id { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Fecha { get; set; }
+        public string Profesional { get; set; }
+        public double Importe { get; set; }
+
+        public override string ToString()
+        {
+            return $"{id};{Fecha};{Profesional};{Importe}";
+        }
+    }
+    #endregion
 }

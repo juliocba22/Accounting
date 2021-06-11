@@ -19,7 +19,7 @@ namespace accounting.ViewModels
         [Display(Name = "Descripcion")]
         public string Descripcion { get; set; }
 
-        [Display(Name = "* Producto/Servicio")]
+        [Display(Name = "* Cod-Producto/Servicio")]
         [Required(ErrorMessage = "* requerido")]
         public int ProductServiceId { get; set; }
 
@@ -45,9 +45,6 @@ namespace accounting.ViewModels
         [Display(Name = "Profesional")]
         public int? ProfesionalId { get; set; }
 
-        [Display(Name = "Cliente")]
-        public int? ClientId { get; set; }
-
         [Display(Name = "* Estado")]
         [Required(ErrorMessage = "* requerido")]
         public int StatusId { get; set; }
@@ -63,6 +60,7 @@ namespace accounting.ViewModels
 
         public string StatusDesc { get; set; }
 
+        [Display(Name = "Cliente")]
         public string Cliente { get; set; }
 
         [Display(Name = "* Total a Facturar")]

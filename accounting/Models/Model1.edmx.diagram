@@ -21,7 +21,11 @@
         <EntityTypeShape EntityType="AccountingModel.pagina" Width="1.5" PointX="10.875" PointY="4.875" />
         <EntityTypeShape EntityType="AccountingModel.rolpagina" Width="1.5" PointX="12.625" PointY="4.875" />
         <EntityTypeShape EntityType="AccountingModel.proveedor" Width="1.5" PointX="7" PointY="0.5" />
-        <EntityTypeShape EntityType="AccountingModel.work_order" Width="1.5" PointX="10.875" PointY="0.75" />
+        <EntityTypeShape EntityType="AccountingModel.work_order" Width="1.5" PointX="10.75" PointY="1" />
+        <EntityTypeShape EntityType="AccountingModel.factura_proveedores" Width="1.875" PointX="14.625" PointY="4.375" />
+        <EntityTypeShape EntityType="AccountingModel.orden_pago_cab" Width="1.5" PointX="16.5" PointY="0.75" />
+        <EntityTypeShape EntityType="AccountingModel.orden_pago_det" Width="1.5" PointX="18.5" PointY="0.75" />
+        <EntityTypeShape EntityType="AccountingModel.cobros" Width="1.5" PointX="5.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

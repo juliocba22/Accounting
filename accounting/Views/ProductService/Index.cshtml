@@ -28,7 +28,7 @@
                         <span class="glyphicon glyphicon-download"></span>
                         @Html.ActionLink("Exportar listado a CSV", "Export", new { nombre = Model.nombre })
                     </div>
-                </div>
+                </div>             
             }
         </div>
     </div>
@@ -51,6 +51,9 @@
         <th>
             @Html.Label("Valor Unitario")
         </th>
+         <th>
+            @Html.Label("Cliente")
+        </th>
         <th>Acciones</th>
     </tr>
 
@@ -64,25 +67,28 @@
     {
         foreach (var item in Model.list)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tipo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.valorUnitario)
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit", new { id = item.id })" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>
-                    | <a href="@Url.Action("Details", new { id = item.id })" title="Detalle"><span class="glyphicon glyphicon-list-alt"></span></a>
-                    | <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar"><span class="glyphicon glyphicon-remove-circle"></span></a>
-                </td>
-            </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.nombre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.tipo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.valorUnitario)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.cliente)
+    </td>
+    <td>
+        <a href="@Url.Action("Edit", new { id = item.id })" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>
+        | <a href="@Url.Action("Details", new { id = item.id })" title="Detalle"><span class="glyphicon glyphicon-list-alt"></span></a>
+        | <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar"><span class="glyphicon glyphicon-remove-circle"></span></a>
+    </td>
+</tr>
         }
     }
 </table>

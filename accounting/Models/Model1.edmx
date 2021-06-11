@@ -24,6 +24,24 @@
           <Property Name="codigo" Type="varchar" MaxLength="20" />
           <Property Name="nro_codigo" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="cobros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nro_factura" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha_factura" Type="date" Nullable="false" />
+          <Property Name="monto" Type="float" Nullable="false" />
+          <Property Name="cobro_parcial" Type="float" />
+          <Property Name="observaciones" Type="varchar" MaxLength="150" />
+          <Property Name="subtotal_recibo" Type="float" />
+          <Property Name="total" Type="float" Nullable="false" />
+          <Property Name="update_date" Type="date" />
+          <Property Name="update_user_id" Type="int" />
+          <Property Name="activo" Type="tinyint" />
+          <Property Name="cliente_id" Type="int" Nullable="false" />
+          <Property Name="nro_recibo" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="compra">
           <Key>
             <PropertyRef Name="id" />
@@ -74,6 +92,9 @@
           <Property Name="importe_total" Type="float" />
           <Property Name="tipo_comprobante_id" Type="int" Nullable="false" />
           <Property Name="proveedor_id" Type="bigint" />
+          <Property Name="periodo" Type="varchar" MaxLength="50" />
+          <Property Name="pay_date" Type="datetime" />
+          <Property Name="pay_state" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="expense_type">
           <Key>
@@ -81,6 +102,63 @@
           </Key>
           <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="factura_proveedores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo_factura" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="update_user_id" Type="bigint" />
+          <Property Name="update_date" Type="datetime" />
+          <Property Name="create_user_id" Type="bigint" />
+          <Property Name="fecha_factura" Type="datetime" />
+          <Property Name="tipo_comprobante_id" Type="int" Nullable="false" />
+          <Property Name="proveedor_id" Type="bigint" />
+          <Property Name="punto_venta" Type="varchar" MaxLength="150" />
+          <Property Name="nro_comprobante" Type="varchar" MaxLength="150" />
+          <Property Name="cuit_cuil" Type="varchar" MaxLength="15" />
+          <Property Name="nro_cuit_cuil" Type="varchar" MaxLength="150" />
+          <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="imp_neto_gravado" Type="float" />
+          <Property Name="imp_neto_no_gravado" Type="float" />
+          <Property Name="imp_op_exentas" Type="float" />
+          <Property Name="iva" Type="float" />
+          <Property Name="importe_total" Type="float" Nullable="false" />
+          <Property Name="name_file" Type="varchar" MaxLength="150" />
+          <Property Name="activo" Type="tinyint" Nullable="false" />
+          <Property Name="fecha_pago" Type="datetime" />
+          <Property Name="periodo" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
+          <Property Name="profesional_id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="orden_pago_cab">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="profesional_id" Type="bigint" Nullable="false" />
+          <Property Name="importe_total" Type="float" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="activo" Type="tinyint" />
+          <Property Name="create_user_id" Type="int" />
+          <Property Name="update_user_id" Type="int" />
+          <Property Name="update_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="orden_pago_det">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orden_pago_cab_id" Type="bigint" Nullable="false" />
+          <Property Name="factura_proveedores_id" Type="bigint" Nullable="false" />
+          <Property Name="paga_total" Type="bit" Nullable="false" />
+          <Property Name="importe" Type="float" Nullable="false" />
+          <Property Name="forma_pago" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nro_cheque" Type="varchar" MaxLength="50" />
+          <Property Name="nro_cuenta_corriente" Type="varchar" MaxLength="50" />
+          <Property Name="banco" Type="varchar" MaxLength="50" />
+          <Property Name="observaciones" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="pagina">
           <Key>
@@ -109,6 +187,7 @@
           <Property Name="activo" Type="tinyint" Nullable="false" />
           <Property Name="unidad_medida" Type="int" />
           <Property Name="costo_profesional" Type="float" />
+          <Property Name="client_id" Type="int" />
         </EntityType>
         <EntityType Name="profesional">
           <Key>
@@ -240,7 +319,6 @@
           <Property Name="importe" Type="float" />
           <Property Name="obra_social" Type="varchar" MaxLength="50" />
           <Property Name="costo_profesional" Type="float" />
-          <Property Name="client_id" Type="int" />
         </EntityType>
         <EntityType Name="work_order_status">
           <Key>
@@ -275,9 +353,13 @@
         </Association>
         <EntityContainer Name="AccountingModelStoreContainer">
           <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cobros" EntityType="Self.cobros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="compra" EntityType="Self.compra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expense_type" EntityType="Self.expense_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="factura_proveedores" EntityType="Self.factura_proveedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orden_pago_cab" EntityType="Self.orden_pago_cab" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orden_pago_det" EntityType="Self.orden_pago_det" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pagina" EntityType="Self.pagina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_service" EntityType="Self.product_service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesional" EntityType="Self.profesional" Schema="dbo" store:Type="Tables" />
@@ -323,6 +405,7 @@
           <Property Name="activo" Type="Byte" Nullable="false" />
           <Property Name="unidad_medida" Type="Int32" />
           <Property Name="costo_profesional" Type="Double" />
+          <Property Name="client_id" Type="Int32" />
         </EntityType>
         <EntityType Name="profesional">
           <Key>
@@ -432,6 +515,10 @@
           <EntitySet Name="rolpagina" EntityType="AccountingModel.rolpagina" />
           <EntitySet Name="proveedor" EntityType="AccountingModel.proveedor" />
           <EntitySet Name="work_order" EntityType="AccountingModel.work_order" />
+          <EntitySet Name="factura_proveedores" EntityType="AccountingModel.factura_proveedores" />
+          <EntitySet Name="orden_pago_cab" EntityType="AccountingModel.orden_pago_cab" />
+          <EntitySet Name="orden_pago_det" EntityType="AccountingModel.orden_pago_det" />
+          <EntitySet Name="cobros" EntityType="AccountingModel.cobros" />
         </EntityContainer>
         <EntityType Name="tipo_comprobante">
           <Key>
@@ -494,6 +581,9 @@
           <Property Name="tipo_comprobante_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
           <Property Name="proveedor_id" Type="Int64" />
+          <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pay_date" Type="DateTime" Precision="3" />
+          <Property Name="pay_state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_expense_expense_type_expense_id">
           <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
@@ -597,7 +687,81 @@
           <Property Name="importe" Type="Double" />
           <Property Name="obra_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="costo_profesional" Type="Double" />
-          <Property Name="client_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="factura_proveedores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo_factura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="update_user_id" Type="Int64" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="create_user_id" Type="Int64" />
+          <Property Name="fecha_factura" Type="DateTime" Precision="3" />
+          <Property Name="tipo_comprobante_id" Type="Int32" Nullable="false" />
+          <Property Name="proveedor_id" Type="Int64" />
+          <Property Name="punto_venta" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nro_comprobante" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cuit_cuil" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="nro_cuit_cuil" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="imp_neto_gravado" Type="Double" />
+          <Property Name="imp_neto_no_gravado" Type="Double" />
+          <Property Name="imp_op_exentas" Type="Double" />
+          <Property Name="iva" Type="Double" />
+          <Property Name="importe_total" Type="Double" Nullable="false" />
+          <Property Name="name_file" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Byte" Nullable="false" />
+          <Property Name="fecha_pago" Type="DateTime" Precision="3" />
+          <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="profesional_id" Type="Int64" />
+        </EntityType>
+        <EntityType Name="orden_pago_cab">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="profesional_id" Type="Int64" Nullable="false" />
+          <Property Name="importe_total" Type="Double" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="activo" Type="Byte" />
+          <Property Name="create_user_id" Type="Int32" />
+          <Property Name="update_user_id" Type="Int32" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="orden_pago_det">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orden_pago_cab_id" Type="Int64" Nullable="false" />
+          <Property Name="factura_proveedores_id" Type="Int64" Nullable="false" />
+          <Property Name="paga_total" Type="Boolean" Nullable="false" />
+          <Property Name="importe" Type="Double" Nullable="false" />
+          <Property Name="forma_pago" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nro_cheque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nro_cuenta_corriente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="banco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cobros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_factura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_factura" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="monto" Type="Double" Nullable="false" />
+          <Property Name="cobro_parcial" Type="Double" />
+          <Property Name="observaciones" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal_recibo" Type="Double" />
+          <Property Name="total" Type="Double" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Precision="0" />
+          <Property Name="update_user_id" Type="Int32" />
+          <Property Name="activo" Type="Byte" />
+          <Property Name="cliente_id" Type="Int32" Nullable="false" />
+          <Property Name="nro_recibo" Type="Int64" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -616,6 +780,7 @@
           <EntitySetMapping Name="product_service">
             <EntityTypeMapping TypeName="AccountingModel.product_service">
               <MappingFragment StoreEntitySet="product_service">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
                 <ScalarProperty Name="costo_profesional" ColumnName="costo_profesional" />
                 <ScalarProperty Name="unidad_medida" ColumnName="unidad_medida" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -737,6 +902,9 @@
           <EntitySetMapping Name="expense">
             <EntityTypeMapping TypeName="AccountingModel.expense">
               <MappingFragment StoreEntitySet="expense">
+                <ScalarProperty Name="pay_state" ColumnName="pay_state" />
+                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
                 <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
                 <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
                 <ScalarProperty Name="importe_total" ColumnName="importe_total" />
@@ -846,7 +1014,6 @@
           <EntitySetMapping Name="work_order">
             <EntityTypeMapping TypeName="AccountingModel.work_order">
               <MappingFragment StoreEntitySet="work_order">
-                <ScalarProperty Name="client_id" ColumnName="client_id" />
                 <ScalarProperty Name="costo_profesional" ColumnName="costo_profesional" />
                 <ScalarProperty Name="obra_social" ColumnName="obra_social" />
                 <ScalarProperty Name="importe" ColumnName="importe" />
@@ -860,6 +1027,85 @@
                 <ScalarProperty Name="product_service_id" ColumnName="product_service_id" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="factura_proveedores">
+            <EntityTypeMapping TypeName="AccountingModel.factura_proveedores">
+              <MappingFragment StoreEntitySet="factura_proveedores">
+                <ScalarProperty Name="profesional_id" ColumnName="profesional_id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="fecha_pago" ColumnName="fecha_pago" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="name_file" ColumnName="name_file" />
+                <ScalarProperty Name="importe_total" ColumnName="importe_total" />
+                <ScalarProperty Name="iva" ColumnName="iva" />
+                <ScalarProperty Name="imp_op_exentas" ColumnName="imp_op_exentas" />
+                <ScalarProperty Name="imp_neto_no_gravado" ColumnName="imp_neto_no_gravado" />
+                <ScalarProperty Name="imp_neto_gravado" ColumnName="imp_neto_gravado" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="nro_cuit_cuil" ColumnName="nro_cuit_cuil" />
+                <ScalarProperty Name="cuit_cuil" ColumnName="cuit_cuil" />
+                <ScalarProperty Name="nro_comprobante" ColumnName="nro_comprobante" />
+                <ScalarProperty Name="punto_venta" ColumnName="punto_venta" />
+                <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
+                <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
+                <ScalarProperty Name="fecha_factura" ColumnName="fecha_factura" />
+                <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="tipo_factura" ColumnName="tipo_factura" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orden_pago_cab">
+            <EntityTypeMapping TypeName="AccountingModel.orden_pago_cab">
+              <MappingFragment StoreEntitySet="orden_pago_cab">
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="importe_total" ColumnName="importe_total" />
+                <ScalarProperty Name="profesional_id" ColumnName="profesional_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orden_pago_det">
+            <EntityTypeMapping TypeName="AccountingModel.orden_pago_det">
+              <MappingFragment StoreEntitySet="orden_pago_det">
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="banco" ColumnName="banco" />
+                <ScalarProperty Name="nro_cuenta_corriente" ColumnName="nro_cuenta_corriente" />
+                <ScalarProperty Name="nro_cheque" ColumnName="nro_cheque" />
+                <ScalarProperty Name="forma_pago" ColumnName="forma_pago" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="paga_total" ColumnName="paga_total" />
+                <ScalarProperty Name="factura_proveedores_id" ColumnName="factura_proveedores_id" />
+                <ScalarProperty Name="orden_pago_cab_id" ColumnName="orden_pago_cab_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cobros">
+            <EntityTypeMapping TypeName="AccountingModel.cobros">
+              <MappingFragment StoreEntitySet="cobros">
+                <ScalarProperty Name="nro_recibo" ColumnName="nro_recibo" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="subtotal_recibo" ColumnName="subtotal_recibo" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="cobro_parcial" ColumnName="cobro_parcial" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="fecha_factura" ColumnName="fecha_factura" />
+                <ScalarProperty Name="nro_factura" ColumnName="nro_factura" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -32,6 +32,12 @@ namespace accounting.ViewModels
         public double? costoProfesional { get; set; }
 
         public string unidadMedidaDesc { get; set; }
+
+        [Display(Name = "* Cliente")]
+        [Required(ErrorMessage = "* requerido")]
+        public int? ClienteId  { get; set; }
+
+        public string Cliente { get; set; }
     }
 
     public class ProductServiceVMIndex

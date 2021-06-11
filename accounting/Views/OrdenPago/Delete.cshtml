@@ -1,0 +1,51 @@
+﻿@model accounting.ViewModels.OrdenPagoCabVM
+
+@{
+    ViewBag.Title = "Eliminación de una Orden de Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminación de una Orden de Pago</h2>
+
+<div>
+    <h4>Tenga en cuenta que al eliminar la Orden de Pago, todo el detalle tambien se eliminará y las facturas cambiarán de estado</h4>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.Label("Nro Orden de Pago:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.id)
+            </dd>
+            <dt>
+                @Html.Label("Fecha:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Fecha)
+            </dd>
+            <dt>
+                @Html.Label("Profesional:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Profesional)
+            </dd>
+            <dt>
+                @Html.Label("Importe:")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Importe)
+            </dd>
+        </dl>
+        <div class="form-actions no-color">
+            @Html.ActionLink("Regresar al Listado ", "Index") | <input type="submit" value="Eliminar" class="btn btn-default" />
+        </div>
+    }
+</div>
+
