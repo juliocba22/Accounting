@@ -466,4 +466,21 @@ namespace accounting.Infra
         }
     }
     #endregion
+
+    #region cobro
+
+    public class ListCobros
+    {
+        public long id { get; set; }
+        public long nroRecibo { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public string nroFactura { get; set; }
+        public DateTime fechaFactura { get; set; }//para el combo
+        public double monto { get; set; }
+        public double cobroParcial { get; set; }
+        public double subtotalRecibo { get; set; }
+        public double total { get; set; }
+      
+    }
+    #endregion
 }

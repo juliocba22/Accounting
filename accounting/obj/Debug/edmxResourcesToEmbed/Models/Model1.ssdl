@@ -5,6 +5,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="20" />
     <Property Name="razonSocial" Type="varchar" MaxLength="100" />
     <Property Name="nombreFantasia" Type="varchar" MaxLength="100" />
     <Property Name="localidad" Type="varchar" MaxLength="100" />
@@ -16,7 +17,6 @@
     <Property Name="update_date" Type="datetime" />
     <Property Name="update_user_id" Type="int" />
     <Property Name="activo" Type="tinyint" Nullable="false" />
-    <Property Name="codigo" Type="varchar" MaxLength="20" />
     <Property Name="nro_codigo" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="cobros">

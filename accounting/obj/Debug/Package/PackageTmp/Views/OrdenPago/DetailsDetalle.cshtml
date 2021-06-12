@@ -1,0 +1,71 @@
+﻿@model accounting.ViewModels.OrdenesPagoDetailsDetalle
+@using accounting.Helpers
+@{
+    ViewBag.Title = "Detalle de Orden de Pago";
+}
+
+<h2>Detalle de Orden Pago</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nro OP:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.idCab)
+        </dd>
+        <dt>
+            @Html.Label("Nro Detalle OP:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.idDet)
+        </dd>
+        <dt>
+            @Html.Label("Nro de Factura:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FacturaProveedorId)
+        </dd>
+        <dt>
+            @Html.Label("Importe:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Importe)
+        </dd>
+        <dt>
+            @Html.Label("Forma de Pago:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FormaPago)
+        </dd>
+        <dt>
+            @Html.Label("Banco:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Banco)
+        </dd>
+        <dt>
+            @Html.Label("Nro de Cheque:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NroCheque)
+        </dd>
+        <dt>
+            @Html.Label("Nro de Cta Cte:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NroCtaCte)
+        </dd>
+        <dt>
+            @Html.Label("Observaciones:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+    </dl>
+
+</div>
+<p>
+    @Html.ActionLink("Regresar al Listado", "Details", new { id = Model.idCab, page = 1 })
+</p>

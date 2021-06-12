@@ -17,6 +17,18 @@
             @Html.DisplayFor(model => model.name)
         </dd>
         <dt>
+            @Html.Label("Periodo:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.periodo)
+        </dd>
+        <dt>
+            @Html.Label("Fecha de pago:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.pay_date)
+        </dd>
+        <dt>
             @Html.Label("Tipo de gasto:")
         </dt>
         <dd>
@@ -36,7 +48,7 @@
             @Html.DisplayFor(model => model.tipo_comprobante)
         </dd>
         <dt>
-            @Html.Label("Proveedor:")
+            @Html.Label("Denominacion Emisor:")
         </dt>
 
         <dd>
@@ -105,6 +117,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.importe_total)
+        </dd>
+        <dt>
+            @Html.Label("estado:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.pay_state)
         </dd>
         <dt>
             @Html.Label("Cargado por:")

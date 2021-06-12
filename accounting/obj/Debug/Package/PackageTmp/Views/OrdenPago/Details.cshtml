@@ -1,0 +1,105 @@
+﻿@model accounting.ViewModels.OrdenesPagoCabDetVM
+@using accounting.Helpers
+@{
+    ViewBag.Title = "Detalle de la Orden de Pago";
+}
+
+<h2>Detalle de la Orden Pago</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nro OP:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt>
+            @Html.Label("Fecha:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            @Html.Label("Profesional:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Profesional)
+        </dd>
+        <dt>
+            @Html.Label("Importe total:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Importe)
+        </dd>
+    </dl>
+
+</div>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.ActionLink("AGREGAR DETALLE", "CreateDetalle", new { idCab = Model.id}, htmlAttributes: new { @class = "btn btn-primary" })
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Nro Factura")
+        </th>
+        <th>
+            @Html.Label("Paga Total")
+        </th>
+        <th>
+            @Html.Label("Importe")
+        </th>
+        <th>
+            @Html.Label("Forma de Pago")
+        </th>
+        <th>Acciones</th>
+    </tr>
+
+    @if (@Model.list.Count() == 0)
+    {
+        <tr>
+            <td colspan="10">No se encontraron registros.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model.list)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.factura_proveedor_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PagaTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Importe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormaPago)
+                </td>
+                <td>
+                    <a href="@Url.Action("DetailsDetalle", new { id = item.id })" title="Detalle"><span class="glyphicon glyphicon-list-alt"></span></a>
+                    | <a href="@Url.Action("DeleteDetalle", new { id = item.id })" title="Eliminar"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+@if (Model.list.ToList().Count > 0)
+{
+    if (Model.pagingInfo.TotalPages > 1)
+    {
+        <ul class="paginate pag1 clearfix">
+            <li class="single">Pág. @Model.pagingInfo.CurrentPage de @Model.pagingInfo.TotalPages</li>
+            @Html.PageLinks(Model.pagingInfo, x => Url.Action("Details", "OrdenPago", new { page = x, Model.id }))
+        </ul>
+    }
+}
+<p>
+    @Html.ActionLink("Regresar al Listado de OP", "Index")
+</p>

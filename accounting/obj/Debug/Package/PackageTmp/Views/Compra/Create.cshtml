@@ -1,0 +1,91 @@
+﻿Actualmente en desarrollo
+@*@model accounting.ViewModels.CompraVM
+
+@{
+    ViewBag.Title = "Nueva Compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nueva Compra</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProveedorId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ProveedorId, new SelectList(ViewBag.Provedores, "id", "razon_social"), "Seleccione..", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProveedorId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TipoComprobanteId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TipoComprobanteId, new SelectList(ViewBag.Tipo, "id", "descripcion"), "Seleccione..", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TipoComprobanteId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NroFactura, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NroFactura, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NroFactura, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaEmision, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.FechaEmision, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "Date" })
+            @Html.ValidationMessageFor(model => model.FechaEmision, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaContable, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.FechaContable, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "Date" })
+            @Html.ValidationMessageFor(model => model.FechaContable, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PrimerVencimiento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.PrimerVencimiento, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "Date" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SdoVencimiento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.SdoVencimiento, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "Date" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Importe, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Importe, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Importe, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DescuentoGlobal, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DescuentoGlobal, new { htmlAttributes = new { @class = "form-control"} })
+            @Html.ValidationMessageFor(model => model.DescuentoGlobal, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Volver al Listado", "Index")
+</div>*@
+

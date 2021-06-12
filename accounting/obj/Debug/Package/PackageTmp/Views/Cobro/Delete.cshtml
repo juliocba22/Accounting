@@ -1,0 +1,55 @@
+﻿@model accounting.ViewModels.CobroVM
+
+@{
+    ViewBag.Title = "Eliminación de un cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminación de un cobro</h2>
+<h3>¿Está seguro que desea eliminar al cobro?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nro. Recibo:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nroRecibo)
+        </dd>
+
+        <dt>
+            @Html.Label("Nro. Factura:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nroFactura)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha Factura:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaFactura)
+        </dd>
+
+        <dt>
+            @Html.Label("Monto:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.monto)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Regresar al Listado ", "Index") |
+            <input type="submit" value="Eliminar" class="btn btn-default" />
+        </div>
+    }
+</div>

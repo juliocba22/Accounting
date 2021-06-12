@@ -359,7 +359,10 @@ namespace accounting.Repositories
                             date_expense = e.date_expense,
                             amount_money = e.amount_money,
                             user = u.user_name,
-                            proveedor = temp1.razon_social
+                            proveedor = temp1.razon_social,
+                            periodo = e.periodo,
+                            pay_date = e.pay_date,
+                            pay_state = e.pay_state
                         }).First();
             }
         }
@@ -1563,6 +1566,65 @@ namespace accounting.Repositories
                 return null;
             }
         }
+        #endregion
+
+        #region --[COBROS]--
+        public IEnumerable<ListCobros> CobrosList(string nroFactura)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from c in ctx.cobros
+                            where (string.IsNullOrEmpty(nroFactura) || c.nro_factura.Contains(nroFactura))
+                            && c.activo == 1
+                            select new ListCobros
+                            {
+                                id = c.id,
+                                nroRecibo = c.nro_recibo,
+                                nroFactura = c.nro_factura,
+                                fechaFactura = c.fecha_factura,
+                                monto = c.monto,
+                                cobroParcial = (double)c.cobro_parcial,
+                                subtotalRecibo = (double)c.subtotal_recibo,
+                                total = c.total,
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+
+        //public List<ReportClient> ClientReport(string razonSocial)
+        //{
+        //    try
+        //    {
+        //        using (AccountingEntities1 ctx = new AccountingEntities1())
+        //        {
+        //            return (from c in ctx.client
+        //                    where (string.IsNullOrEmpty(razonSocial) || c.razonSocial.Contains(razonSocial))
+        //                    && c.activo == 1
+        //                    select new ReportClient
+        //                    {
+        //                        id = c.id,
+        //                        razonSocial = c.razonSocial,
+        //                        localidad = c.localidad,
+        //                        provincia = c.provincia,
+        //                        nombreContacto = c.personeria,
+        //                        telefono = c.telefono,
+        //                        email = c.email,
+        //                        emailFacturacion = c.emailFacturacon,
+        //                        codigo = c.codigo,
+        //                        nroCodigo = c.nro_codigo
+
+        //                    }).ToList();
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
         #endregion
     }
 }

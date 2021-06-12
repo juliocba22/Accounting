@@ -1,0 +1,142 @@
+﻿@model accounting.ViewModels.CobroVM
+
+@{
+    ViewBag.Title = "Nuevo Cobro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nuevo Cobro</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nroRecibo , htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nroRecibo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @*@Html.EditorFor(model => model.id, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })*@
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.clienteId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.clienteId, new SelectList(ViewBag.Clientes, "id", "razonSocial"), "Seleccione", htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.nroFactura, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nroFactura, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.fechaFactura, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.fechaFactura, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "Date" })
+            @Html.ValidationMessageFor(model => model.fechaFactura, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.monto, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.monto, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.monto, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.si_no, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.si_no, new SelectList(ViewBag.YN, "id", "desc"), "Seleccione", htmlAttributes: new { @class = "form-control" , @onchange = "TextEnabled();" })
+            @Html.ValidationMessageFor(model => model.si_no, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.cobroParcial, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.cobroParcial, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @onchange = "ValidateMonto();" } })
+            @Html.ValidationMessageFor(model => model.cobroParcial, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.subtotalRecibo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.subtotalRecibo, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.subtotalRecibo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.total, htmlAttributes: new { @class = "control-label col-md-2", @type = "email" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.total, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.total, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="Guardar" value="Guardar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Regresar al Listado", "Index")
+</div>
+
+<script type="text/javascript">
+
+    function TextEnabled() {
+
+        //alert('llega');
+        //alert(document.getElementById("si_no").value);
+        if (document.getElementById("si_no").value == "SI") {
+
+            document.getElementById("subtotalRecibo").disabled = false;
+            document.getElementById("cobroParcial").disabled = true;
+            document.getElementById("cobroParcial").value = "";
+            //document.getElementById("Guardar").disabled = ""
+
+            if (document.getElementById("monto").value != "") {
+                document.getElementById("subtotalRecibo").value = document.getElementById("monto").value;
+                document.getElementById("total").value = document.getElementById("monto").value;
+            }
+
+        }
+        else {
+
+            if (document.getElementById("monto").value != "") {
+                document.getElementById("subtotalRecibo").value = "";
+                document.getElementById("total").value = "";
+            }
+
+            document.getElementById("subtotalRecibo").disabled = true;
+            document.getElementById("cobroParcial").disabled = false;
+        }
+    }
+
+    function ValidateMonto()
+    {
+        if (document.getElementById("cobroParcial").value > document.getElementById("monto").value) {
+            alert("El cobro parcial no puede ser mayor al monto ");
+            document.getElementById("cobroParcial").onfocus();
+            document.getElementById("Guardar").disabled = "disabled";
+          
+          
+            return false;
+        }
+        document.getElementById("Guardar").disabled = "";
+        return true;
+           
+    }
+</script>

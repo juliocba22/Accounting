@@ -74,6 +74,30 @@ namespace accounting.Helpers
                 {2,"IMPAGO"}
             };
         }
+
+        public class enumYN
+        {
+            public string id { get; set; }
+
+            public string desc { get; set; }
+
+            public IEnumerable<enumYN> GetYN()
+            {
+                enumYN e = new enumYN();
+                enumYN e1 = new enumYN();
+                List<enumYN> l = new List<enumYN>();
+                e.id = "SI";
+                e.desc = "SI";
+                l.Add(e);
+
+                e1.id = "NO";
+                e1.desc = "NO";
+                l.Add(e1);
+
+                return l;
+            }
+        }
+
         internal Dictionary<string, string> GetPeriodo()
         {
             return new Dictionary<string, string>

@@ -283,5 +283,9 @@ namespace accounting.Repositories
 
         #endregion
 
+        #region --[COBROS]--
+        IEnumerable<ListCobros> CobrosList(string nroFactura);
+        #endregion
+
     }
 }

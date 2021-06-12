@@ -1,0 +1,56 @@
+﻿@model accounting.ViewModels.ExpenseCreateVM
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+    <h2>Eliminación del Gasto</h2>
+
+<h3>Esta seguro de borrar este gasto?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.expense_name)
+        </dt>
+
+        <dd>
+            @ViewBag.expense_name
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_expense)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_expense)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Expenses", FormMethod.Post, new { id = Model.id }))
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    @Html.ActionLink("Volver a Lista", "Index") |
+    <input type="submit" value="Eliminar" class="btn btn-default" />
+</div>
+    }
+</div>

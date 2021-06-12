@@ -1,0 +1,92 @@
+﻿@model accounting.ViewModels.CobroVM
+
+@{
+    ViewBag.Title = "Detalle del Cobro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Datos del Cobro</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nro. Recibo:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nroRecibo)
+        </dd>
+
+        <dt>
+            @Html.Label("Cliente:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clienteDescripcion)
+        </dd>
+
+        <dt>
+            @Html.Label("Nro. Factura:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nroFactura)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha Factura:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaFactura)
+        </dd>
+        <dt>
+            @Html.Label("Monto:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.monto)
+        </dd>
+
+        <dt>
+            @Html.Label("Cobro Parcial:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cobroParcial)
+        </dd>
+
+        <dt>
+            @Html.Label("Observaciones:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.Label("SubTotal Recibo:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subtotalRecibo)
+        </dd>
+
+        <dt>
+            @Html.Label("Total:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al Listado", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+
+</p>

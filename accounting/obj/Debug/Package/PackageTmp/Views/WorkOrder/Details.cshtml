@@ -1,0 +1,124 @@
+﻿@model accounting.ViewModels.WorkOrderVM
+
+@{
+    ViewBag.Title = "Datos de la Prestación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>Datos de la Prestación</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nro de Prestación:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.Label("Descripción:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.Label("Cod-Producto/Servicio:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductServiceDesc)
+        </dd>
+        <dt>
+            @Html.Label("Unidad de Medida:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadMedida)
+        </dd>
+        <dt>
+            @Html.Label("Valor Unitario:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorUnitario)
+        </dd>
+        <dt>
+            @Html.Label("Costo Unit Profesional:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostoUniProf)
+        </dd>
+        <dt>
+            @Html.Label("Cantidad:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.Label("Paciente:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paciente)
+        </dd>
+        <dt>
+            @Html.Label("Cliente:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente)
+        </dd>
+        <dt>
+            @Html.Label("Obra Social:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ObraSocial)
+        </dd>
+        <dt>
+            @Html.Label("Profesional:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDesc)
+        </dd>
+        <dt>
+            @Html.Label("Total a Facturar:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Importe)
+        </dd>
+        <dt>
+            @Html.Label("Costo Total Profesional:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostoProfesional)
+        </dd>
+        <dt>
+            @Html.Label("Estado:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StatusDesc)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al Listado", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+
+</p>
