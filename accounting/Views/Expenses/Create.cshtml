@@ -20,6 +20,23 @@
             @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.periodo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.periodo, new SelectList(ViewBag.Periodo, "key", "value"), "Seleccione", htmlAttributes: new { @class = "form-control", @onchange = "TextEnabled();" })
+            @Html.ValidationMessageFor(model => model.periodo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.pay_date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.pay_date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "Date" })
+            @Html.ValidationMessageFor(model => model.pay_date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.expense_id, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -133,6 +150,15 @@
             @Html.ValidationMessageFor(model => model.importe_total, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.pay_state, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.pay_state, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.pay_state, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

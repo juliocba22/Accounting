@@ -1,0 +1,67 @@
+
+@charset "UTF-8";
+
+
+.form-type-material.form-control,
+.form-type-material .form-control {
+  border-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-background-size: 0 2px, 100% 1px;
+          background-size: 0 2px, 100% 1px;
+  background-repeat: no-repeat;
+  background-position: center bottom, center calc(100% - 1px);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#48b0f7), to(#48b0f7)), -webkit-gradient(linear, left top, left bottom, from(#48b0f7), to(#48b0f7));
+  background-image: -webkit-linear-gradient(#48b0f7, #48b0f7), -webkit-linear-gradient(#ebebeb, #ebebeb);
+  background-image: linear-gradient(#48b0f7, #48b0f7), linear-gradient(#ebebeb, #ebebeb);
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
+}
+
+.custom-checkbox .custom-control-label::after {
+  color: #48b0f7;
+}
+
+.fc-list-table td {
+    padding: 4px 10px;
+}
+
+.fc-list-heading-alt {
+  font-weight: normal;
+}
+
+.fc h2 {
+   font-size: 14px;
+}
+
+.topbar-inverse .topbar-btn:hover {
+    border-top-color: #3E4A58;
+    background-color: #232D37;
+}
+
+body {
+  background-color: #EFF0F1;
+}
+
+.card-outline-secondary {
+  border: 1px solid #B3BCC7;
+  border-top: 4px solid #B3BCC7;
+}
+
+.border-ladrillo {
+  border-color: #6794BC !important;
+}
+
+.text-ladrillo {
+  color: #ff8000;
+}
+
+.sidebar.sidebar-color-info .menu.menu-bordery>.menu-item.active>.menu-link::before, .sidebar.sidebar-color-info .menu.menu-bordery>.menu-item:hover>.menu-link::before {
+    background-color: #6794BC;
+}
+
+.card-body {
+  padding: 7px 7px 15px 7px;
+}
+
+

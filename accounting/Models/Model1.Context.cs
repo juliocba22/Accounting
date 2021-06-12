@@ -34,7 +34,6 @@ namespace accounting.Models
         public virtual DbSet<work_order_status> work_order_status { get; set; }
         public virtual DbSet<tipo_comprobante> tipo_comprobante { get; set; }
         public virtual DbSet<compra> compra { get; set; }
-        public virtual DbSet<expense> expense { get; set; }
         public virtual DbSet<client> client { get; set; }
         public virtual DbSet<pagina> pagina { get; set; }
         public virtual DbSet<rolpagina> rolpagina { get; set; }
@@ -43,6 +42,7 @@ namespace accounting.Models
         public virtual DbSet<factura_proveedores> factura_proveedores { get; set; }
         public virtual DbSet<orden_pago_cab> orden_pago_cab { get; set; }
         public virtual DbSet<orden_pago_det> orden_pago_det { get; set; }
+        public virtual DbSet<expense> expense { get; set; }
         public virtual DbSet<cobros> cobros { get; set; }
     }
 }

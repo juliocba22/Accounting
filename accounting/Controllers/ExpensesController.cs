@@ -89,7 +89,8 @@ namespace accounting.Controllers
             ViewBagCreateTipoComprobante(0);
             GetComboCC();
             GetComboProv();
-            return View(new ExpenseCreateVM { register_date = DateTime.Now, date_expense = DateTime.Now });
+            GetComboPeriodo();
+            return View(new ExpenseCreateVM { register_date = DateTime.Now, date_expense = DateTime.Now, pay_state = "pendiente", pay_date = DateTime.Now });
         }
 
         [HttpPost]
@@ -132,7 +133,10 @@ namespace accounting.Controllers
                         imp_op_exentas = model.imp_op_exentas,
                         iva=model.iva,    
                         importe_total=model.importe_total,
-                        proveedor_id = model.proveedor_id
+                        proveedor_id = model.proveedor_id,
+                        periodo = model.periodo,
+                        pay_state = model.pay_state,
+                        pay_date = model.pay_date
                     };
 
                     _repo.ExpenseAdd(exp);
@@ -149,6 +153,7 @@ namespace accounting.Controllers
             ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
             GetComboCC();
             GetComboProv();
+            GetComboPeriodo();
 
             return View(model);
         }
@@ -204,7 +209,10 @@ namespace accounting.Controllers
                 imp_op_exentas = exp.imp_op_exentas,
                 iva = exp.iva,
                 importe_total = exp.importe_total,
-                proveedor_id = exp.proveedor_id
+                proveedor_id = exp.proveedor_id,
+                periodo = exp.periodo,
+                pay_state = exp.pay_state,
+                pay_date = exp.pay_date
             };
 
             if (exp == null)
@@ -216,6 +224,7 @@ namespace accounting.Controllers
             ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
             GetComboCC();
             GetComboProv();
+            GetComboPeriodo();
             return View(model);
         }
 
@@ -250,7 +259,10 @@ namespace accounting.Controllers
                         imp_op_exentas = model.imp_op_exentas,
                         iva = model.iva,
                         importe_total =model.importe_total,
-                        proveedor_id = model.proveedor_id
+                        proveedor_id = model.proveedor_id,
+                        periodo = model.periodo,
+                        pay_state = model.pay_state,
+                        pay_date = model.pay_date
                     };
 
                     _repo.ExpenseUpdate(exp);
@@ -267,6 +279,7 @@ namespace accounting.Controllers
             ViewBagCreateTipoComprobante(model.tipo_comprobante_id);
             GetComboCC();
             GetComboProv();
+            GetComboPeriodo();
             return View(model);
         }
         #endregion --[EDIT]--
@@ -421,7 +434,14 @@ namespace accounting.Controllers
             return File(Encoding.Default.GetBytes(csv.ToString()), "text/csv", archivo + ".csv");
         }
 
+        private void GetComboPeriodo()
+        {
+            Enumerables e = new Enumerables();
+            ViewBag.Periodo = e.GetPeriodo();
+        }
+
+
         #endregion --[EXTRA]--
-    
+
     }
 }

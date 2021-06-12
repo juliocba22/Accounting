@@ -1,0 +1,146 @@
+﻿@model accounting.ViewModels.FacturaProveedoresVM
+
+@{
+    ViewBag.Title = "Detalle de la Factura";
+}
+
+    <h2>Detalle de la Factura</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nro de Factura:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt>
+            @Html.Label("Período:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.periodo)
+        </dd>
+        <dt>
+            @Html.Label("Tipo de Factura:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.tipo_factura)
+        </dd>
+        <dt>
+            @Html.Label("Fecha de Factura:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_factura)
+        </dd>
+        <dt>
+            @Html.Label("Fecha de Pago:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_pago)
+        </dd>
+        <dt>
+            @Html.Label("Tipo de Comprobante:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_comprobante)
+        </dd>
+
+        <dt>
+            @Html.Label("Profesional:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional)
+        </dd>
+        <dt>
+            @Html.Label("Punto de Venta:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.punto_venta)
+        </dd>
+
+        <dt>
+            @Html.Label("Nro de Comprobante:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nro_comprobante)
+        </dd>
+        <dt>
+            @Html.Label("CUIT/CUIL:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.cuit_cuil)
+        </dd>
+        <dt>
+            @Html.Label("Nro CUIT/CUIL:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nro_cuit_cuil)
+        </dd>
+        <dt>
+            @Html.Label("Descripción:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        <dt>
+            @Html.Label("Imp neto gravado:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.imp_neto_gravado)
+        </dd>
+        <dt>
+            @Html.Label("Imp neto no gravado:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.imp_neto_no_gravado)
+        </dd>
+        <dt>
+            @Html.Label("Imp Op. exentas:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.imp_op_exentas)
+        </dd>
+        <dt>
+            @Html.Label("IVA:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.iva)
+        </dd>
+        <dt>
+            @Html.Label("Importe total:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.importe_total)
+        </dd>
+        <dt>
+            @Html.Label("Archivo:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.fileName)
+        </dd>
+        <dt>
+            @Html.Label("Estado:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.estadoDesc)
+        </dd>
+        <dt>
+            @Html.Label("Cargado por:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.user_create)
+        </dd>
+    </dl>
+
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Regresar al Listado", "Index")
+</p>

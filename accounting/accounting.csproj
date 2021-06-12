@@ -180,6 +180,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\CobroController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\FacturaProveedoresController.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Repositories\RepoGeneric.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ClientVM.cs" />
+    <Compile Include="ViewModels\CobroVM.cs" />
     <Compile Include="ViewModels\CompraVM.cs" />
     <Compile Include="ViewModels\ExpenseVM.cs" />
     <Compile Include="ViewModels\FacturaProveedoresVM.cs" />
@@ -1658,6 +1660,11 @@
     <Content Include="Views\Reportes\CuentasPorCobrar.cshtml" />
     <Content Include="Views\Reportes\SaldoClientes.cshtml" />
     <Content Include="Views\Reportes\SaldoFacturasProfesionales.cshtml" />
+    <Content Include="Views\Cobro\Create.cshtml" />
+    <Content Include="Views\Cobro\Delete.cshtml" />
+    <Content Include="Views\Cobro\Details.cshtml" />
+    <Content Include="Views\Cobro\Edit.cshtml" />
+    <Content Include="Views\Cobro\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

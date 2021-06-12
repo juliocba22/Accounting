@@ -1,0 +1,96 @@
+﻿@model accounting.ViewModels.CompraVM
+@{
+    ViewBag.Title = "Datos de la Compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Datos de la Compra</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Proveedor:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proveedor)
+        </dd>
+
+        <dt>
+            @Html.Label("Comprobante:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoComprobante)
+        </dd>
+
+        <dt>
+            @Html.Label("Nro de Factura:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NroFactura)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha emisión:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEmision)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha contable:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaContable)
+        </dd>
+
+        <dt>
+            @Html.Label("1er vencimiento:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrimerVencimiento)
+        </dd>
+
+        <dt>
+            @Html.Label("2do vencimiento:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SdoVencimiento)
+        </dd>
+
+        <dt>
+            @Html.Label("Importe:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Importe)
+        </dd>
+
+        <dt>
+            @Html.Label("Descuento global:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescuentoGlobal)
+        </dd>
+        <dt>
+            @Html.Label("Estado:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoDesc)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al Listado", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+
+</p>

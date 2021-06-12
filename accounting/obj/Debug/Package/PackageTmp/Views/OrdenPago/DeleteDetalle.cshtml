@@ -1,0 +1,80 @@
+﻿@model accounting.ViewModels.OrdenesPagoDetailsDetalle
+
+@{
+    ViewBag.Title = "Eliminación de un Detalle de la Orden de Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>Eliminación de un Detalle de la Orden de Pago</h2>
+
+<div>
+    <h4>Tenga en cuenta que al eliminar el detalle de la Orden de Pago, se modificará el total de la Orden de Pago y la factura cambiará de estado</h4>
+    @using (Html.BeginForm("DeleteDetalle", "OrdenPago", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(model => model.idCab)
+            @Html.HiddenFor(model => model.idDet)
+            @Html.HiddenFor(model => model.FacturaProveedorId)
+            <dt>
+                @Html.Label("Nro OP:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.idCab)
+            </dd>
+            <dt>
+                @Html.Label("Nro Detalle OP:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.idDet)
+            </dd>
+            <dt>
+                @Html.Label("Nro de Factura:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FacturaProveedorId)
+            </dd>
+            <dt>
+                @Html.Label("Importe:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Importe)
+            </dd>
+            <dt>
+                @Html.Label("Forma de Pago:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FormaPago)
+            </dd>
+            <dt>
+                @Html.Label("Banco:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Banco)
+            </dd>
+            <dt>
+                @Html.Label("Nro de Cheque:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NroCheque)
+            </dd>
+            <dt>
+                @Html.Label("Nro de Cta Cte:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NroCtaCte)
+            </dd>
+            <dt>
+                @Html.Label("Observaciones:")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Observaciones)
+            </dd>
+        </dl>
+        <div class="form-actions no-color">
+            @Html.ActionLink("Regresar al Listado ", "Details", new { id = Model.idCab, page=1}) | <input type="submit" value="Eliminar" class="btn btn-default" />
+        </div>
+    }
+</div>
+

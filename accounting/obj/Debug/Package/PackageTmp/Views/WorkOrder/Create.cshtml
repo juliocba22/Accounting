@@ -1,0 +1,186 @@
+﻿@model accounting.ViewModels.WorkOrderVM
+
+@{
+    ViewBag.Title = "Nueva Prestación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>Nueva Prestación</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Fecha, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "Date" })
+            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProductServiceId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ProductServiceId, new SelectList(ViewBag.Servicio, "id", "nombre"), "Seleccione..", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProductServiceId, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ProductServiceId, new { @id = "HiddenTipo" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.UnidadMedida, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UnidadMedida, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ValorUnitario, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CostoUniProf, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CostoUniProf, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Paciente, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Paciente, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ObraSocial, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ObraSocial, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProfesionalId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ProfesionalId, new SelectList(ViewBag.Profesional, "id", "nombre"), "Seleccione..", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Importe, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Importe, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Importe, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CostoProfesional, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CostoProfesional, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.StatusId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.StatusId, new SelectList(ViewBag.Status, "id", "descripcion"), "Seleccione..", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Volver al Listado", "Index")
+</div>
+    
+<script type="text/javascript">
+    $().ready(function () {
+                $("#ProductServiceId").change(function () {
+                    var valor = $("#ProductServiceId").val();
+                    var valor1 = $("#ClientId").val();
+                    if (valor > 0) {
+                        $("#HiddenTipo").val(valor);
+                        CamposGet($("#ProductServiceId").val(), valor, valor1);
+                    }
+                });
+            });
+
+    $().ready(function () {
+        $("#Cantidad").change(function () {
+            var valor = $("#ProductServiceId").val();
+            if (valor > 0) {
+                $("#ProductServiceId").val(valor);
+                CamposGet($("#ProductServiceId").val(), valor);
+            }
+        });
+    });
+
+        function CamposGet(value, value1) {
+                $.getJSON(
+                    '@Url.Action("CamposGet", "WorkOrder")' + "/" + value,
+                    function (data) {
+                        $.each(data, function (i, item) {
+                            if (item.id == "1") {
+                                $('#CostoProfesional').prop('disabled', false);
+                                $('#ObraSocial').prop('disabled', false);
+                                $('#Paciente').prop('disabled', false);
+                                $('#ProfesionalId').prop('disabled', false);
+                                $("#UnidadMedida").val(item.unidadMedida);
+                                $("#CostoUniProf").val(item.CostoProf);
+                                $("#ValorUnitario").val(item.valUnitario);
+                                $("#Cliente").val(item.Cliente);
+                            }
+                            else {
+                                $('#Cliente').prop('disabled', 'disabled');
+                                $('#CostoProfesional').prop('disabled', 'disabled');
+                                $('#ObraSocial').prop('disabled', 'disabled');
+                                $('#Paciente').prop('disabled', 'disabled');
+                                $('#ProfesionalId').prop('disabled', 'disabled');
+                                $("#UnidadMedida").val(null);
+                                $("#CostoUniProf").val(null);
+                                $("#ValorUnitario").val(null);
+                                $("#CostoProfesional").val(0);
+                                $('#ObraSocial').val(null);
+                                $('#Paciente').val(null);
+                                $('#ProfesionalId').val(null);
+                                $('#Cliente').val(null);
+                            }
+                            multiplicar(item.valUnitario, item.CostoProf);  
+                        });
+                           }
+                );
+        };
+
+    function multiplicar(valUnitario, CostoProf) {
+        var cant = $("#Cantidad").val();
+        var r = cant * valUnitario;
+        r = Number(r.toFixed(2));
+        r = r.toString().replace('.', ',');
+        $("#Importe").val(r);
+
+        var c = cant * CostoProf;
+        c = Number(c.toFixed(2));
+        c = c.toString().replace('.', ',');
+        $("#CostoProfesional").val(c);
+
+    };
+</script>

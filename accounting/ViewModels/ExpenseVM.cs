@@ -36,6 +36,19 @@ namespace accounting.ViewModels
         [Required(ErrorMessage = "* requiredo")]
         public string name { get; set; }
 
+        [Display(Name = "* Periodo")]
+        [Required(ErrorMessage = "* requerido")]
+        public string periodo { get; set; }
+
+        [Display(Name = "* Fecha de pago")]
+        [Required(ErrorMessage = "* requerido")]
+        [DataType(DataType.DateTime, ErrorMessage = "Formato inválido.")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? pay_date { get; set; }
+
+        [Display(Name = "* Estado")]
+        public string pay_state { get; set; }
+
         [Display(Name = "* Descripcion")]
         [Required(ErrorMessage = "* requiredo")]
         public string description { get; set; }

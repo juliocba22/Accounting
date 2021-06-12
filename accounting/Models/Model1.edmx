@@ -10,6 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="20" />
           <Property Name="razonSocial" Type="varchar" MaxLength="100" />
           <Property Name="nombreFantasia" Type="varchar" MaxLength="100" />
           <Property Name="localidad" Type="varchar" MaxLength="100" />
@@ -21,7 +22,6 @@
           <Property Name="update_date" Type="datetime" />
           <Property Name="update_user_id" Type="int" />
           <Property Name="activo" Type="tinyint" Nullable="false" />
-          <Property Name="codigo" Type="varchar" MaxLength="20" />
           <Property Name="nro_codigo" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="cobros">
@@ -505,11 +505,6 @@
           </AssociationSet>
           <EntitySet Name="tipo_comprobante" EntityType="AccountingModel.tipo_comprobante" />
           <EntitySet Name="compra" EntityType="AccountingModel.compra" />
-          <EntitySet Name="expense" EntityType="AccountingModel.expense" />
-          <AssociationSet Name="FK_expense_expense_type_expense_id" Association="AccountingModel.FK_expense_expense_type_expense_id">
-            <End Role="expense_type" EntitySet="expense_type" />
-            <End Role="expense" EntitySet="expense" />
-          </AssociationSet>
           <EntitySet Name="client" EntityType="AccountingModel.client" />
           <EntitySet Name="pagina" EntityType="AccountingModel.pagina" />
           <EntitySet Name="rolpagina" EntityType="AccountingModel.rolpagina" />
@@ -518,6 +513,11 @@
           <EntitySet Name="factura_proveedores" EntityType="AccountingModel.factura_proveedores" />
           <EntitySet Name="orden_pago_cab" EntityType="AccountingModel.orden_pago_cab" />
           <EntitySet Name="orden_pago_det" EntityType="AccountingModel.orden_pago_det" />
+          <EntitySet Name="expense" EntityType="AccountingModel.expense" />
+          <AssociationSet Name="FK_expense_expense_type_expense_id" Association="AccountingModel.FK_expense_expense_type_expense_id">
+            <End Role="expense_type" EntitySet="expense_type" />
+            <End Role="expense" EntitySet="expense" />
+          </AssociationSet>
           <EntitySet Name="cobros" EntityType="AccountingModel.cobros" />
         </EntityContainer>
         <EntityType Name="tipo_comprobante">
@@ -549,54 +549,6 @@
           <Property Name="update_user_id" Type="Int32" />
           <Property Name="estado" Type="Int32" />
         </EntityType>
-        <EntityType Name="expense">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="expense_id" Type="Byte" Nullable="false" />
-          <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="update_user_id" Type="Int64" />
-          <Property Name="update_date" Type="DateTime" Precision="3" />
-          <Property Name="create_user_id" Type="Int32" />
-          <Property Name="date_expense" Type="DateTime" Precision="3" />
-          <Property Name="amount" Type="Decimal" Precision="5" Scale="4" />
-          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="activo" Type="Byte" />
-          <Property Name="path_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="name_file" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="amount_money" Type="Double" Nullable="false" />
-          <Property Name="selling_point" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="nro_comprobante" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="cuit_cuil" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="nro_cuit_cuil" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="denominacion_emisor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="imp_neto_gravado" Type="Double" />
-          <Property Name="imp_neto_no_gravado" Type="Double" />
-          <Property Name="imp_op_exentas" Type="Double" />
-          <Property Name="iva" Type="Double" />
-          <Property Name="importe_total" Type="Double" />
-          <Property Name="tipo_comprobante_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
-          <Property Name="proveedor_id" Type="Int64" />
-          <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="pay_date" Type="DateTime" Precision="3" />
-          <Property Name="pay_state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK_expense_expense_type_expense_id">
-          <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
-          <End Type="AccountingModel.expense" Role="expense" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="expense_type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="expense">
-              <PropertyRef Name="expense_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="client">
           <Key>
             <PropertyRef Name="id" />
@@ -745,6 +697,54 @@
           <Property Name="banco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="expense_id" Type="Byte" Nullable="false" />
+          <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_user_id" Type="Int64" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="create_user_id" Type="Int32" />
+          <Property Name="date_expense" Type="DateTime" Precision="3" />
+          <Property Name="amount" Type="Decimal" Precision="5" Scale="4" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="activo" Type="Byte" />
+          <Property Name="path_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="name_file" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="amount_money" Type="Double" Nullable="false" />
+          <Property Name="selling_point" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nro_comprobante" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cuit_cuil" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="nro_cuit_cuil" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="denominacion_emisor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="imp_neto_gravado" Type="Double" />
+          <Property Name="imp_neto_no_gravado" Type="Double" />
+          <Property Name="imp_op_exentas" Type="Double" />
+          <Property Name="iva" Type="Double" />
+          <Property Name="importe_total" Type="Double" />
+          <Property Name="tipo_comprobante_id" Type="Int32" Nullable="false" />
+          <Property Name="proveedor_id" Type="Int64" />
+          <Property Name="periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pay_date" Type="DateTime" Precision="3" />
+          <Property Name="pay_state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="expense_type" Relationship="AccountingModel.FK_expense_expense_type_expense_id" FromRole="expense" ToRole="expense_type" />
+        </EntityType>
+        <Association Name="FK_expense_expense_type_expense_id">
+          <End Type="AccountingModel.expense_type" Role="expense_type" Multiplicity="1" />
+          <End Type="AccountingModel.expense" Role="expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="expense_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="expense">
+              <PropertyRef Name="expense_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="cobros">
           <Key>
             <PropertyRef Name="id" />
@@ -895,42 +895,6 @@
                 <ScalarProperty Name="nro_factura" ColumnName="nro_factura" />
                 <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
                 <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="expense">
-            <EntityTypeMapping TypeName="AccountingModel.expense">
-              <MappingFragment StoreEntitySet="expense">
-                <ScalarProperty Name="pay_state" ColumnName="pay_state" />
-                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
-                <ScalarProperty Name="periodo" ColumnName="periodo" />
-                <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
-                <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
-                <ScalarProperty Name="importe_total" ColumnName="importe_total" />
-                <ScalarProperty Name="iva" ColumnName="iva" />
-                <ScalarProperty Name="imp_op_exentas" ColumnName="imp_op_exentas" />
-                <ScalarProperty Name="imp_neto_no_gravado" ColumnName="imp_neto_no_gravado" />
-                <ScalarProperty Name="imp_neto_gravado" ColumnName="imp_neto_gravado" />
-                <ScalarProperty Name="denominacion_emisor" ColumnName="denominacion_emisor" />
-                <ScalarProperty Name="nro_cuit_cuil" ColumnName="nro_cuit_cuil" />
-                <ScalarProperty Name="cuit_cuil" ColumnName="cuit_cuil" />
-                <ScalarProperty Name="nro_comprobante" ColumnName="nro_comprobante" />
-                <ScalarProperty Name="selling_point" ColumnName="selling_point" />
-                <ScalarProperty Name="amount_money" ColumnName="amount_money" />
-                <ScalarProperty Name="name_file" ColumnName="name_file" />
-                <ScalarProperty Name="path_url" ColumnName="path_url" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="date_expense" ColumnName="date_expense" />
-                <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
-                <ScalarProperty Name="update_date" ColumnName="update_date" />
-                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
-                <ScalarProperty Name="register_date" ColumnName="register_date" />
-                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1087,6 +1051,42 @@
                 <ScalarProperty Name="paga_total" ColumnName="paga_total" />
                 <ScalarProperty Name="factura_proveedores_id" ColumnName="factura_proveedores_id" />
                 <ScalarProperty Name="orden_pago_cab_id" ColumnName="orden_pago_cab_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expense">
+            <EntityTypeMapping TypeName="AccountingModel.expense">
+              <MappingFragment StoreEntitySet="expense">
+                <ScalarProperty Name="pay_state" ColumnName="pay_state" />
+                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
+                <ScalarProperty Name="tipo_comprobante_id" ColumnName="tipo_comprobante_id" />
+                <ScalarProperty Name="importe_total" ColumnName="importe_total" />
+                <ScalarProperty Name="iva" ColumnName="iva" />
+                <ScalarProperty Name="imp_op_exentas" ColumnName="imp_op_exentas" />
+                <ScalarProperty Name="imp_neto_no_gravado" ColumnName="imp_neto_no_gravado" />
+                <ScalarProperty Name="imp_neto_gravado" ColumnName="imp_neto_gravado" />
+                <ScalarProperty Name="denominacion_emisor" ColumnName="denominacion_emisor" />
+                <ScalarProperty Name="nro_cuit_cuil" ColumnName="nro_cuit_cuil" />
+                <ScalarProperty Name="cuit_cuil" ColumnName="cuit_cuil" />
+                <ScalarProperty Name="nro_comprobante" ColumnName="nro_comprobante" />
+                <ScalarProperty Name="selling_point" ColumnName="selling_point" />
+                <ScalarProperty Name="amount_money" ColumnName="amount_money" />
+                <ScalarProperty Name="name_file" ColumnName="name_file" />
+                <ScalarProperty Name="path_url" ColumnName="path_url" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="date_expense" ColumnName="date_expense" />
+                <ScalarProperty Name="create_user_id" ColumnName="create_user_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="register_date" ColumnName="register_date" />
+                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
