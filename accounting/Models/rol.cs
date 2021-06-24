@@ -22,6 +22,7 @@ namespace accounting.Models
     
         public byte id { get; set; }
         public string description { get; set; }
+        public Nullable<byte> activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<users> users { get; set; }

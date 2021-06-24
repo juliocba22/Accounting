@@ -63,4 +63,18 @@ namespace accounting.ViewModels
 
         public PagingInfo pagingInfo { get; set; }
     }
+
+    public class CobrosExportPDFVM
+    {
+        public long id { get; set; }
+        public long nroRecibo { get; set; }
+        public string cliente { get; set; }
+        public string nroFactura { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime fechaFactura { get; set; }
+        public double monto { get; set; }
+        public double cobroParcial { get; set; }
+        public double subtotalRecibo { get; set; }
+        public double total { get; set; }
+    }
 }

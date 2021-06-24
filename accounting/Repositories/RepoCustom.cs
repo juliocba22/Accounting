@@ -218,6 +218,26 @@ namespace accounting.Repositories
             return _repoRol.Get(rol_id);
         }
 
+        public IEnumerable<ListRol> RolList(string descripcion)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from r in ctx.rol
+                            where (string.IsNullOrEmpty(descripcion) || r.description.Contains(descripcion))
+                             && r.activo == 1
+                            select new ListRol
+                            {
+                                id = r.id,
+                                description = r.description
+                            }).ToList();
+                }
+            }
+            catch
+            { return null; }
+        }
+
         ///<summary>
         ///Obtiene listado de rol por id 
         ///</summary>
@@ -399,6 +419,46 @@ namespace accounting.Repositories
                             date_expense = e.date_expense,
                             proveedor = temp1.razon_social
                         }).ToList();
+            }
+        }
+
+        public List<ExpensesExportPDFVM> GetExpenses(long? id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from e in ctx.expense
+                            join t in ctx.expense_type on e.expense_id equals t.id
+                            join tc in ctx.tipo_comprobante on e.tipo_comprobante_id equals tc.id
+                            join p in ctx.proveedor on e.proveedor_id equals p.id into temp
+                            from temp1 in temp.DefaultIfEmpty()
+                            where e.id == id 
+                              && e.activo == 1
+                            select new ExpensesExportPDFVM
+                            {
+                                name = e.name,
+                                tipo_comprobante = tc.descripcion,
+                                selling_point = e.selling_point,
+                                nro_comprobante = e.nro_comprobante,
+                                cuit_cuil = e.cuit_cuil,
+                                nro_cuit_cuil = e.nro_cuit_cuil,
+                                denominacion_emisor = e.denominacion_emisor,
+                                imp_neto_gravado = e.imp_neto_gravado,
+                                imp_neto_no_gravado = e.imp_neto_no_gravado,
+                                imp_op_exentas = e.imp_op_exentas,
+                                iva = e.iva,
+                                importe_total = e.importe_total,
+                                description = e.description,
+                                expense_name = t.description,
+                                date_expense = e.date_expense,
+                                proveedor = temp1.razon_social
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
 
@@ -1595,36 +1655,64 @@ namespace accounting.Repositories
             { return null; }
         }
 
-        //public List<ReportClient> ClientReport(string razonSocial)
-        //{
-        //    try
-        //    {
-        //        using (AccountingEntities1 ctx = new AccountingEntities1())
-        //        {
-        //            return (from c in ctx.client
-        //                    where (string.IsNullOrEmpty(razonSocial) || c.razonSocial.Contains(razonSocial))
-        //                    && c.activo == 1
-        //                    select new ReportClient
-        //                    {
-        //                        id = c.id,
-        //                        razonSocial = c.razonSocial,
-        //                        localidad = c.localidad,
-        //                        provincia = c.provincia,
-        //                        nombreContacto = c.personeria,
-        //                        telefono = c.telefono,
-        //                        email = c.email,
-        //                        emailFacturacion = c.emailFacturacon,
-        //                        codigo = c.codigo,
-        //                        nroCodigo = c.nro_codigo
+        public List<ReportCobros> CobrosReport(string nroFactura)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from c in ctx.cobros
+                            join cli in ctx.client on c.cliente_id equals cli.id
+                            where (string.IsNullOrEmpty(nroFactura) || c.nro_factura.Contains(nroFactura))
+                            && c.activo == 1
+                            select new ReportCobros
+                            {
+                                nroRecibo = c.nro_recibo,
+                                cliente = cli.razonSocial,
+                                nroFactura = c.nro_factura,
+                                fechaFactura= c.fecha_factura,
+                                monto = c.monto,
+                                cobroParcial = (double)c.cobro_parcial,
+                                subtotalRecibo = (double)c.subtotal_recibo,
+                                total = c.total
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
-        //                    }).ToList();
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
+        public List<CobrosExportPDFVM> GetCobros(long? id)
+        {
+            try
+            {
+                using (AccountingEntities1 ctx = new AccountingEntities1())
+                {
+                    return (from c in ctx.cobros
+                            join cli in ctx.client on c.cliente_id equals cli.id
+                            where c.id == id 
+                            && c.activo == 1
+                            select new CobrosExportPDFVM
+                            {
+                                id=c.id,
+                                nroRecibo = c.nro_recibo,
+                                cliente = cli.razonSocial,
+                                nroFactura = c.nro_factura,
+                                fechaFactura = c.fecha_factura,
+                                monto = c.monto,
+                                cobroParcial = (double)c.cobro_parcial,
+                                subtotalRecibo = (double)c.subtotal_recibo,
+                                total = c.total
+                            }).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
         #endregion
     }
 }

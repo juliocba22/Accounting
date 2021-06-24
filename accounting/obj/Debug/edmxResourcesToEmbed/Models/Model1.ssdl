@@ -242,6 +242,7 @@
     </Key>
     <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="activo" Type="tinyint" />
   </EntityType>
   <EntityType Name="rolpagina">
     <Key>

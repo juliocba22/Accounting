@@ -50,14 +50,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="rol">
-      <EntityTypeMapping TypeName="AccountingModel.rol">
-        <MappingFragment StoreEntitySet="rol">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="social_work">
       <EntityTypeMapping TypeName="AccountingModel.social_work">
         <MappingFragment StoreEntitySet="social_work">
@@ -338,6 +330,15 @@
           <ScalarProperty Name="monto" ColumnName="monto" />
           <ScalarProperty Name="fecha_factura" ColumnName="fecha_factura" />
           <ScalarProperty Name="nro_factura" ColumnName="nro_factura" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rol">
+      <EntityTypeMapping TypeName="AccountingModel.rol">
+        <MappingFragment StoreEntitySet="rol">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

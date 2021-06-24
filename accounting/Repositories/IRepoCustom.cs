@@ -76,6 +76,7 @@ namespace accounting.Repositories
         /// <param name="rol_id">Identificador</param>
         /// <returns></returns>
         rol RolGet(int rol_id);
+        IEnumerable<ListRol> RolList(string descripcion);
 
 
         ///<summary>
@@ -111,6 +112,7 @@ namespace accounting.Repositories
         /// <param name="expense">Datos del nuevo gasto</param>
         /// <returns></returns>
         expense ExpenseAdd(expense exp);
+        List<ExpensesExportPDFVM> GetExpenses(long? id);
 
 
         /// <summary>
@@ -285,6 +287,8 @@ namespace accounting.Repositories
 
         #region --[COBROS]--
         IEnumerable<ListCobros> CobrosList(string nroFactura);
+        List<ReportCobros> CobrosReport(string nroFactura);
+        List<CobrosExportPDFVM> GetCobros(long? id);
         #endregion
 
     }
