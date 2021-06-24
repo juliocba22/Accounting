@@ -1,0 +1,32 @@
+﻿@model accounting.ViewModels.RolVM
+@{
+    ViewBag.Title = "Eliminación de un rol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminación de un rol</h2>
+<h3>¿Está seguro que desea eliminar al rol?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Descripcion:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Regresar al Listado ", "Index") |
+            <input type="submit" value="Eliminar" class="btn btn-default" />
+        </div>
+    }
+</div>
+
+

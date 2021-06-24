@@ -247,6 +247,7 @@
           </Key>
           <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="activo" Type="tinyint" />
         </EntityType>
         <EntityType Name="rolpagina">
           <Key>
@@ -431,14 +432,6 @@
           <Property Name="nro_cuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="alias" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="rol">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="users" Relationship="Self.FK_users_rol_rol_id" FromRole="rol" ToRole="users" />
-        </EntityType>
         <EntityType Name="social_work">
           <Key>
             <PropertyRef Name="id" />
@@ -470,7 +463,7 @@
           <Property Name="update_user_id" Type="Int64" />
           <Property Name="update_date" Type="DateTime" Precision="3" />
           <Property Name="create_user_id" Type="Int32" />
-          <NavigationProperty Name="rol" Relationship="Self.FK_users_rol_rol_id" FromRole="users" ToRole="rol" />
+          <NavigationProperty Name="rol" Relationship="AccountingModel.FK_users_rol_rol_id" FromRole="users" ToRole="rol" />
         </EntityType>
         <EntityType Name="work_order_status">
           <Key>
@@ -479,30 +472,13 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <Association Name="FK_users_rol_rol_id">
-          <End Role="rol" Type="Self.rol" Multiplicity="1" />
-          <End Role="users" Type="Self.users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rol">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="users">
-              <PropertyRef Name="rol_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="AccountingEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="expense_type" EntityType="Self.expense_type" />
           <EntitySet Name="product_service" EntityType="Self.product_service" />
           <EntitySet Name="profesional" EntityType="Self.profesional" />
-          <EntitySet Name="rol" EntityType="Self.rol" />
           <EntitySet Name="social_work" EntityType="Self.social_work" />
           <EntitySet Name="users" EntityType="Self.users" />
           <EntitySet Name="work_order_status" EntityType="Self.work_order_status" />
-          <AssociationSet Name="FK_users_rol_rol_id" Association="Self.FK_users_rol_rol_id">
-            <End Role="rol" EntitySet="rol" />
-            <End Role="users" EntitySet="users" />
-          </AssociationSet>
           <EntitySet Name="tipo_comprobante" EntityType="AccountingModel.tipo_comprobante" />
           <EntitySet Name="compra" EntityType="AccountingModel.compra" />
           <EntitySet Name="client" EntityType="AccountingModel.client" />
@@ -519,6 +495,11 @@
             <End Role="expense" EntitySet="expense" />
           </AssociationSet>
           <EntitySet Name="cobros" EntityType="AccountingModel.cobros" />
+          <EntitySet Name="rol" EntityType="AccountingModel.rol" />
+          <AssociationSet Name="FK_users_rol_rol_id" Association="AccountingModel.FK_users_rol_rol_id">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tipo_comprobante">
           <Key>
@@ -763,6 +744,27 @@
           <Property Name="cliente_id" Type="Int32" Nullable="false" />
           <Property Name="nro_recibo" Type="Int64" Nullable="false" />
         </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Byte" />
+          <NavigationProperty Name="users" Relationship="AccountingModel.FK_users_rol_rol_id" FromRole="rol" ToRole="users" />
+        </EntityType>
+        <Association Name="FK_users_rol_rol_id">
+          <End Type="AccountingModel.rol" Role="rol" Multiplicity="1" />
+          <End Type="AccountingModel.users" Role="users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="rol_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -815,14 +817,6 @@
                 <ScalarProperty Name="update_date" ColumnName="update_date" />
                 <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="rol">
-            <EntityTypeMapping TypeName="AccountingModel.rol">
-              <MappingFragment StoreEntitySet="rol">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1106,6 +1100,15 @@
                 <ScalarProperty Name="monto" ColumnName="monto" />
                 <ScalarProperty Name="fecha_factura" ColumnName="fecha_factura" />
                 <ScalarProperty Name="nro_factura" ColumnName="nro_factura" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol">
+            <EntityTypeMapping TypeName="AccountingModel.rol">
+              <MappingFragment StoreEntitySet="rol">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

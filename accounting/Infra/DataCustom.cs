@@ -475,12 +475,29 @@ namespace accounting.Infra
         public long nroRecibo { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public string nroFactura { get; set; }
-        public DateTime fechaFactura { get; set; }//para el combo
+        public DateTime fechaFactura { get; set; }
         public double monto { get; set; }
         public double cobroParcial { get; set; }
         public double subtotalRecibo { get; set; }
         public double total { get; set; }
       
+    }
+
+    public class ReportCobros
+    {
+        public long nroRecibo { get; set; }
+        public string cliente { get; set; }
+        public string nroFactura { get; set; }
+        public DateTime fechaFactura { get; set; }
+        public double monto { get; set; }
+        public double cobroParcial { get; set; }
+        public double subtotalRecibo { get; set; }
+        public double total { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nroRecibo};{cliente};{nroFactura};{fechaFactura};{monto};{cobroParcial};{subtotalRecibo};{total}";
+        }
     }
     #endregion
 }

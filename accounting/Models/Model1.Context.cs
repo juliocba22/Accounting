@@ -28,7 +28,6 @@ namespace accounting.Models
         public virtual DbSet<expense_type> expense_type { get; set; }
         public virtual DbSet<product_service> product_service { get; set; }
         public virtual DbSet<profesional> profesional { get; set; }
-        public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<social_work> social_work { get; set; }
         public virtual DbSet<users> users { get; set; }
         public virtual DbSet<work_order_status> work_order_status { get; set; }
@@ -44,5 +43,6 @@ namespace accounting.Models
         public virtual DbSet<orden_pago_det> orden_pago_det { get; set; }
         public virtual DbSet<expense> expense { get; set; }
         public virtual DbSet<cobros> cobros { get; set; }
+        public virtual DbSet<rol> rol { get; set; }
     }
 }

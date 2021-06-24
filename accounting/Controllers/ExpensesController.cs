@@ -18,6 +18,8 @@ using accounting.Infra;
 using accounting.Models;
 using accounting.Repositories;
 using accounting.ViewModels;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using static accounting.Helpers.Enumerables;
 
 namespace accounting.Controllers
@@ -412,7 +414,7 @@ namespace accounting.Controllers
             expense exp = _repo.ExpenseFind(id);
             byte[] byteImage = exp.image;
             MemoryStream memoryStream = new MemoryStream(byteImage);
-            Image image = Image.FromStream(memoryStream);
+            System.Drawing.Image image = System.Drawing.Image.FromStream(memoryStream);
 
             memoryStream = new MemoryStream();
             image.Save(memoryStream, ImageFormat.Jpeg);
@@ -441,7 +443,193 @@ namespace accounting.Controllers
         }
 
 
+        private DataTable CreateDetalleDataTable()
+        {
+            DataTable tabla = new DataTable("DetalleCobros");
+            DataColumn column;
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Nombre del Voluntario";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Tipo Gasto";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.DateTime");
+            column.ColumnName = "Fecha Gasto";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Tipo comprobante";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Proveedor";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Punto de venta";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Nro comprobante";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "CUIT/CUIL";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Nro CUIT/CUIL";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Emisor";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Descripcion";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "Imp Neto Gravado";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "Imp Neto No Gravado";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "Imp Op Exentas";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "IVA";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "Importe Total";
+            tabla.Columns.Add(column);
+
+
+            return tabla;
+        }
+
         #endregion --[EXTRA]--
+
+        #region Descarga PDF
+        public void ExportPDF([Bind(Include = "id")] long id)
+        {
+            List<ExpensesExportPDFVM> list = _repo.GetExpenses(id);
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            document.Open();
+            iTextSharp.text.Font fontTitle = FontFactory.GetFont(FontFactory.COURIER_BOLD, 25);
+            iTextSharp.text.Font font9 = FontFactory.GetFont(FontFactory.TIMES, 9);
+            iTextSharp.text.Font tituloTabla = FontFactory.GetFont(FontFactory.TIMES_BOLD, 9);
+
+            //Cabecera
+            Paragraph title = new Paragraph(20, "Gastos", fontTitle);
+            title.Alignment = Element.ALIGN_CENTER;
+            document.Add(title);
+            document.Add(new Paragraph(23, "Nombre del Voluntario: ", font9));
+            document.Add(new Paragraph(24, "Tipo Gasto: ", font9));
+            document.Add(new Paragraph(25, "Fecha Gasto: ", font9));
+            document.Add(new Paragraph(26, "Tipo comprobante: ", font9));
+            document.Add(new Paragraph(27, "Proveedor: ", font9));
+            document.Add(new Paragraph(28, "Punto de venta: ", font9));
+            document.Add(new Paragraph(29, "Nro comprobante: ", font9));
+            document.Add(new Paragraph(30, "CUIT/CUIL: ", font9));
+            document.Add(new Paragraph(31, "Nro CUIT/CUIL: ", font9));
+            document.Add(new Paragraph(32, "Emisor: ", font9));
+            document.Add(new Paragraph(33, "Descripcion: ", font9));
+            document.Add(new Paragraph(34, "Imp Neto Gravado: ", font9));
+            document.Add(new Paragraph(35, "Imp Neto No Gravado: ", font9));
+            document.Add(new Paragraph(36, "Imp Op Exentas: ", font9));
+            document.Add(new Paragraph(37, "IVA: ", font9));
+            document.Add(new Paragraph(38, "Importe Total: ", font9));
+            document.Add(new Chunk("\n"));
+
+            //Detalle
+            DataTable dt = CreateDetalleDataTable();
+            foreach (var item in list)
+            {
+                DataRow row = dt.NewRow();
+                row["Nombre del Voluntario"] = item.name;
+                row["Tipo Gasto"] = item.expense_name;
+                row["Fecha Gasto"] = item.date_expense;
+                row["Tipo comprobante"] = item.tipo_comprobante;
+                row["Proveedor"] = item.proveedor;
+                row["Punto de venta"] = item.selling_point;
+                row["Nro comprobante"] = item.nro_comprobante;
+                row["CUIT/CUIL"] = item.cuit_cuil;
+                row["Nro CUIT/CUIL"] = item.nro_cuit_cuil;
+                row["Emisor"] = item.denominacion_emisor;
+                row["Descripcion"] = item.description;
+                row["Imp Neto Gravado"] = item.imp_neto_gravado;
+                row["Imp Neto No Gravado"] = item.imp_neto_no_gravado;
+                row["Imp Op Exentas"] = item.imp_op_exentas;
+                row["IVA"] = item.iva;
+                row["Importe Total"] = item.importe_total;
+                dt.Rows.Add(row);
+            }
+            PdfPTable table = new PdfPTable(dt.Columns.Count);
+
+            float[] widths = new float[dt.Columns.Count];
+            for (int i = 0; i < dt.Columns.Count; i++)
+                widths[i] = 4f;
+
+            table.SetWidths(widths);
+            table.WidthPercentage = 100;
+            table.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            foreach (DataColumn c in dt.Columns)
+            {
+                PdfPCell cell = new PdfPCell();
+                Paragraph p = new Paragraph(c.ColumnName, tituloTabla);
+                p.Alignment = Element.ALIGN_CENTER;
+                cell.AddElement(p);
+                table.AddCell(cell);
+            }
+            foreach (DataRow r in dt.Rows)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    for (int h = 0; h < dt.Columns.Count; h++)
+                    {
+                        PdfPCell cell = new PdfPCell();
+                        Paragraph p = new Paragraph(r[h].ToString(), font9);
+                        p.Alignment = Element.ALIGN_CENTER;
+                        cell.AddElement(p);
+                        table.AddCell(cell);
+                    }
+                }
+            }
+            document.Add(table);
+            document.Close();
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=Gastos" + ".pdf");
+            HttpContext.Response.Write(document);
+            Response.Flush();
+            Response.End();
+        }
+        #endregion
 
     }
 }

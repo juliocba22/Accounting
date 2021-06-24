@@ -192,6 +192,7 @@
     <Compile Include="Controllers\ProfesionalController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SocialWorkController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="ViewModels\ProductServiceVM.cs" />
     <Compile Include="ViewModels\ProfesionalVM.cs" />
     <Compile Include="ViewModels\ProveedorVM.cs" />
+    <Compile Include="ViewModels\RolVM.cs" />
     <Compile Include="ViewModels\SocialWorkVM.cs" />
     <Compile Include="ViewModels\UsersVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
@@ -1665,6 +1667,11 @@
     <Content Include="Views\Cobro\Details.cshtml" />
     <Content Include="Views\Cobro\Edit.cshtml" />
     <Content Include="Views\Cobro\Index.cshtml" />
+    <Content Include="Views\Rol\Index.cshtml" />
+    <Content Include="Views\Rol\Details.cshtml" />
+    <Content Include="Views\Rol\Create.cshtml" />
+    <Content Include="Views\Rol\Edit.cshtml" />
+    <Content Include="Views\Rol\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

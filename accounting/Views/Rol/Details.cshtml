@@ -1,0 +1,27 @@
+﻿@model accounting.ViewModels.RolVM
+@{
+    ViewBag.Title = "Detalle de Rol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Datos del Rol</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Descripcion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al Listado", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+
+</p>
+

@@ -13,6 +13,11 @@ using accounting.Repositories;
 using accounting.ViewModels;
 using accounting.Infra;
 using static accounting.Helpers.Enumerables;
+using System.Text;
+using ceTe.DynamicPDF;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace accounting.Controllers
 {
@@ -273,6 +278,158 @@ namespace accounting.Controllers
         public long GetNroRecibo()
         {
             return db.cobros.DefaultIfEmpty().Max(c => c == null ? 0 : c.id) + 1;
+        }
+
+        public FileContentResult Export([Bind(Include = "nroFactura")] string nroFactura)
+        {
+            StringBuilder csv = new StringBuilder();
+            IEnumerable<ReportCobros> listado = _repo.CobrosReport(nroFactura);
+
+            csv.AppendLine("Nro Recibo;Cliente;Nro Factura;Fecha Factura;Monto;Cobro Parcial;SubTotal Recibo;Total");
+            foreach (var item in listado)
+                csv.AppendLine(item.ToString());
+
+            string archivo = "ReporteCobros_" + DateTime.Now.ToString("yyyyMMdd");
+            return File(Encoding.Default.GetBytes(csv.ToString()), "text/csv", archivo + ".csv");
+        }
+
+        private DataTable CreateDetalleDataTable()
+        {
+            DataTable tabla = new DataTable("DetalleCobros");
+            DataColumn column;
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Int64");
+            column.ColumnName = "NroRecibo";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Cliente";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "NroFactura";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.DateTime");
+            column.ColumnName = "FechaFactura";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "Monto";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "CobroParcial";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "SubtotalRecibo";
+            tabla.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.Decimal");
+            column.ColumnName = "Total";
+            tabla.Columns.Add(column);
+
+            return tabla;
+        }
+        #endregion
+
+        #region Descarga PDF
+        public void ExportPDF([Bind(Include = "id")] long id)
+        {
+            List<CobrosExportPDFVM> list = _repo.GetCobros(id);
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            document.Open();
+            iTextSharp.text.Font fontTitle = FontFactory.GetFont(FontFactory.COURIER_BOLD, 25);
+            iTextSharp.text.Font font9 = FontFactory.GetFont(FontFactory.TIMES, 9);
+            iTextSharp.text.Font tituloTabla = FontFactory.GetFont(FontFactory.TIMES_BOLD, 9);
+
+            //Cabecera
+            Paragraph title = new Paragraph(20, "Cobros", fontTitle);
+            title.Alignment = Element.ALIGN_CENTER;
+            document.Add(title);
+            document.Add(new Paragraph(23, "Nro Recibo: "));
+            document.Add(new Paragraph(24, "Cliente: ", font9));
+            document.Add(new Paragraph(25, "Nro Factura: ", font9));
+            document.Add(new Paragraph(26, "Fecha Factura: ", font9));
+            document.Add(new Paragraph(27, "Monto: ", font9));
+            document.Add(new Paragraph(28, "Cobro Parcial: ", font9));
+            document.Add(new Paragraph(29, "Subtotal Recibo: ", font9));
+            document.Add(new Paragraph(30, "Total: ", font9));
+            document.Add(new Chunk("\n"));
+
+            //Detalle
+            DataTable dt = CreateDetalleDataTable();
+            foreach (var item in list)
+            {
+                DataRow row = dt.NewRow();
+                row["NroRecibo"] = item.nroRecibo;
+                row["Cliente"] = item.cliente;
+                row["NroFactura"] = item.nroFactura;
+                row["FechaFactura"] = item.fechaFactura;
+                row["Monto"] = item.monto;
+                row["CobroParcial"] = item.cobroParcial;
+                row["SubtotalRecibo"] = item.subtotalRecibo;
+                row["Total"] = item.total;
+                dt.Rows.Add(row);
+            }
+            PdfPTable table = new PdfPTable(dt.Columns.Count);
+
+            float[] widths = new float[dt.Columns.Count];
+            for (int i = 0; i < dt.Columns.Count; i++)
+                widths[i] = 4f;
+
+            table.SetWidths(widths);
+            table.WidthPercentage = 100;
+            table.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            foreach (DataColumn c in dt.Columns)
+            {
+                PdfPCell cell = new PdfPCell();
+                Paragraph p = new Paragraph(c.ColumnName, tituloTabla);
+                p.Alignment = Element.ALIGN_CENTER;
+                cell.AddElement(p);
+                table.AddCell(cell);
+            }
+            foreach (DataRow r in dt.Rows)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    for (int h = 0; h < dt.Columns.Count; h++)
+                    {
+                        PdfPCell cell = new PdfPCell();
+                        Paragraph p = new Paragraph(r[h].ToString(), font9);
+                        p.Alignment = Element.ALIGN_CENTER;
+                        cell.AddElement(p);
+                        table.AddCell(cell);
+                    }
+                }
+            }
+            document.Add(table);
+            document.Close();
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=Cobros.pdf");
+            HttpContext.Response.Write(document);
+            Response.Flush();
+            Response.End();
+
+            // string rutaArchivo = Server.MapPath("~/path/");
+            //string archivo = "Cobros";
+            //string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(archivo));
+            ////document.Add(table);
+            ////document.Close();
+            //Response.ContentType = "application/pdf";
+            //Response.AppendHeader("content-disposition", "attachment; filename=" + archivo + ".pdf");
+            //Response.WriteFile(url_path  + ".pdf");
+            //Response.End();
         }
         #endregion
 
