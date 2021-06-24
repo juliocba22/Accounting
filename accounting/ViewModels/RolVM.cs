@@ -15,6 +15,8 @@ namespace accounting.ViewModels
         [Display(Name = "Descripcion")]
         [Required(ErrorMessage = "* requerido")]
         public string descripcion { get; set; }
+
+        public byte activo { get; set; }
     }
 
     public class RolVMIndex

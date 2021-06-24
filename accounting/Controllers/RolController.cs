@@ -89,6 +89,7 @@ namespace accounting.Controllers
                     rol r = new rol()
                     {
                         description = rol.descripcion,
+                        activo = 1
                     };
 
                     db.rol.Add(r);
@@ -119,7 +120,9 @@ namespace accounting.Controllers
             RolVM c = new RolVM()
             {
                 id = r.id,
-                descripcion = r.description
+                descripcion = r.description,
+                activo = 1
+                
             };
 
             return View(c);
@@ -136,7 +139,8 @@ namespace accounting.Controllers
                     rol r = new rol()
                     {
                         id = rol.id,
-                        description = rol.descripcion
+                        description = rol.descripcion,
+                        activo = 1
                     };
 
                     db.Entry(r).State = EntityState.Modified;
