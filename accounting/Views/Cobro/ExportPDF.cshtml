@@ -1,0 +1,84 @@
+﻿@model accounting.ViewModels.CobroVMIndex
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>PDF using iTextSharp</title>
+    <style>
+        .table {
+            border: 1px solid #ccc;
+            float: left;
+            font-size: 16px;
+            background-color: cornsilk;
+            margin-top: 50px
+        }
+    </style>
+
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Label("NroRecibo")
+            </th>
+            <th>
+                @Html.Label("NroFactura")
+            </th>
+            <th>
+                @Html.Label("Fecha Factura")
+            </th>
+            <th>
+                @Html.Label("Monto")
+            </th>
+            <th>
+                @Html.Label("Cobro Parcial")
+            </th>
+            <th>
+                @Html.Label("Subtotal Recibo")
+            </th>
+            <th>
+                @Html.Label("Total")
+            </th>
+        </tr>
+
+        @if (@Model.list.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No se encontraron registros.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model.list)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nroRecibo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nroFactura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechaFactura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.monto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cobroParcial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.subtotalRecibo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.total)
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+</body>
+</html>

@@ -18,6 +18,7 @@ using ceTe.DynamicPDF;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using iTextSharp.tool.xml;
 
 namespace accounting.Controllers
 {
@@ -343,94 +344,135 @@ namespace accounting.Controllers
         #endregion
 
         #region Descarga PDF
-        public void ExportPDF([Bind(Include = "id")] long id)
+        //public void ExportPDF([Bind(Include = "id")] long id)
+        //{
+        //    List<CobrosExportPDFVM> list = _repo.GetCobros(id);
+        //    iTextSharp.text.Document document = new iTextSharp.text.Document();
+        //    document.Open();
+        //    iTextSharp.text.Font fontTitle = FontFactory.GetFont(FontFactory.COURIER_BOLD, 25);
+        //    iTextSharp.text.Font font9 = FontFactory.GetFont(FontFactory.TIMES, 9);
+        //    iTextSharp.text.Font tituloTabla = FontFactory.GetFont(FontFactory.TIMES_BOLD, 9);
+
+        //    //Cabecera
+        //    Paragraph title = new Paragraph(20, "Cobros", fontTitle);
+        //    title.Alignment = Element.ALIGN_CENTER;
+        //    document.Add(title);
+        //    document.Add(new Paragraph(23, "Nro Recibo: "));
+        //    document.Add(new Paragraph(24, "Cliente: ", font9));
+        //    document.Add(new Paragraph(25, "Nro Factura: ", font9));
+        //    document.Add(new Paragraph(26, "Fecha Factura: ", font9));
+        //    document.Add(new Paragraph(27, "Monto: ", font9));
+        //    document.Add(new Paragraph(28, "Cobro Parcial: ", font9));
+        //    document.Add(new Paragraph(29, "Subtotal Recibo: ", font9));
+        //    document.Add(new Paragraph(30, "Total: ", font9));
+        //    document.Add(new Chunk("\n"));
+
+        //    //Detalle
+        //    DataTable dt = CreateDetalleDataTable();
+        //    foreach (var item in list)
+        //    {
+        //        DataRow row = dt.NewRow();
+        //        row["NroRecibo"] = item.nroRecibo;
+        //        row["Cliente"] = item.cliente;
+        //        row["NroFactura"] = item.nroFactura;
+        //        row["FechaFactura"] = item.fechaFactura;
+        //        row["Monto"] = item.monto;
+        //        row["CobroParcial"] = item.cobroParcial;
+        //        row["SubtotalRecibo"] = item.subtotalRecibo;
+        //        row["Total"] = item.total;
+        //        dt.Rows.Add(row);
+        //    }
+        //    PdfPTable table = new PdfPTable(dt.Columns.Count);
+
+        //    float[] widths = new float[dt.Columns.Count];
+        //    for (int i = 0; i < dt.Columns.Count; i++)
+        //        widths[i] = 4f;
+
+        //    table.SetWidths(widths);
+        //    table.WidthPercentage = 100;
+        //    table.HorizontalAlignment = Element.ALIGN_CENTER;
+
+        //    foreach (DataColumn c in dt.Columns)
+        //    {
+        //        PdfPCell cell = new PdfPCell();
+        //        Paragraph p = new Paragraph(c.ColumnName, tituloTabla);
+        //        p.Alignment = Element.ALIGN_CENTER;
+        //        cell.AddElement(p);
+        //        table.AddCell(cell);
+        //    }
+        //    foreach (DataRow r in dt.Rows)
+        //    {
+        //        if (dt.Rows.Count > 0)
+        //        {
+        //            for (int h = 0; h < dt.Columns.Count; h++)
+        //            {
+        //                PdfPCell cell = new PdfPCell();
+        //                Paragraph p = new Paragraph(r[h].ToString(), font9);
+        //                p.Alignment = Element.ALIGN_CENTER;
+        //                cell.AddElement(p);
+        //                table.AddCell(cell);
+        //            }
+        //        }
+        //    }
+        //    document.Add(table);
+        //    document.Close();
+        //    Response.ContentType = "application/pdf";
+        //    Response.AddHeader("content-disposition", "attachment;filename=Cobros.pdf");
+        //    HttpContext.Response.Write(document);
+        //    Response.Flush();
+        //    Response.End();
+        //}
+
+        public ActionResult ExportPDF([Bind(Include = "nroFactura")] string nroFactura)
         {
-            List<CobrosExportPDFVM> list = _repo.GetCobros(id);
-            iTextSharp.text.Document document = new iTextSharp.text.Document();
-            document.Open();
-            iTextSharp.text.Font fontTitle = FontFactory.GetFont(FontFactory.COURIER_BOLD, 25);
-            iTextSharp.text.Font font9 = FontFactory.GetFont(FontFactory.TIMES, 9);
-            iTextSharp.text.Font tituloTabla = FontFactory.GetFont(FontFactory.TIMES_BOLD, 9);
+            CobroVMIndex model = new CobroVMIndex { nroFactura = nroFactura };
+            IEnumerable<ListCobros> list = _repo.CobrosList(nroFactura);
+            model.list = list;
+            var HTMLViewStr = RenderViewToString(ControllerContext,
+            "~/Views/Cobro/ExportPDF.cshtml",
+            model);
 
-            //Cabecera
-            Paragraph title = new Paragraph(20, "Cobros", fontTitle);
-            title.Alignment = Element.ALIGN_CENTER;
-            document.Add(title);
-            document.Add(new Paragraph(23, "Nro Recibo: "));
-            document.Add(new Paragraph(24, "Cliente: ", font9));
-            document.Add(new Paragraph(25, "Nro Factura: ", font9));
-            document.Add(new Paragraph(26, "Fecha Factura: ", font9));
-            document.Add(new Paragraph(27, "Monto: ", font9));
-            document.Add(new Paragraph(28, "Cobro Parcial: ", font9));
-            document.Add(new Paragraph(29, "Subtotal Recibo: ", font9));
-            document.Add(new Paragraph(30, "Total: ", font9));
-            document.Add(new Chunk("\n"));
-
-            //Detalle
-            DataTable dt = CreateDetalleDataTable();
-            foreach (var item in list)
+            using (MemoryStream stream = new System.IO.MemoryStream())
             {
-                DataRow row = dt.NewRow();
-                row["NroRecibo"] = item.nroRecibo;
-                row["Cliente"] = item.cliente;
-                row["NroFactura"] = item.nroFactura;
-                row["FechaFactura"] = item.fechaFactura;
-                row["Monto"] = item.monto;
-                row["CobroParcial"] = item.cobroParcial;
-                row["SubtotalRecibo"] = item.subtotalRecibo;
-                row["Total"] = item.total;
-                dt.Rows.Add(row);
+                StringReader sr = new StringReader(HTMLViewStr);
+                iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Cobros.pdf");
             }
-            PdfPTable table = new PdfPTable(dt.Columns.Count);
-
-            float[] widths = new float[dt.Columns.Count];
-            for (int i = 0; i < dt.Columns.Count; i++)
-                widths[i] = 4f;
-
-            table.SetWidths(widths);
-            table.WidthPercentage = 100;
-            table.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            foreach (DataColumn c in dt.Columns)
-            {
-                PdfPCell cell = new PdfPCell();
-                Paragraph p = new Paragraph(c.ColumnName, tituloTabla);
-                p.Alignment = Element.ALIGN_CENTER;
-                cell.AddElement(p);
-                table.AddCell(cell);
-            }
-            foreach (DataRow r in dt.Rows)
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    for (int h = 0; h < dt.Columns.Count; h++)
-                    {
-                        PdfPCell cell = new PdfPCell();
-                        Paragraph p = new Paragraph(r[h].ToString(), font9);
-                        p.Alignment = Element.ALIGN_CENTER;
-                        cell.AddElement(p);
-                        table.AddCell(cell);
-                    }
-                }
-            }
-            document.Add(table);
-            document.Close();
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=Cobros.pdf");
-            HttpContext.Response.Write(document);
-            Response.Flush();
-            Response.End();
-
-            // string rutaArchivo = Server.MapPath("~/path/");
-            //string archivo = "Cobros";
-            //string url_path = Path.Combine(Server.MapPath("~/path"), Path.GetFileName(archivo));
-            ////document.Add(table);
-            ////document.Close();
-            //Response.ContentType = "application/pdf";
-            //Response.AppendHeader("content-disposition", "attachment; filename=" + archivo + ".pdf");
-            //Response.WriteFile(url_path  + ".pdf");
-            //Response.End();
         }
+
+        static string RenderViewToString(ControllerContext context, string viewPath, object model = null, bool partial = false)
+        {
+            ViewEngineResult viewEngineResult = null;
+            if (partial)
+                viewEngineResult = ViewEngines.Engines.FindPartialView(context, viewPath);
+            else
+                viewEngineResult = ViewEngines.Engines.FindView(context, viewPath, null);
+
+            if (viewEngineResult == null)
+                throw new FileNotFoundException("View cannot be found.");
+
+            var view = viewEngineResult.View;
+            context.Controller.ViewData.Model = model;
+
+            string result = null;
+
+            using (var sw = new StringWriter())
+            {
+                var ctx = new ViewContext(context, view,
+                                            context.Controller.ViewData,
+                                            context.Controller.TempData,
+                                            sw);
+                view.Render(ctx, sw);
+                result = sw.ToString();
+            }
+
+            return result;
+        }
+
         #endregion
 
     }

@@ -61,6 +61,9 @@
     <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.2\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -1672,6 +1675,7 @@
     <Content Include="Views\Rol\Create.cshtml" />
     <Content Include="Views\Rol\Edit.cshtml" />
     <Content Include="Views\Rol\Delete.cshtml" />
+    <Content Include="Views\Cobro\ExportPDF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
