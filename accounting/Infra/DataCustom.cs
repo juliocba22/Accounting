@@ -473,8 +473,8 @@ namespace accounting.Infra
     {
         public long id { get; set; }
         public long nroRecibo { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public string nroFactura { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime fechaFactura { get; set; }
         public double monto { get; set; }
         public double cobroParcial { get; set; }

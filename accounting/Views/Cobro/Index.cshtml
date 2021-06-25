@@ -28,6 +28,9 @@
                     <div class="col-xs-6" style="margin-top:10px;">
                         <span class="glyphicon glyphicon-download"></span>
                         @Html.ActionLink("Exportar listado a CSV", "Export", new { nroFactura = Model.nroFactura })
+                        |
+                        <span class="glyphicon glyphicon-download"></span>
+                        @Html.ActionLink("Exportar listado a PDF", "ExportPDF", new { nroFactura = Model.nroFactura })
                     </div>
                 </div>
             }
@@ -102,7 +105,7 @@
         <a href="@Url.Action("Edit", new { id = item.id })" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>
         | <a href="@Url.Action("Details", new { id = item.id })" title="Detalle"><span class="glyphicon glyphicon-list-alt"></span></a>
         | <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar"><span class="glyphicon glyphicon-remove-circle"></span></a>
-        | <a href="@Url.Action("ExportPDF", new { id = item.id })" title="Descargar en PDF"><span class="glyphicon glyphicon-file"></span></a>
+        @*| <a href="@Url.Action("ExportPDF", new { id = item.id })" title="Descargar en PDF"><span class="glyphicon glyphicon-file"></span></a>*@
     </td>
 </tr>
         }
