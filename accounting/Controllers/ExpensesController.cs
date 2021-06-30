@@ -20,6 +20,7 @@ using accounting.Repositories;
 using accounting.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using static accounting.Helpers.Enumerables;
 
 namespace accounting.Controllers
@@ -535,99 +536,149 @@ namespace accounting.Controllers
         #endregion --[EXTRA]--
 
         #region Descarga PDF
-        public void ExportPDF([Bind(Include = "id")] long id)
+        //public void ExportPDF([Bind(Include = "id")] long id)
+        //{
+        //    List<ExpensesExportPDFVM> list = _repo.GetExpenses(id);
+        //    iTextSharp.text.Document document = new iTextSharp.text.Document();
+        //    document.Open();
+        //    iTextSharp.text.Font fontTitle = FontFactory.GetFont(FontFactory.COURIER_BOLD, 25);
+        //    iTextSharp.text.Font font9 = FontFactory.GetFont(FontFactory.TIMES, 9);
+        //    iTextSharp.text.Font tituloTabla = FontFactory.GetFont(FontFactory.TIMES_BOLD, 9);
+
+        //    //Cabecera
+        //    Paragraph title = new Paragraph(20, "Gastos", fontTitle);
+        //    title.Alignment = Element.ALIGN_CENTER;
+        //    document.Add(title);
+        //    document.Add(new Paragraph(23, "Nombre del Voluntario: ", font9));
+        //    document.Add(new Paragraph(24, "Tipo Gasto: ", font9));
+        //    document.Add(new Paragraph(25, "Fecha Gasto: ", font9));
+        //    document.Add(new Paragraph(26, "Tipo comprobante: ", font9));
+        //    document.Add(new Paragraph(27, "Proveedor: ", font9));
+        //    document.Add(new Paragraph(28, "Punto de venta: ", font9));
+        //    document.Add(new Paragraph(29, "Nro comprobante: ", font9));
+        //    document.Add(new Paragraph(30, "CUIT/CUIL: ", font9));
+        //    document.Add(new Paragraph(31, "Nro CUIT/CUIL: ", font9));
+        //    document.Add(new Paragraph(32, "Emisor: ", font9));
+        //    document.Add(new Paragraph(33, "Descripcion: ", font9));
+        //    document.Add(new Paragraph(34, "Imp Neto Gravado: ", font9));
+        //    document.Add(new Paragraph(35, "Imp Neto No Gravado: ", font9));
+        //    document.Add(new Paragraph(36, "Imp Op Exentas: ", font9));
+        //    document.Add(new Paragraph(37, "IVA: ", font9));
+        //    document.Add(new Paragraph(38, "Importe Total: ", font9));
+        //    document.Add(new Chunk("\n"));
+
+        //    //Detalle
+        //    DataTable dt = CreateDetalleDataTable();
+        //    foreach (var item in list)
+        //    {
+        //        DataRow row = dt.NewRow();
+        //        row["Nombre del Voluntario"] = item.name;
+        //        row["Tipo Gasto"] = item.expense_name;
+        //        row["Fecha Gasto"] = item.date_expense;
+        //        row["Tipo comprobante"] = item.tipo_comprobante;
+        //        row["Proveedor"] = item.proveedor;
+        //        row["Punto de venta"] = item.selling_point;
+        //        row["Nro comprobante"] = item.nro_comprobante;
+        //        row["CUIT/CUIL"] = item.cuit_cuil;
+        //        row["Nro CUIT/CUIL"] = item.nro_cuit_cuil;
+        //        row["Emisor"] = item.denominacion_emisor;
+        //        row["Descripcion"] = item.description;
+        //        row["Imp Neto Gravado"] = item.imp_neto_gravado;
+        //        row["Imp Neto No Gravado"] = item.imp_neto_no_gravado;
+        //        row["Imp Op Exentas"] = item.imp_op_exentas;
+        //        row["IVA"] = item.iva;
+        //        row["Importe Total"] = item.importe_total;
+        //        dt.Rows.Add(row);
+        //    }
+        //    PdfPTable table = new PdfPTable(dt.Columns.Count);
+
+        //    float[] widths = new float[dt.Columns.Count];
+        //    for (int i = 0; i < dt.Columns.Count; i++)
+        //        widths[i] = 4f;
+
+        //    table.SetWidths(widths);
+        //    table.WidthPercentage = 100;
+        //    table.HorizontalAlignment = Element.ALIGN_CENTER;
+
+        //    foreach (DataColumn c in dt.Columns)
+        //    {
+        //        PdfPCell cell = new PdfPCell();
+        //        Paragraph p = new Paragraph(c.ColumnName, tituloTabla);
+        //        p.Alignment = Element.ALIGN_CENTER;
+        //        cell.AddElement(p);
+        //        table.AddCell(cell);
+        //    }
+        //    foreach (DataRow r in dt.Rows)
+        //    {
+        //        if (dt.Rows.Count > 0)
+        //        {
+        //            for (int h = 0; h < dt.Columns.Count; h++)
+        //            {
+        //                PdfPCell cell = new PdfPCell();
+        //                Paragraph p = new Paragraph(r[h].ToString(), font9);
+        //                p.Alignment = Element.ALIGN_CENTER;
+        //                cell.AddElement(p);
+        //                table.AddCell(cell);
+        //            }
+        //        }
+        //    }
+        //    document.Add(table);
+        //    document.Close();
+        //    Response.ContentType = "application/pdf";
+        //    Response.AddHeader("content-disposition", "attachment;filename=Gastos" + ".pdf");
+        //    HttpContext.Response.Write(document);
+        //    Response.Flush();
+        //    Response.End();
+        //}
+
+        public ActionResult ExportPDF([Bind(Include = "expense_type")] string expense_type)
         {
-            List<ExpensesExportPDFVM> list = _repo.GetExpenses(id);
-            iTextSharp.text.Document document = new iTextSharp.text.Document();
-            document.Open();
-            iTextSharp.text.Font fontTitle = FontFactory.GetFont(FontFactory.COURIER_BOLD, 25);
-            iTextSharp.text.Font font9 = FontFactory.GetFont(FontFactory.TIMES, 9);
-            iTextSharp.text.Font tituloTabla = FontFactory.GetFont(FontFactory.TIMES_BOLD, 9);
+            ExpenseIndexVM model = new ExpenseIndexVM { expense_type = expense_type };
+            IEnumerable<ListExpense> list = _repo.ExpenseList(expense_type);
+            model.list = list;
+            var HTMLViewStr = RenderViewToString(ControllerContext,
+            "~/Views/Expenses/ExportPDF.cshtml",
+            model);
 
-            //Cabecera
-            Paragraph title = new Paragraph(20, "Gastos", fontTitle);
-            title.Alignment = Element.ALIGN_CENTER;
-            document.Add(title);
-            document.Add(new Paragraph(23, "Nombre del Voluntario: ", font9));
-            document.Add(new Paragraph(24, "Tipo Gasto: ", font9));
-            document.Add(new Paragraph(25, "Fecha Gasto: ", font9));
-            document.Add(new Paragraph(26, "Tipo comprobante: ", font9));
-            document.Add(new Paragraph(27, "Proveedor: ", font9));
-            document.Add(new Paragraph(28, "Punto de venta: ", font9));
-            document.Add(new Paragraph(29, "Nro comprobante: ", font9));
-            document.Add(new Paragraph(30, "CUIT/CUIL: ", font9));
-            document.Add(new Paragraph(31, "Nro CUIT/CUIL: ", font9));
-            document.Add(new Paragraph(32, "Emisor: ", font9));
-            document.Add(new Paragraph(33, "Descripcion: ", font9));
-            document.Add(new Paragraph(34, "Imp Neto Gravado: ", font9));
-            document.Add(new Paragraph(35, "Imp Neto No Gravado: ", font9));
-            document.Add(new Paragraph(36, "Imp Op Exentas: ", font9));
-            document.Add(new Paragraph(37, "IVA: ", font9));
-            document.Add(new Paragraph(38, "Importe Total: ", font9));
-            document.Add(new Chunk("\n"));
-
-            //Detalle
-            DataTable dt = CreateDetalleDataTable();
-            foreach (var item in list)
+            using (MemoryStream stream = new System.IO.MemoryStream())
             {
-                DataRow row = dt.NewRow();
-                row["Nombre del Voluntario"] = item.name;
-                row["Tipo Gasto"] = item.expense_name;
-                row["Fecha Gasto"] = item.date_expense;
-                row["Tipo comprobante"] = item.tipo_comprobante;
-                row["Proveedor"] = item.proveedor;
-                row["Punto de venta"] = item.selling_point;
-                row["Nro comprobante"] = item.nro_comprobante;
-                row["CUIT/CUIL"] = item.cuit_cuil;
-                row["Nro CUIT/CUIL"] = item.nro_cuit_cuil;
-                row["Emisor"] = item.denominacion_emisor;
-                row["Descripcion"] = item.description;
-                row["Imp Neto Gravado"] = item.imp_neto_gravado;
-                row["Imp Neto No Gravado"] = item.imp_neto_no_gravado;
-                row["Imp Op Exentas"] = item.imp_op_exentas;
-                row["IVA"] = item.iva;
-                row["Importe Total"] = item.importe_total;
-                dt.Rows.Add(row);
+                StringReader sr = new StringReader(HTMLViewStr);
+                iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Gastos.pdf");
             }
-            PdfPTable table = new PdfPTable(dt.Columns.Count);
+        }
 
-            float[] widths = new float[dt.Columns.Count];
-            for (int i = 0; i < dt.Columns.Count; i++)
-                widths[i] = 4f;
+        static string RenderViewToString(ControllerContext context, string viewPath, object model = null, bool partial = false)
+        {
+            ViewEngineResult viewEngineResult = null;
+            if (partial)
+                viewEngineResult = ViewEngines.Engines.FindPartialView(context, viewPath);
+            else
+                viewEngineResult = ViewEngines.Engines.FindView(context, viewPath, null);
 
-            table.SetWidths(widths);
-            table.WidthPercentage = 100;
-            table.HorizontalAlignment = Element.ALIGN_CENTER;
+            if (viewEngineResult == null)
+                throw new FileNotFoundException("View cannot be found.");
 
-            foreach (DataColumn c in dt.Columns)
+            var view = viewEngineResult.View;
+            context.Controller.ViewData.Model = model;
+
+            string result = null;
+
+            using (var sw = new StringWriter())
             {
-                PdfPCell cell = new PdfPCell();
-                Paragraph p = new Paragraph(c.ColumnName, tituloTabla);
-                p.Alignment = Element.ALIGN_CENTER;
-                cell.AddElement(p);
-                table.AddCell(cell);
+                var ctx = new ViewContext(context, view,
+                                            context.Controller.ViewData,
+                                            context.Controller.TempData,
+                                            sw);
+                view.Render(ctx, sw);
+                result = sw.ToString();
             }
-            foreach (DataRow r in dt.Rows)
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    for (int h = 0; h < dt.Columns.Count; h++)
-                    {
-                        PdfPCell cell = new PdfPCell();
-                        Paragraph p = new Paragraph(r[h].ToString(), font9);
-                        p.Alignment = Element.ALIGN_CENTER;
-                        cell.AddElement(p);
-                        table.AddCell(cell);
-                    }
-                }
-            }
-            document.Add(table);
-            document.Close();
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=Gastos" + ".pdf");
-            HttpContext.Response.Write(document);
-            Response.Flush();
-            Response.End();
+
+            return result;
         }
         #endregion
 
