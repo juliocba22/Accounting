@@ -469,9 +469,11 @@ namespace accounting.Repositories
             using (AccountingEntities1 ctx = new AccountingEntities1())
             {
                 return (from e in ctx.expense
-                        join t in ctx.expense_type on e.expense_id equals t.id
+                      //  join t in ctx.expense_type on e.expense_id equals t.id
                         join u in ctx.users on e.update_user_id equals u.id
-                        where (string.IsNullOrEmpty(expense_type) || t.description.Contains(expense_type))
+                        join c in ctx.tipo_comprobante on e.tipo_comprobante_id equals c.id
+                        join p in ctx.proveedor on e.proveedor_id equals p.id
+                        where (string.IsNullOrEmpty(expense_type) || e.description.Contains(expense_type))
                           && e.activo == 1
                         select new ListExpense
                         {
@@ -479,13 +481,18 @@ namespace accounting.Repositories
                             name = e.name,
                             description = e.description,
                             expense_id = e.expense_id,
-                            expense_description = t.description,
+                           // expense_description = t.description,
                             date_expense = (DateTime)e.date_expense,
                             image = e.image,
                             path_file = e.path_url,
                             name_file = e.name_file,
                             amount_money = e.amount_money,
-                            user = u.user_name
+                            user = u.user_name,
+                            periodo = e.periodo,
+                            desc_comprobante=c.descripcion,
+                            proveedor = p.razon_social,
+                            nro_comprobante=e.nro_comprobante,
+                            importe_total = (double)e.importe_total
                         }).ToList();
             }
         }

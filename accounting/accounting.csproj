@@ -1676,6 +1676,7 @@
     <Content Include="Views\Rol\Edit.cshtml" />
     <Content Include="Views\Rol\Delete.cshtml" />
     <Content Include="Views\Cobro\ExportPDF.cshtml" />
+    <Content Include="Views\Expenses\ExportPDF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

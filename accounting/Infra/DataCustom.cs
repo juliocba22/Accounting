@@ -52,6 +52,11 @@ namespace accounting.Infra
         public string path_file { get; set; }
         public string name_file { get; set; }
         public string user { get; set; }
+        public string periodo { get; set; }
+        public string proveedor { get; set; }
+        public string desc_comprobante { get; set; }
+        public string nro_comprobante { get; set; }
+        public double importe_total { get; set; }
     }
 
     public class ReportExpense
